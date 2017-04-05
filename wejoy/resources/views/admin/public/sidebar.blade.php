@@ -1,46 +1,136 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
 <!-- sidebar start -->
 <div class="admin-sidebar">
-    <ul class="am-list admin-sidebar-list">
-        <li><a href="admin-index.html"><span class="am-icon-home"></span> 首页</a></li>
-        <li class="admin-parent">
-            <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 页面模块 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-            <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 个人资料<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-                <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 帮助页</a></li>
-                <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 相册页面<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
-                <li><a href="admin-log.html"><span class="am-icon-calendar"></span> 系统日志</a></li>
-                <li><a href="admin-404.html"><span class="am-icon-bug"></span> 404</a></li>
-            </ul>
+  <link href="/admin/assets/css/jquery-accordion-menu.css" rel="stylesheet" type="text/css" />
+  <link href="/admin/assets/css/font-awesome.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+  *{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;}
+  body{background:#f0f0f0;}
+  .content{width:260px;margin:100px auto;}
+  .filterinput{
+    background-color:rgba(249, 244, 244, 0);
+    border-radius:15px;
+    width:90%;
+    height:30px;
+    border:thin solid #FFF;
+    text-indent:0.5em;
+    font-weight:bold;
+    color:#FFF;
+  }
+  #demo-list a{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    white-space:nowrap;
+    width:100%;
+  }
+  .contentt{
+    margin-top: 0;
+  }
+  .mar100{
+    margin-bottom: 100px;
+  }
+  </style>
+
+  <script src="/admin/assets/js/jquery-1.11.2.min.js" type="text/javascript"></script>
+  <script src="/admin/assets/js/jquery-accordion-menu.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  jQuery(document).ready(function () {
+    jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
+
+  });
+
+  $(function(){
+    //顶部导航切换
+    $("#demo-list li").click(function(){
+      $("#demo-list li.active").removeClass("active")
+      $(this).addClass("active");
+    })
+  })
+  </script>
+  </head>
+  <body>
+  <div class="content contentt">
+
+    <div id="jquery-accordion-menu" class="jquery-accordion-menu mar100 red">
+      <div class="jquery-accordion-menu-header" id="form"></div>
+      <ul id="demo-list">
+        <li><a href="#"><i class="fa fa-cog"></i>Services </a>
+          <ul class="submenu">
+            <li><a href="#">Web Design </a></li>
+            <li><a href="#">Hosting </a></li>
+            <li><a href="#">Design </a>
+              <ul class="submenu">
+                <li><a href="#">Graphics </a></li>
+                <li><a href="#">Vectors </a></li>
+                <li><a href="#">Photoshop </a></li>
+                <li><a href="#">Fonts </a></li>
+              </ul>
+            </li>
+            <li><a href="#">Consulting </a></li>
+          </ul>
         </li>
-        <li><a href="admin-table.html"><span class="am-icon-table"></span> 表格</a></li>
-        <li><a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 表单</a></li>
-        <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
-    </ul>
+      </ul>
+      <div class="jquery-accordion-menu-footer">
+        Footer
+      </div>
 
-    <div class="am-panel am-panel-default admin-sidebar-panel">
-        <div class="am-panel-bd">
-            <p><span class="am-icon-bookmark"></span> 公告</p>
-            <p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
-        </div>
     </div>
+      <div class="am-panel am-panel-default admin-sidebar-panel">
+          <div class="am-panel-bd">
+              <p><span class="am-icon-bookmark"></span> 公告</p>
+              <p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
+          </div>
+      </div>
 
-    <div class="am-panel am-panel-default admin-sidebar-panel">
-        <div class="am-panel-bd">
-            <p><span class="am-icon-tag"></span> wiki</p>
-            <p>Welcome to the Amaze UI wiki!</p>
-        </div>
-    </div>
+      <div class="am-panel am-panel-default admin-sidebar-panel">
+          <div class="am-panel-bd">
+              <p><span class="am-icon-tag"></span> wiki</p>
+              <p>Welcome to the Amaze UI wiki!</p>
+          </div>
+      </div>
+  </div>
 </div>
+  <script type="text/javascript">
+  (function($) {
+  $.expr[":"].Contains = function(a, i, m) {
+    return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+  };
+  function filterList(header, list) {
+    //@header 头部元素
+    //@list 无需列表
+    //创建一个搜素表单
+    var form = $("<form>").attr({
+      "class":"filterform",
+      action:"#"
+    }), input = $("<input>").attr({
+      "class":"filterinput",
+      type:"text"
+    });
+    $(form).append(input).appendTo(header);
+    $(input).change(function() {
+      var filter = $(this).val();
+      if (filter) {
+        $matches = $(list).find("a:Contains(" + filter + ")").parent();
+        $("li", list).not($matches).slideUp();
+        $matches.slideDown();
+      } else {
+        $(list).find("li").slideDown();
+      }
+      return false;
+    }).keyup(function() {
+      $(this).change();
+    });
+  }
+  $(function() {
+    filterList($("#form"), $("#demo-list"));
+  });
+  })(jQuery);
+  </script>
+
+  </body>
+  </html>
+
+
 <!-- sidebar end -->
 </body>
 </html>
