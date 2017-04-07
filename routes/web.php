@@ -12,6 +12,12 @@
 */
 
 Route::get('/', function () {
+<<<<<<< HEAD
+    return view('welcome');
+});
+Route::get('admin/login','Admin\LoginController@login');
+Route::post('admin/login','Admin\LoginController@showlogin');
+=======
     return view('/welcome');
 });
 
@@ -19,3 +25,4 @@ Route::get('/', function () {
 Route::get('/admin/index','Admin\IndexController@index');
 Route::get('/admin/myIndex','Admin\IndexController@myIndex');
 Route::get('/admin/myIndex/del/{id?}','Admin\IndexController@myDel');
+>>>>>>> d5738c0f965f8c0a6fa27c702ae0e7d8e28f781a

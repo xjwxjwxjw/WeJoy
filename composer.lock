@@ -1166,6 +1166,18 @@
         },
         {
             "name": "symfony/event-dispatcher",
+<<<<<<< HEAD
+            "version": "v3.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/event-dispatcher.git",
+                "reference": "154bb1ef7b0e42ccc792bd53edbce18ed73440ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/symfony/event-dispatcher/154bb1ef7b0e42ccc792bd53edbce18ed73440ca.zip",
+                "reference": "154bb1ef7b0e42ccc792bd53edbce18ed73440ca",
+=======
             "version": "v3.2.6",
             "source": {
                 "type": "git",
@@ -1176,6 +1188,7 @@
                 "type": "zip",
                 "url": "https://files.phpcomposer.com/files/symfony/event-dispatcher/b7a1b9e0a0f623ce43b4c8d775eb138f190c9d8d.zip",
                 "reference": "b7a1b9e0a0f623ce43b4c8d775eb138f190c9d8d",
+>>>>>>> d5738c0f965f8c0a6fa27c702ae0e7d8e28f781a
                 "shasum": ""
             },
             "require": {
@@ -1222,7 +1235,11 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2017-04-04T07:26:27+00:00"
+=======
             "time": "2017-02-21T09:12:04+00:00"
+>>>>>>> d5738c0f965f8c0a6fa27c702ae0e7d8e28f781a
         },
         {
             "name": "symfony/finder",
@@ -2343,6 +2360,18 @@
         },
         {
             "name": "phpunit/php-code-coverage",
+<<<<<<< HEAD
+            "version": "4.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
+                "reference": "ef7b2f56815df854e66ceaee8ebe9393ae36a40d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/sebastianbergmann/php-code-coverage/ef7b2f56815df854e66ceaee8ebe9393ae36a40d.zip",
+                "reference": "ef7b2f56815df854e66ceaee8ebe9393ae36a40d",
+=======
             "version": "4.0.7",
             "source": {
                 "type": "git",
@@ -2353,6 +2382,7 @@
                 "type": "zip",
                 "url": "https://files.phpcomposer.com/files/sebastianbergmann/php-code-coverage/09e2277d14ea467e5a984010f501343ef29ffc69.zip",
                 "reference": "09e2277d14ea467e5a984010f501343ef29ffc69",
+>>>>>>> d5738c0f965f8c0a6fa27c702ae0e7d8e28f781a
                 "shasum": ""
             },
             "require": {
@@ -2402,7 +2432,11 @@
                 "testing",
                 "xunit"
             ],
+<<<<<<< HEAD
+            "time": "2017-04-02T07:44:40+00:00"
+=======
             "time": "2017-03-01T09:12:17+00:00"
+>>>>>>> d5738c0f965f8c0a6fa27c702ae0e7d8e28f781a
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2592,6 +2626,18 @@
         },
         {
             "name": "phpunit/phpunit",
+<<<<<<< HEAD
+            "version": "5.7.19",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/phpunit.git",
+                "reference": "69c4f49ff376af2692bad9cebd883d17ebaa98a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/sebastianbergmann/phpunit/69c4f49ff376af2692bad9cebd883d17ebaa98a1.zip",
+                "reference": "69c4f49ff376af2692bad9cebd883d17ebaa98a1",
+=======
             "version": "5.7.17",
             "source": {
                 "type": "git",
@@ -2602,6 +2648,7 @@
                 "type": "zip",
                 "url": "https://files.phpcomposer.com/files/sebastianbergmann/phpunit/68752b665d3875f9a38a357e3ecb35c79f8673bf.zip",
                 "reference": "68752b665d3875f9a38a357e3ecb35c79f8673bf",
+>>>>>>> d5738c0f965f8c0a6fa27c702ae0e7d8e28f781a
                 "shasum": ""
             },
             "require": {
@@ -2670,7 +2717,11 @@
                 "testing",
                 "xunit"
             ],
+<<<<<<< HEAD
+            "time": "2017-04-03T02:22:27+00:00"
+=======
             "time": "2017-03-19T16:52:12+00:00"
+>>>>>>> d5738c0f965f8c0a6fa27c702ae0e7d8e28f781a
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3355,6 +3406,18 @@
         },
         {
             "name": "symfony/yaml",
+<<<<<<< HEAD
+            "version": "v3.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "62b4cdb99d52cb1ff253c465eb1532a80cebb621"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/symfony/yaml/62b4cdb99d52cb1ff253c465eb1532a80cebb621.zip",
+                "reference": "62b4cdb99d52cb1ff253c465eb1532a80cebb621",
+=======
             "version": "v3.2.6",
             "source": {
                 "type": "git",
@@ -3365,6 +3428,7 @@
                 "type": "zip",
                 "url": "https://files.phpcomposer.com/files/symfony/yaml/093e416ad096355149e265ea2e4cc1f9ee40ab1a.zip",
                 "reference": "093e416ad096355149e265ea2e4cc1f9ee40ab1a",
+>>>>>>> d5738c0f965f8c0a6fa27c702ae0e7d8e28f781a
                 "shasum": ""
             },
             "require": {
@@ -3406,7 +3470,11 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
+            "time": "2017-03-20T09:45:15+00:00"
+=======
             "time": "2017-03-07T16:47:02+00:00"
+>>>>>>> d5738c0f965f8c0a6fa27c702ae0e7d8e28f781a
         },
         {
             "name": "webmozart/assert",

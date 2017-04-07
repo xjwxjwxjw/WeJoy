@@ -79,11 +79,18 @@
 
             <div class="content">
                 <div class="title m-b-md">
+<<<<<<< HEAD
+                    Laravel
+                </div>
+
+                <div class="links">
+=======
                     My Laravel
                 </div>
 
                 <div class="links">
                     <a href="http://laravel.cn/admin/index">admin</a>
+>>>>>>> d5738c0f965f8c0a6fa27c702ae0e7d8e28f781a
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
