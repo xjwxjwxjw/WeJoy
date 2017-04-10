@@ -1,34 +1,6 @@
-<!-- Large modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">修改 微博</h4>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="control-label">话题:</label>
-            <input type="text" class="form-control" id="topic">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="control-label" >内容:</label>
-            <textarea class="form-control" id="content"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
   <!-- content start -->
-  <div class="admin-content">
+<!-- <div id="slide-target"> -->
+  <div class="admin-content" id="admin-content">
 
     <div class="am-cf am-padding">
       <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">表格</strong> / <small>Table</small></div>
@@ -115,6 +87,34 @@
       </div>
     </div>
   </div>
-  
+  <!-- Large modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel">修改 微博</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">话题:</label>
+              <input type="text" class="form-control" id="topic">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="control-label" >内容:</label>
+              <textarea class="form-control" id="content"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Send message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->
   <!-- content end -->
-
+</body>
+</html>

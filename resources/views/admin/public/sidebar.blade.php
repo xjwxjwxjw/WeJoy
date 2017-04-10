@@ -41,25 +41,15 @@
   </script>
   </head>
   <body>
-  <div class="content contentt">
+  <div id="admin-slide" class="content contentt">
 
     <div id="jquery-accordion-menu" class="jquery-accordion-menu mar100 red">
       <div class="jquery-accordion-menu-header" id="form"></div>
       <ul id="demo-list">
         <li><a href="#"><i class="fa fa-cog"></i>信息管理 </a>
           <ul class="submenu">
-            <!-- <li><a href={{url('admin/new')}}>查看微博 </a></li> -->
-            <li><a>查看微博 </a></li>
-            <li><a id="new" href="#">Hosting </a></li>
-            <li><a href="#">Design </a>
-              <ul class="submenu">
-                <li><a href="#">Graphics </a></li>
-                <li><a href="#">Vectors </a></li>
-                <li><a href="#">Photoshop </a></li>
-                <li><a href="#">Fonts </a></li>
-              </ul>
-            </li>
-            <li><a href="#">Consulting </a></li>
+            <li><a href={{url('admin/new')}}>查看微博 </a></li>
+            <li class="edit"><a id="new" href="#">Hosting </a></li>
           </ul>
         </li>
         
@@ -86,18 +76,16 @@
   </div>
 </div>
 <script type="text/javascript">
-  $(document).ready(function(){
-    url = '/admin/new';
-
+  $('document').ready(function(){
+   
     $('#new').on('click',function(){
       $.ajax({
         type: 'get',
-        data: '123',
         url:'/admin/new',
         success:function(data) {
-          console.log(data);
-          $content = data['content'];
-          toastr.success($content);
+          $('#admin-content').remove();
+          $('#slide-target').append(data);
+          toastr.success('success');
         },
         error: function(data) {
           toastr.success('失败');
