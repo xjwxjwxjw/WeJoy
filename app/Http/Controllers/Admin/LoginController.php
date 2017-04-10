@@ -10,6 +10,7 @@ class Logincontroller extends Controller
 {
     public function login()
     {
+
         return view('admin.login');
     }
     //登陆验证
@@ -21,7 +22,7 @@ class Logincontroller extends Controller
             'password'=>'required',
         );
         $message = array(
-            'useername.required'=>'用户名不能为空',
+            'username.required'=>'用户名不能为空',
             'password.required'=>'密码不能为空',
         );
         $this->validate($request,$rules,$message);
@@ -33,8 +34,8 @@ class Logincontroller extends Controller
                                 ->get();
 
         if(!empty($result->all())) {
-            return redirect('/');
-
+            session(['user'=>($result->all())]);
+            return redirect('admin/index');
         }else{
             return redirect('admin/login');
         }

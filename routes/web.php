@@ -12,17 +12,19 @@
 */
 
 Route::get('/', function () {
-<<<<<<< HEAD
+
     return view('welcome');
 });
+//后台登陆控制器
 Route::get('admin/login','Admin\LoginController@login');
 Route::post('admin/login','Admin\LoginController@showlogin');
-=======
-    return view('/welcome');
+
+// 后台除登陆控制器
+Route::group(['middleware'=>'check.login'],function(){
+    Route::get('/admin/index','Admin\IndexController@index');
+    Route::get('/admin/myIndex','Admin\IndexController@myIndex');
+    Route::get('/admin/myIndex/del/{id?}','Admin\IndexController@myDel');
 });
 
-// 控制器
-Route::get('/admin/index','Admin\IndexController@index');
-Route::get('/admin/myIndex','Admin\IndexController@myIndex');
-Route::get('/admin/myIndex/del/{id?}','Admin\IndexController@myDel');
->>>>>>> d5738c0f965f8c0a6fa27c702ae0e7d8e28f781a
+Route::get('home/login','Home\LoginController@login');
+

@@ -30,25 +30,22 @@
     <![endif]-->
     <style>
         body {
-            padding-top: 40px;
+            padding-top: 130px;
             padding-bottom: 40px;
             background-color: #eee;
+            background-image:url('/admin/assets/i/admin_login_back.jpg');
+
         }
 
         .form-signin {
             max-width: 330px;
             padding: 15px;
             margin: 0 auto;
+
         }
         .form-signin .form-signin-heading{
             text-align: center;
             margin-bottom: 10px;
-        }
-        .form-signin .checkbox {
-            margin-bottom: 10px;
-        }
-        .form-signin .checkbox {
-            font-weight: normal;
         }
         .form-signin .form-control {
             position: relative;
@@ -78,28 +75,21 @@
 <body>
 
 <div class="container">
-
     <form class="form-signin" action="" method="post">
         {{csrf_field()}}
         <h2 class="form-signin-heading">wejoy后台管理</h2>
         <label for="inputEmail" class="sr-only"></label>
-        <input type="text"  class="form-control" placeholder="admin" name="username" value="" >
+        <input type="text"  class="form-control" placeholder="admin" name="username"  >
         @if(count($errors))
             {{$errors->first('username')}}
         @endif
 
         <label for="inputPassword" class="sr-only"></label>
-        <input type="password"  class="form-control" placeholder="password" name="password"value="" >
+        <input type="password"  class="form-control" placeholder="password" name="password">
         @if(count($errors))
             {{$errors->first('password')}}
         @endif
-
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> 记住我
-            </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+        <button class="btn btn-lg btn-success btn-block" type="submit">登陆</button>
     </form>
 
 </div> <!-- /container -->
