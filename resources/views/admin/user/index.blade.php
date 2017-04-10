@@ -60,6 +60,7 @@
                 <button class="btn btn-danger delete" value="{{ $value->id }}">删除</button>
             </td>
         </tr>
+
     @endforeach
     {{--Modal--}}
     <div class="modal fade" id="taskModal" tabindex="-1" role="dialog">
