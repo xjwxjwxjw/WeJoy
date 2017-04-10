@@ -1,0 +1,19 @@
+@extends('/home/layouts/app')
+@section('title','Wejoy')
+@section('js_css')
+	@include('/home/public/js_css')
+@endsection
+@section('top')
+  @include('/home/public/top')
+@endsection
+@section('slideLeft')
+  @include('/home/public/slideLeft')
+@endsection
+@section('content')
+  @include('home/public/content')
+@endsection
+@section('slideRight')
+  @include('home/public/slideRight')
+@endsection
+@section('footer')
+  @include('home/public/footer')

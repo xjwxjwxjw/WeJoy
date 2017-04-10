@@ -14,11 +14,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// 控制器
+// 后台路由
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-    Route::get('user', 'UserController@index');
-    Route::post('user/doAdd', 'UserController@add');
-    Route::get('user/doDel/{id}', 'UserController@del');
-    Route::get('user/doFind/{id}', 'UserController@find');
-    Route::post('user/doEdit/{id}', 'UserController@edit');
+	Route::get('index','IndexController@index');
+
+	// 信息
+	Route::get('new','NewsController@newsIndex');
+	Route::group(['prefix' => 'new'], function () {
+		Route::get('delete/{id}','NewsController@delete');
+		Route::get('edit/{id}','NewsController@edit');
+	});
+
+	// 用户
+	Route::get('user', 'UserController@index');
+	Route::group(['prefix' => 'user'], function () {
+		Route::post('doAdd', 'UserController@add');
+    	Route::get('doDel/{id}', 'UserController@del');
+    	Route::get('doFind/{id}', 'UserController@find');
+    	Route::post('doEdit/{id}', 'UserController@edit');
+	});
 });
+
+// 前台路由
+Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
+	Route::get('index','IndexController@index');
+});
+

@@ -5,19 +5,22 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="image/png" href="/admin/assets/i/favicon.png">
+
     @yield('js_css')
     <title>@yield('title')</title>
+
 </head>
 <body>
+  
+  <div class="box">
     @section('top')
     @show
-
-    <div>
-        @yield('sidebar')
-    </div>
-    <div>
-        @yield('content')
-    </div>
+  </div>
+  <div class="clearfix box_main">
+    @yield('slideLeft')
+    @yield('content')
+    @yield('slideRight')
+  </div>
+</script>
 </body>
 </html>

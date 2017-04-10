@@ -1,13 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
   <!-- content start -->
 <div class="admin-content">
 
@@ -215,7 +205,7 @@
       <div class="am-panel-bd am-collapse am-in am-cf" id="collapse-panel-3">
         <ul class="am-comments-list admin-content-comment">
           <li class="am-comment">
-            <a href="#"><img src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"></a>
+            <a href="#"><img src="" alt="" class="am-comment-avatar" width="48" height="48"></a>
             <div class="am-comment-main">
               <header class="am-comment-hd">
                 <div class="am-comment-meta"><a href="#" class="am-comment-author">某人</a> 评论于 <time>2014-7-12 15:30</time></div>
@@ -226,7 +216,7 @@
           </li>
 
           <li class="am-comment">
-            <a href="#"><img src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"></a>
+            <a href="#"><img src="" alt="" class="am-comment-avatar" width="48" height="48"></a>
             <div class="am-comment-main">
               <header class="am-comment-hd">
                 <div class="am-comment-meta"><a href="#" class="am-comment-author">某人</a> 评论于 <time>2014-7-12 15:30</time></div>
