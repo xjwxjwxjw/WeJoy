@@ -3,7 +3,7 @@
 </style>
 <div class="box-content" id="box-content" style="float:left;width:622px;height:300px;margin-right:50px;">
   <ul style="list-style:none;" id="test">
-    <!-- <li class="panel panel-default" style="height:183px;padding:10px;">
+    <li class="panel panel-default boxtest" style="height:200px;padding:10px;">
       <br>
       &nbsp;&nbsp;&nbsp;有什么新鲜事想告诉大家?
         <div class="cont-box">
@@ -13,47 +13,37 @@
           <div class="operator-box-btn"><span class="face-icon"  >☺</span><span class="img-icon">▧</span></div>
           <div class="submit-btn"><input type="button" onClick="out()"value="提交评论" /></div>
         </div>
-        <div id="info-show">
-    			<ul></ul>
-    		</div>
-    </li> -->
-    <li class="panel panel-default boxtest" style="height:300px;"></li>
-    <li class="panel panel-default boxtest" style="height:300px;"></li>
-    <li class="panel panel-default boxtest" style="height:300px;"></li>
-    <li class="panel panel-default boxtest" style="height:300px;"></li>
-    <li class="panel panel-default boxtest" style="height:300px;"></li>
+        <!-- <div id="info-show">
+			<ul></ul>
+    	</div> -->
+    </li>
+    <div id="imloading" class="well well-sm" style=" text-align: center;position: fixed;bottom:0;width:622px;z-index:999;background:#f2dede;display:none;" >I'm Loading...</div>
   </ul>
 </div>
 
-<div id="imloading" style="width:150px;height:30px;line-height:30px;font-size:16px;text-align:center;border-radius:3px;opacity:0.7;background:#000;margin:10px auto 30px;color:#fff;display:none">
-
-			I'm Loading.....
-
-		</div>
-
 <script type="text/javascript">
-	// 绑定表情
-	// $('.face-icon').SinaEmotion($('.text'));
-	// // 测试本地解析
-	// function out() {
-	// 	var inputText = $('.text').val();
-	// 	$('#info-show ul').append(reply(AnalyticEmotion(inputText)));
-	// }
+	// // 绑定表情
+	$('.face-icon').SinaEmotion($('.text'));
+	// 测试本地解析
+	function out() {
+		var inputText = $('.text').val();
+		$('#info-show ul').append(reply(AnalyticEmotion(inputText)));
+	}
 
-	// var html;
-	// function reply(content){
-	// 	html  = '<li>';
-	// 	html += '<div class="head-face">';
-	// 	html += '<img src="images/1.jpg" / >';
-	// 	html += '</div>';
-	// 	html += '<div class="reply-cont">';
-	// 	html += '<p class="username">小小红色飞机</p>';
-	// 	html += '<p class="comment-body">'+content+'</p>';
-	// 	html += '<p class="comment-footer">2016年10月5日　回复　点赞54　转发12</p>';
-	// 	html += '</div>';
-	// 	html += '</li>';
-	// 	return html;
-	// }
+	var html;
+	function reply(content){
+		html  = '<li>';
+		html += '<div class="head-face">';
+		html += '<img src="images/1.jpg" / >';
+		html += '</div>';
+		html += '<div class="reply-cont">';
+		html += '<p class="username">小小红色飞机</p>';
+		html += '<p class="comment-body">'+content+'</p>';
+		html += '<p class="comment-footer">2016年10月5日　回复　点赞54　转发12</p>';
+		html += '</div>';
+		html += '</li>';
+		return html;
+	}
 
 	$(function(){
 				/*瀑布流开始*/
@@ -64,8 +54,8 @@
 				/*判断瀑布流最大布局宽度，最大为1280*/
 				function tores(){
 					var tmpWid=$(window).width();
-					if(tmpWid>1280){
-						tmpWid=1280;
+					if(tmpWid>622){
+						tmpWid=622;
 					}else{
 						var column=Math.floor(tmpWid/320);
 						tmpWid=column*320;
@@ -78,8 +68,8 @@
 				});
 				container.imagesLoaded(function(){
 				  container.masonry({
-				  	columnWidth: 320,
-				    itemSelector : 'boxtest',
+				  	columnWidth: 622,
+				    itemSelector : '.boxtest',
 				    isFitWidth: true,//是否根据浏览器窗口大小自动适应默认false
 				    isAnimated: true,//是否采用jquery动画进行重拍版
 				    isRTL:false,//设置布局的排列方式，即：定位砖块时，是从左向右排列还是从右向左排列。默认值为false，即从左向右
@@ -99,7 +89,7 @@
 					if(!loading.data("on")) return;
 					// 计算所有瀑布流块中距离顶部最大，进而在滚动条滚动时，来进行ajax请求，方法很多这里只列举最简单一种，最易理解一种
 					var itemNum=$('#box-content').find('.boxtest').length;
-s					var itemArr=[];
+					var itemArr=[];
 					itemArr[0]=$('#box-content').find('.boxtest').eq(itemNum-1).offset().top+$('#box-content').find('.boxtest').eq(itemNum-1)[0].offsetHeight;
 					var maxTop=Math.max.apply(null,itemArr);
 					if(maxTop<$(window).height()+$(document).scrollTop()){
@@ -112,7 +102,8 @@ s					var itemArr=[];
 							}else{
 								var html="";
 								for(var i in sqlJson){
-									html = "<li class='panel panel-default boxtest' style='height:300px;'>"+i+"</li>";
+									html += "<li class='panel panel-default boxtest' style='height:300px;'>"+sqlJson[i].writer+"</li>";
+									// container.append( "<li class='panel panel-default boxtest' style='height:300px;'>"+sqlJson[i].writer+"</li>" );
 
 								}
 								/*模拟ajax请求数据时延时800毫秒*/
@@ -133,27 +124,27 @@ s					var itemArr=[];
 					}
 				});
 
-				function loadImage(url) {
-				     var img = new Image(); 
-				     //创建一个Image对象，实现图片的预下载
-				      img.src = url;
-				      if (img.complete) {
-				         return img.src;
-				      }
-				      img.onload = function () {
-				       	return img.src;
-				      };
-				 };
-				 loadImage('./images/one.jpeg',test());
-				/*item hover效果*/
-				var rbgB=['#71D3F5','#F0C179','#F28386','#8BD38B'];
-				$('#box-content').on('mouseover','boxtest',function(){
-					var random=Math.floor(Math.random() * 4);
-					$(this).stop(true).animate({'backgroundColor':rbgB[random]},1000);
-				});
-				$('#box-content').on('mouseout','boxtest',function(){
-					$(this).stop(true).animate({'backgroundColor':'#fff'},1000);
-				});
+				// function loadImage(url) {
+				//      var img = new Image(); 
+				//      //创建一个Image对象，实现图片的预下载
+				//       img.src = url;
+				//       if (img.complete) {
+				//          return img.src;
+				//       }
+				//       img.onload = function () {
+				//        	return img.src;
+				//       };
+				//  };
+				//  loadImage('./images/one.jpeg',test());
+				// /*item hover效果*/
+				// var rbgB=['#71D3F5','#F0C179','#F28386','#8BD38B'];
+				// $('#box-content').on('mouseover','boxtest',function(){
+				// 	var random=Math.floor(Math.random() * 4);
+				// 	$(this).stop(true).animate({'backgroundColor':rbgB[random]},1000);
+				// });
+				// $('#box-content').on('mouseout','boxtest',function(){
+				// 	$(this).stop(true).animate({'backgroundColor':'#fff'},1000);
+				// });
 		})
 
 </script>

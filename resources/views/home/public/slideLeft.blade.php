@@ -1,4 +1,4 @@
-<div class="list-group slideleft" style="width:150px;float:left;margin-left:140px;">
+<div class="list-group slideleft" style="width:150px;float:left;margin-right:10px;">
   <button type="button" class="list-group-item">首页</button>
   <button type="button" class="list-group-item">我的收藏</button>
   <button type="button" class="list-group-item">我的赞</button>
