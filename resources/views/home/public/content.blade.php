@@ -1,3 +1,7 @@
+<style type="text/css">
+    body{background-image:url( {{ url('home/image/body_repeat.png') }} );}
+    .bodybg{background-image:url(  {{ url('home/image/body_repeat.png') }} ) ; }
+</style>
 	<div class="box-content" id="box-content" style="float:left;position: relative;">
 	<div id="imloading" class="well well-sm" style=" text-align: center;position: absolute;bottom:-70px;width:602px;z-index:999;background:#f2dede;display:none;" >I'm Loading...</div>
 	  <ul style="list-style:none;" id="test">
@@ -60,9 +64,7 @@
         var counter = $('#textarea').val().length;
         // $('#tips var').text(300 - counter);    //每次减去字符长度
         $('#issue').attr("disabled",false).addClass('bgred').removeClass('bgsmred');
-        console.log('false')
         if ( $('#textarea').val() == '' ) {
-        	console.log('true')
         	$('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
         };
 	});
@@ -201,7 +203,6 @@
 				// 	$(this).stop(true).animate({'backgroundColor':'#fff'},1000);
 				// });
 		})
-
 </script>
 
 

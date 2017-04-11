@@ -1,6 +1,5 @@
-body{padding-top: 50px;background-image:url( ../image/body_repeat.png  );background-repeat: repeat-x;background-color: #b4daf0;}
+body{padding-top: 50px;background-repeat: repeat-x;background-color: #b4daf0;}
 fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-top-width: 1px;border-top-style: solid;border-color: rgba(255,255,255,0.2);    border-style: solid;    border-width: 1px 0 0 0;}
-.bodybg{background:url(  ../image/body_bg.jpg) no-repeat top center !important;}
 .boxtest{width: 602px;}
 .box-content{margin-left: 150px;}
 .bgsmred{opacity:0.8;background-color:#FFC09F !important;cursor: default !important; }
@@ -8,7 +7,7 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 .Wejoy_feed_detail{padding: 20px 20px 4px;font-size: 16px;position: relative;}
 .Wejoy_detail{margin-left: 60px;}
 .Wejoy_face{position: absolute;height: 50px;width: 50px;}
-.WJ_info{margin-bottom: 7px;padding-top: 5px;}
+.WJ_info{margin-bottom: 7px;padding-top: 5px;width: 100%;}
 .bg1{color: #ff6700;}
 .bg2{background: #b4daf0;}
 .bg3{background: #ff6700;}
@@ -18,7 +17,7 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 .Wj_cursons{cursor: pointer;}
 .WJ_text{color: #808080;height: 20px;margin-bottom: 2px;}
 .WJ_text2{margin-bottom: 2px;}
-.Wj_media_wrap{height: 200px;}
+.Wj_media_wrap{height: 200px;width: 100%;}
 .WJ_row_line{border-top-width: 1px;border-top-style: solid;height: 38px;border-color: #f2f2f5;margin:0;}
 .WJ_row_line li{padding: 0;height: 38px;text-align: center;width: 25%;}
 .WJ_row_line li span{text-align: center;height: 22px;margin: 7px 0;border-left-width: 1px;border-left-style: solid;height: 22px;color:#808080;line-height: 22px;width: 100%;border-color: #f2f2f5;cursor: pointer;}
@@ -37,3 +36,4 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 .MJ_slideleft li:hover{background-color: #81B8D9;cursor: pointer;}
 .panel{margin-bottom: 5px;}
 .WJbadge{background-color: #ff6700;height: 14px;float: right;width: 20px;text-align: center;border: 1px solid #ff6700;border-radius:2px;}
+.WJ_feed_handle{width: 100%;}

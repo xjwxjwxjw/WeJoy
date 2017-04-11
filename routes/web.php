@@ -38,10 +38,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 // 前台路由
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
 	Route::get('index','IndexController@index');
-//	用户路由
-	Route::group(['prefix'=>'user'],function(){
-	    Route::get('index','UserController@index');
-    });
+	Route::get('user','UserController@index');
+// //	用户路由
+// 	Route::group(['prefix'=>'user'],function(){
+// 	    Route::get('index','UserController@index');
+//     });
 
 });
 

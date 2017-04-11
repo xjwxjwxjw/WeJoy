@@ -16,10 +16,12 @@
     @section('top')
     @show
   </div>
-  <div class="col-md-8 col-md-offset-2">
-    @yield('slideTop')
-    @yield('slideLeft')
-    @yield('slideRight')
+  <div class="row" style="margin:0 auto;width:950px;">
+    <div class="col-md-8col-md-offset-2 clearfix">
+      @yield('slideTop')
+      @yield('slideLeft')
+      @yield('slideRight')
+    </div>
   </div>
   @section('footer')
   @show

@@ -1,6 +1,7 @@
 /*通用css*/
 body{
-    padding-left: 0px;background-image:url( ../../image/body_bg.jpg  );background-repeat: repeat-x;background-color: #b4daf0;background-size: 100%;
+    /*padding-left: 0px;background-image:url( ../image/body_bg.jpg  );background-repeat: repeat-x;background-color: #b4daf0;background-size: 100%;*/
+    padding-left: 0px;background-repeat: repeat-x;background-color: #b4daf0;background-size: 100%;
 }
 address, caption, cite, code, dfn, em, th, var, i {
     font-style: normal;
@@ -14,7 +15,6 @@ h1, h2, h3, h4, h5, h6 {
 .pf_wrap{
     height: 300px;
 }
-/*.bodybg{background:url(  ../../image/body_bg.jpg) no-repeat top center !important;}*/
 .pf_photo{
     padding-top: 48px;
 }
@@ -613,3 +613,4 @@ body, legend, .W_input:focus, .S_txt1, .W_btn_b, .SW_fun .S_func1 {
     cursor: pointer;
 }
 .box-content{margin-left: 0;}
+.row{margin-top: 15px !important;}
