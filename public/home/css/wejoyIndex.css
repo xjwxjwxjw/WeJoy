@@ -1,0 +1,38 @@
+body{background-image:url( ../image/body_repeat.png );padding-top: 50px;-webkit-background-size:100%;}
+fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-top-width: 1px;border-top-style: solid;border-color: rgba(255,255,255,0.2);    border-style: solid;    border-width: 1px 0 0 0;}
+.boxtest{width: 602px;}
+.box-content{margin-left: 150px;}
+.bgsmred{opacity:0.8;background-color:#FFC09F !important;cursor: default !important; }
+.bgred{background: #FF8140 !important;}
+.Wejoy_feed_detail{padding: 20px 20px 4px;font-size: 16px;position: relative;}
+.Wejoy_detail{margin-left: 60px;}
+.Wejoy_face{position: absolute;height: 50px;width: 50px;}
+.WJ_info{margin-bottom: 7px;padding-top: 5px;}
+.bg1{color: #ff6700;}
+.bg2{background: #b4daf0;}
+.bg3{background: #ff6700;}
+.right{float: right;}
+.left{float: left;}
+.WJ-menu-right{top:20px;}
+.Wj_cursons{cursor: pointer;}
+.WJ_text{color: #808080;height: 20px;margin-bottom: 2px;}
+.WJ_text2{margin-bottom: 2px;}
+.Wj_media_wrap{height: 200px;}
+.WJ_row_line{border-top-width: 1px;border-top-style: solid;height: 38px;border-color: #f2f2f5;margin:0;}
+.WJ_row_line li{padding: 0;height: 38px;text-align: center;width: 25%;}
+.WJ_row_line li span{text-align: center;height: 22px;margin: 7px 0;border-left-width: 1px;border-left-style: solid;height: 22px;color:#808080;line-height: 22px;width: 100%;border-color: #f2f2f5;cursor: pointer;}
+.WJ_row_line li:hover span{color: #ff6700;}
+.pos{margin-left: -1px !important;display: block;border-left-width: 0 !important;}
+.test{position: relative;}
+.test2{background: rgba(255,255,255,0.2) none repeat scroll !important;}
+.font-size-larg{font-size: 20px;}
+.slideright{float: left;}
+.slideleft{position: fixed;}
+.box_main{width: 1000px;margin: 0 auto;}
+.bgcolor{background-color: rgba(70,149,194,0.3); padding-top: 20px;padding-bottom: 80px;}
+.MJ_slideleft li{height: 34px;font-size: 12px;font-weight: bold;padding: 0 0 0 15px;line-height: 34px;display: block;color:#FFFFFF;width: 150px;}
+.MJ_slideleft li span{font-size: 12px;margin-right: 7px;margin-top: 10px;margin-bottom: 10px;height: 14px;line-height: 14px;}
+.MJ_slideleft li span a{line-height: 14px;}
+.MJ_slideleft li:hover{background-color: #81B8D9;cursor: pointer;}
+.panel{margin-bottom: 5px;}
+.WJbadge{background-color: #ff6700;height: 14px;float: right;width: 20px;text-align: center;border: 1px solid #ff6700;border-radius:2px;}

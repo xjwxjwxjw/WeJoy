@@ -3,17 +3,11 @@
 <link rel="stylesheet" href={{url("/css/bootstrap.css")}}>
 <link  rel="stylesheet" href={{url("/home/css/main.css")}} >
 <link rel="stylesheet" type="text/css" href={{url("/home/css/sinaFaceAndEffec.css")}}>
+<link rel="stylesheet" type="text/css" href={{url("/home/css/wejoyIndex.css")}}>
 
 <script src={{url("/js/app.js")}}></script>
 
 <script  src={{url("home/js/sinaFaceAndEffec.js")}}></script>
-    <style media="screen">
-  body{background-color: #B4DAF0;padding-top: 70px;}
-  /*.slideleft{position:fixed;left:30px;}*/
-  .font-size-larg{font-size: 20px;}
-  .slideright{float: right;margin-right:20px;}
-  .box_main{width: 1070px;margin: 0 auto;}
-</style>
 
 <script type="text/javascript" src="./js/jquery-1.8.3.min.js"></script>
 

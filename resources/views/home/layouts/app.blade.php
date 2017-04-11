@@ -16,7 +16,7 @@
     @section('top')
     @show
   </div>
-  <div class="clearfix box_main">
+  <div class="clearfix box_main bgcolor">
     @yield('slideLeft')
     @yield('content')
     @yield('slideRight')
