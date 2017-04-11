@@ -344,25 +344,25 @@ body, legend, .W_input:focus, .S_txt1, .W_btn_b, .SW_fun .S_func1 {
     font-weight: 700;
 }
 .PCD_photolist .WB_innerwrap ul {
-    margin: 0 -6px -6px 0;
+    margin: 0 -6px -6px 5px;
 }
 .PCD_photolist .WB_innerwrap .big_pic {
-    width: 160px;
-    height: 160px;
+    width: 220px;
+    height: 220px;
 }
 .PCD_photolist .WB_innerwrap li {
     float: left;
-    height: 77px;
-    width: 77px;
-    margin: 0 6px 6px 0;
+    height: 105px;
+    width: 105px;
+    margin: 0 10px 10px 0;
 }
 .PCD_photolist .WB_innerwrap .big_pic img {
-    width: 160px;
-    height: 160px;
+    width: 220px;
+    height: 220px;
 }
 .PCD_photolist .WB_innerwrap li img {
-    width: 77px;
-    height: 77px;
+    width: 105px;
+    height: 105px;
 }
 /*第四部分  公开分组*/
 .PCD_user_a .m_wrap {
@@ -419,8 +419,8 @@ body, legend, .W_input:focus, .S_txt1, .W_btn_b, .SW_fun .S_func1 {
     position: relative;
 }
 .PCD_user_a .picitems .pic_wrap, .PCD_user_a .picitems .pic_box, .PCD_user_a .picitems .pic_box .pic {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
 }
 .PCD_user_a .picitems .pic_box {
     border-radius: 50%;
@@ -430,14 +430,12 @@ body, legend, .W_input:focus, .S_txt1, .W_btn_b, .SW_fun .S_func1 {
     white-space: nowrap;
 }
 .PCD_user_a .picitems .pic_wrap, .PCD_user_a .picitems .pic_box, .PCD_user_a .picitems .pic_box .pic {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
 }
 .PCD_user_a .picitems .name {
-    width: 45px;
-    _height: 13px;
+    width: 50px;
     padding-top: 10px;
-    padding-top: 11px\0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -16,7 +16,7 @@
     @section('top')
     @show
   </div>
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-8 col-md-offset-2">
     @yield('slideTop')
     @yield('slideLeft')
     @yield('slideRight')

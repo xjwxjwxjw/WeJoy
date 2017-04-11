@@ -12,7 +12,7 @@
         <div class="col-md-12">
             <div id="Pl_Official_Headerv6__1" class="text-center">
                 <div class="PCD_header">
-                    <div class="pf_wrap" style="background-image:url({{url('/home/bg.jpg')}})">
+                    <div class="pf_wrap" style="background-image:url({{url('/home/bg.jpg')}});background-size:100% 100%;">
                             {{--上面url为背景图片--}}
                         <div class="shadow  S_shadow" layout-shell="false">
                             <div class="pf_photo">
@@ -180,17 +180,17 @@
                                 <ul class="clearfix">
                                     <li class=" big_pic">
                                         <a href="" target="_blank">
-                                            <img src="" width="156" height="156">
+                                            <img src="">
                                         </a>
                                     </li>
                                     <li class="">
                                         <a href="" target="_blank">
-                                            <img src="" width="72" height="72">
+                                            <img src="">
                                         </a>
                                     </li>
                                     <li class="">
                                         <a href="" target="_blank">
-                                            <img src="" width="72" height="72">
+                                            <img src="">
                                         </a>
                                     </li>
                                     <li class="">
@@ -286,6 +286,20 @@
                                                 </p>
                                                 <p class="name W_tc">
                                                     <a target="_blank" href="" class="S_txt1" title="搞笑乐活族">搞笑乐活族</a>
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="picitems">
+                                            <div class="midbox">
+                                                <p class="pic_wrap">
+                                                    <span class="pic_box">
+                                                        <a target="_blank" href="">
+                                                            <img class="pic" src="" width="50" height="50" alt="笑话热门榜" title="笑话热门榜" >
+                                                        </a>
+                                                    </span>
+                                                </p>
+                                                <p class="name W_tc">
+                                                    <a target="_blank" href="" class="S_txt1" title="笑话热门榜">笑话热门榜</a>
                                                 </p>
                                             </div>
                                         </li>
