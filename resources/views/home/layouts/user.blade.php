@@ -21,6 +21,7 @@
     @yield('slideLeft')
     @yield('slideRight')
   </div>
-</script>
+  @section('footer')
+  @show
 </body>
 </html>
