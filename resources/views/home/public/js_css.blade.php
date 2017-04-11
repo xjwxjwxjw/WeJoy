@@ -4,7 +4,7 @@
 <link  rel="stylesheet" href={{url("/home/css/main.css")}} >
 <link rel="stylesheet" type="text/css" href={{url("/home/css/sinaFaceAndEffec.css")}}>
 <link rel="stylesheet" type="text/css" href={{url("/home/css/wejoyIndex.css")}}>
-
+<link rel="stylesheet" href={{url("/home/css/footer.css")}} >
 <script src={{url("/js/app.js")}}></script>
 
 <script  src={{url("home/js/sinaFaceAndEffec.js")}}></script>

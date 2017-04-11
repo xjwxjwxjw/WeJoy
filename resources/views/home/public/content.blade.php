@@ -179,27 +179,27 @@
 					}
 				});
 
-				// function loadImage(url) {
-				//      var img = new Image(); 
-				//      //创建一个Image对象，实现图片的预下载
-				//       img.src = url;
-				//       if (img.complete) {
-				//          return img.src;
-				//       }
-				//       img.onload = function () {
-				//        	return img.src;
-				//       };
-				//  };
-				//  loadImage('./images/one.jpeg',test());
-				// /*item hover效果*/
-				// var rbgB=['#71D3F5','#F0C179','#F28386','#8BD38B'];
-				// $('#box-content').on('mouseover','boxtest',function(){
-				// 	var random=Math.floor(Math.random() * 4);
-				// 	$(this).stop(true).animate({'backgroundColor':rbgB[random]},1000);
-				// });
-				// $('#box-content').on('mouseout','boxtest',function(){
-				// 	$(this).stop(true).animate({'backgroundColor':'#fff'},1000);
-				// });
+				 function loadImage(url) {
+				      var img = new Image();
+				      //创建一个Image对象，实现图片的预下载
+				       img.src = url;
+				       if (img.complete) {
+				          return img.src;
+				       }
+				       img.onload = function () {
+				        	return img.src;
+				       };
+				  };
+				  loadImage('./images/one.jpeg',test());
+				 /*item hover效果*/
+				 var rbgB=['#71D3F5','#F0C179','#F28386','#8BD38B'];
+				 $('#box-content').on('mouseover','boxtest',function(){
+				 	var random=Math.floor(Math.random() * 4);
+				 	$(this).stop(true).animate({'backgroundColor':rbgB[random]},1000);
+				 });
+				 $('#box-content').on('mouseout','boxtest',function(){
+				 	$(this).stop(true).animate({'backgroundColor':'#fff'},1000);
+				 });
 		})
 
 </script>
