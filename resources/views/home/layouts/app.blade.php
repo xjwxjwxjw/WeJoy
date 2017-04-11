@@ -22,6 +22,6 @@
       @yield('slideRight')
     </div>
   </div>
-</script>
+  @yield('footer')
 </body>
 </html>
