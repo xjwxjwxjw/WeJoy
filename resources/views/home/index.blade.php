@@ -17,4 +17,3 @@
 @endsection
 @section('footer')
   @include('home/public/footer')
-@endsection

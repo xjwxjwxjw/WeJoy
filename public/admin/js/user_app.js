@@ -92,22 +92,16 @@ $(document).ready(function () {
         regName = /^([\u4e00-\u9fa5]|[0-9a-zA-Z_])+$/;
         regPwd = /^([0-9a-zA-Z_]){6,}$/;
         //验证之前将所有提示span内容清空
-        if($('#exampleInputName').val().length < 6){
-            //验证用户名
-            $('#exampleInputName')[0].previousElementSibling.firstElementChild.innerText = '用户名至少为6位';
-            return;
-        }
+
         if(!regName.test($('#exampleInputName').val())){
             //验证用户名
-            $('#exampleInputName')[0].previousElementSibling.firstElementChild.innerText = '用户名格式有误（只能输入汉子、字母、数字和下划线）';
+            $('#exampleInputName')[0].previousElementSibling.firstElementChild.innerText = '用户名不能为空';
             return;
-        }
-        if(!regPwd.test($('#exampleInputPassword1').val()) && $('#exampleInputPassword1').parents('.form-group').attr('style') != 'display:none'){
+        }else if(!regPwd.test($('#exampleInputPassword1').val()) && $('#exampleInputPassword1').parents('.form-group').attr('style') != 'display:none'){
             //验证密码  //上面判断的是验证规则  和  密码框存在
             $('#exampleInputPassword1')[0].previousElementSibling.firstElementChild.innerText = '密码至少为6位';
             return;
-        }
-        if($('#exampleInputPassword1').val() != $('#exampleInputPassword2').val() && $('#exampleInputPassword1').parents('.form-group').attr('style') != 'display:none' && $('#exampleInputPassword2').parents('.form-group').attr('style') != 'display:none'){
+        }else if($('#exampleInputPassword1').val() != $('#exampleInputPassword2').val() && $('#exampleInputPassword1').parents('.form-group').attr('style') != 'display:none' && $('#exampleInputPassword2').parents('.form-group').attr('style') != 'display:none'){
             //验证再次密码  //上面判断的是验证相同  和  密码框存在
             $('#exampleInputPassword2')[0].previousElementSibling.firstElementChild.innerText = '两次密码输入不一致';
             return;

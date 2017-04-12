@@ -38,11 +38,21 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 // 前台路由
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
 	Route::get('index','IndexController@index');
-	Route::get('user','UserController@index');
-// //	用户路由
-// 	Route::group(['prefix'=>'user'],function(){
-// 	    Route::get('index','UserController@index');
-//     });
-
 });
+//后台登陆控制器
+Route::get('admin/login','Admin\LoginController@login');
+Route::post('admin/login','Admin\LoginController@showlogin');
 
+//// 后台除登陆控制器
+//Route::group(['middleware'=>'check.login'],function(){
+//	Route::get('/admin/index','Admin\IndexController@index');
+//	Route::get('/admin/myIndex','Admin\IndexController@myIndex');
+//	Route::get('/admin/myIndex/del/{id?}','Admin\IndexController@myDel');
+//});
+
+//前台登陆注册
+Route::get('home/register','Home\LoginController@register');
+Route::post('home/store','Home\LoginController@store');
+Route::get('verify/{confirmed_code}', 'Home\LoginController@emailConfirm');
+Route::get('home/login','Home\LoginController@login');
+Route::post('home/singin', 'Home\LoginController@singin');

@@ -13,7 +13,9 @@ class NewsController extends Controller
   public function newsIndex()
   {
     $newlist = DB::table('news')->paginate(5);
-    return view('admin/news.content',['tasks'=>$newlist , 'content' => '/admin/news/content']); 
+    // return view('admin.index',['tasks'=>$newlist , 'content' => '/admin/news/content']);
+    return view('admin.index',['tasks'=>$newlist , 'content' => '/admin/news/content']); 
+    // return response()->json(['tasks'=>$newlist , 'content' => '/admin/news/content']);
 
   }
 

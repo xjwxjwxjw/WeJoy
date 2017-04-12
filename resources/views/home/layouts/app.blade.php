@@ -11,17 +11,16 @@
 
 </head>
 <body>
-  <div class="bodybg">
-    <div class="box">
-      @section('top')
-      @show
-    </div>
-    <div class="clearfix box_main bgcolor">
-      @yield('slideLeft')
-      @yield('content')
-      @yield('slideRight')
-    </div>
+  
+  <div class="box">
+    @section('top')
+    @show
   </div>
-  @yield('footer')
+  <div class="clearfix box_main">
+    @yield('slideLeft')
+    @yield('content')
+    @yield('slideRight')
+  </div>
+</script>
 </body>
 </html>

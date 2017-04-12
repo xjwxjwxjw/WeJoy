@@ -33,10 +33,10 @@ class Logincontroller extends Controller
                                 ->get();
 
         if(!empty($result->all())) {
-            return redirect('/');
+            return redirect('/admin/index');
 
         }else{
-            return redirect('admin/login');
+            return redirect('/admin/login');
         }
 
     }
