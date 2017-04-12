@@ -72,6 +72,9 @@
             border-top-left-radius: 0;
             border-top-right-radius: 0;
         }
+        p{
+            color: red;
+        }
     </style>
 </head>
 
@@ -84,21 +87,18 @@
         <h2 class="form-signin-heading">wejoy后台管理</h2>
         <label for="inputEmail" class="sr-only"></label>
         <input type="text"  class="form-control" placeholder="admin" name="username" value="" >
+        <p>
         @if(count($errors))
             {{$errors->first('username')}}
         @endif
-
+            </p>
         <label for="inputPassword" class="sr-only"></label>
         <input type="password"  class="form-control" placeholder="password" name="password"value="" >
+        <p>
         @if(count($errors))
             {{$errors->first('password')}}
         @endif
-
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> 记住我
-            </label>
-        </div>
+        </p>
         <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
     </form>
 

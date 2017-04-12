@@ -17,7 +17,11 @@
 				</div>
 				<div class="WB_innerwrap">
 					<div class="nameBox">
-						<a href="" class="name S_txt1" title="名字">名字</a>
+						@if(Auth::check())
+							<a href="" class="name S_txt1" title="名字">{{Auth::user()->username}}</a>
+							@else
+							<a href="" class="name S_txt1" title="名字">名字</a>
+							@endif
 						<a title="微博会员" target="_blank" href="">
 							<i class="W_icon icon_member_dis" style="background-image:url({{url('/home/icon.png')}})"></i>
 						</a>
