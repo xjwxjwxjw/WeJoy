@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class HomeUserController extends Controller
 {
     public function index() {
         $returnuser = [];
