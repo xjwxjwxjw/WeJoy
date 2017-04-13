@@ -8,7 +8,7 @@
 @endsection
 @section('content')
     @include('/home/public/setmain')
-@section()
+@endsection
 @section('footer')
     @include('home/public/footer')
 @endsection
