@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,35 +13,66 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 // 后台路由
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 	Route::get('index','IndexController@index');
+
 	// 信息
 	Route::get('new','NewsController@newsIndex');
 	Route::group(['prefix' => 'new'], function () {
 		Route::get('delete/{id}','NewsController@delete');
 		Route::get('edit/{id}','NewsController@edit');
 	});
+
+    //  权限
+  Route::group(['prefix' => 'permission'], function () {
+    Route::get('permission','PermissionController@permissionList');
+    Route::group(['prefix' => 'permission'], function () {
+        Route::any('/permission-add', 'PermissionController@permissionAdd');
+        Route::any('/permission-update/{id}', 'PermissionController@permissionUpdate');
+        Route::get('/permission-delete/{id}', 'PermissionController@permissionDelete');
+        Route::get('/permissionfind/{id}', 'PermissionController@permissionfind');
+    });
+    //  角色
+    Route::get('/role', 'RoleController@roleList');
+    Route::group(['prefix' => 'role'], function () {
+        Route::any('/role-add', 'RoleController@roleAdd');
+        Route::any('/role-update/{id}', 'RoleController@roleUpdate');
+        Route::get('/role-delete/{id}', 'RoleController@roleDelete');
+        Route::any('/rolefind/{id}', 'RoleController@rolefind');
+        Route::any('/attach-permission/{id}', 'RoleController@attachPermission');
+    });
+    //管理员管理
+    Route::get('/adminuser', 'UserController@userList');
+    Route::group(['prefix' => 'adminuser'], function () {
+        Route::any('/user-add', 'UserController@userAdd');
+        Route::any('/attach-role/{id}', 'UserController@attachRole');
+    });
+  });
 	// 用户
-	Route::get('user', 'HomeUserController@index');
+	Route::get('user', 'UserController@index');
 	Route::group(['prefix' => 'user'], function () {
-		Route::post('doAdd', 'HomeUserController@add');
-    	Route::get('doDel/{id}', 'HomeUserController@del');
-    	Route::get('doFind/{id}', 'HomeUserController@find');
-    	Route::post('doEdit/{id}', 'HomeUserController@edit');
+		Route::post('doAdd', 'UserController@add');
+    	Route::get('doDel/{id}', 'UserController@del');
+    	Route::get('doFind/{id}', 'UserController@find');
+    	Route::post('doEdit/{id}', 'UserController@edit');
 	});
+
 });
+
 // 前台路由
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
-	Route::get('index','IndexController@index');
-	Route::get('user','UserController@index');
-});
-// 	用户路由
+  Route::get('index','IndexController@index');
+  Route::post('index/doLogin','IndexController@doLogin');
+  Route::get('user','UserController@index');
+// //	用户路由
 // 	Route::group(['prefix'=>'user'],function(){
 // 	    Route::get('index','UserController@index');
 //     });
-	
-	//后台登陆控制器
+
+});
+//后台登陆控制器
 Route::get('admin/login','Admin\LoginController@login');
 Route::post('admin/login','Admin\LoginController@showlogin');
 //// 后台除登陆控制器
@@ -56,5 +88,3 @@ Route::get('verify/{confirmed_code}', 'Home\LoginController@emailConfirm');
 Route::get('home/login','Home\LoginController@login');
 Route::post('home/singin', 'Home\LoginController@singin');
 Route::get('home/logout', 'Home\LoginController@logout');
-//前台设置
-Route::get('home/set','Home\SetController@set');

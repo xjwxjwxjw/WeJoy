@@ -15,8 +15,8 @@ class CreateHomeuserTable extends Migration
     {
         Schema::create('homeuser', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('phone');
+            $table->string('name')->unique();
+            $table->string('phone')->unique();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('status');
