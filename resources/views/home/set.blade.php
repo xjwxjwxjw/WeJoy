@@ -1,0 +1,14 @@
+@extends('/home/layouts/set')
+@section('title','Wejoy')
+@section('top')
+    @include('/home/public/top')
+@endsection
+@section('js_css')
+    @include('/home/public/js_css')
+@endsection
+@section('content')
+    @include('/home/public/setmain')
+@section()
+@section('footer')
+    @include('home/public/footer')
+@endsection

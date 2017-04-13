@@ -65,5 +65,7 @@ Route::get('home/login','Home\LoginController@login');
 Route::post('home/singin', 'Home\LoginController@singin');
 Route::get('home/logout', 'Home\LoginController@logout');
 
+//前台设置
+Route::get('home/set','Home\SetController@set');
 
 
