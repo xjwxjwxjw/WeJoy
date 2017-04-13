@@ -13,7 +13,7 @@
                     var l = $t.value.length;
                     sel.moveEnd("character", wee + t);
                     t <= 0 ? sel.moveStart("character", wee - 2 * t - myValue.length) : sel.moveStart("character", wee - t - myValue.length);
-  
+
                     sel.select();
                 }
             } else if ($t.selectionStart || $t.selectionStart == '0') {
@@ -41,4 +41,17 @@ $(document).ready(function(){
 	$(".img-icon").click(function(){
 		$(".cont-box .text").insertContent('<img src="请在这里输入图片地址" alt=""/>', -10);
 	});
+  $('#issue').click(function(){
+    $.ajax({
+      type:'get',
+      data:{ content : ""+$('#textarea').val()+"" },
+      url:'content',
+      success:function(data){
+        console.log(data);
+      },
+      error:function(data){
+        console.log(data);
+      }
+    });
+  });
 });
