@@ -14,6 +14,7 @@ $(document).ready(function () {
     }
 
     $('button.close').click(function(){
+        //点击关闭  清除所有数据
         $('#exampleInputName').val('');
         $('#exampleInputPassword1').parents('.form-group').attr('style',false);
         $('#exampleInputPassword2').parents('.form-group').attr('style',false);
@@ -22,6 +23,12 @@ $(document).ready(function () {
         $('#exampleInputEmail').val('');
         $('#exampleInputAddress').val('');
         $('#exampleInputBirthday').val('');
+        $('#exampleInputTruename').val('');
+        $('#exampleInputQQ').val('');
+        var span = document.getElementsByClassName('selfError');
+        for(var i = 0 ; i < span.length ; i++){
+            span[i].innerText = '';
+        }
     });
     $('#add').click(function () {
         $('#task-title').text('添加用户');
@@ -61,15 +68,15 @@ $(document).ready(function () {
             type: 'get',
             success: function (data) {
                 eval('var data = '+data);
-                data = data[0];
-                $('#exampleInputName').val(data.name);
-                $('#exampleInputPassword1').parents('.form-group').attr('style','display:none');
-                $('#exampleInputPassword2').parents('.form-group').attr('style','display:none');
-                $('#exampleInputSex'+data.sex).attr('checked',true);
-                $('#exampleInputPhone').val(data.phone);
-                $('#exampleInputEmail').val(data.email);
-                $('#exampleInputAddress').val(data.address);
-                $('#exampleInputBirthday').val(data.birthday);
+                console.log(data);
+                $('#exampleInputName').val(data[0][0].name);
+                $('#exampleInputSex'+data[1][0].sex).attr('checked',true);
+                $('#exampleInputTruename').val(data[1][0].name);
+                $('#exampleInputQQ').val(data[1][0].qq);
+                $('#exampleInputPhone').val(data[0][0].phone);
+                $('#exampleInputEmail').val(data[0][0].email);
+                $('#exampleInputAddress').val(data[1][0].address);
+                $('#exampleInputBirthday').val(data[1][0].birthday);
             }
         });
         $('#taskModal').modal('show');
@@ -91,25 +98,39 @@ $(document).ready(function () {
         //用户名、密码正则
         regName = /^([\u4e00-\u9fa5]|[0-9a-zA-Z_])+$/;
         regPwd = /^([0-9a-zA-Z_]){6,}$/;
+        regPhone = /^1(3|4|5|7|8)\d{9}$/;
+        regEmail = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
         //验证之前将所有提示span内容清空
+
         if($('#exampleInputName').val().length < 6){
             //验证用户名
-            $('#exampleInputName')[0].previousElementSibling.firstElementChild.innerText = '用户名至少为6位';
+            console.log($('#exampleInputName')[0].previousElementSibling.firstElementChild);
+            $('#exampleInputName')[0].previousElementSibling.lastElementChild.innerText = '用户名至少为6位';
             return;
         }
         if(!regName.test($('#exampleInputName').val())){
             //验证用户名
-            $('#exampleInputName')[0].previousElementSibling.firstElementChild.innerText = '用户名格式有误（只能输入汉子、字母、数字和下划线）';
+            $('#exampleInputName')[0].previousElementSibling.lastElementChild.innerText = '用户名格式有误（只能输入汉子、字母、数字和下划线）';
             return;
         }
-        if(!regPwd.test($('#exampleInputPassword1').val()) && $('#exampleInputPassword1').parents('.form-group').attr('style') != 'display:none'){
+        if(!regPwd.test($('#exampleInputPassword1').val()) && $('#exampleInputPassword1').parents('.form-group').attr('style') != 'display:none' && $('#task-title')[0].innerText == '添加用户'){
             //验证密码  //上面判断的是验证规则  和  密码框存在
-            $('#exampleInputPassword1')[0].previousElementSibling.firstElementChild.innerText = '密码至少为6位';
+            $('#exampleInputPassword1')[0].previousElementSibling.lastElementChild.innerText = '密码至少为6位';
             return;
         }
         if($('#exampleInputPassword1').val() != $('#exampleInputPassword2').val() && $('#exampleInputPassword1').parents('.form-group').attr('style') != 'display:none' && $('#exampleInputPassword2').parents('.form-group').attr('style') != 'display:none'){
             //验证再次密码  //上面判断的是验证相同  和  密码框存在
-            $('#exampleInputPassword2')[0].previousElementSibling.firstElementChild.innerText = '两次密码输入不一致';
+            $('#exampleInputPassword2')[0].previousElementSibling.lastElementChild.innerText = '两次密码输入不一致';
+            return;
+        }
+        if(!regPhone.test($('#exampleInputPhone').val()) && $('#exampleInputPhone').val() != '' ){
+            //验证手机
+            $('#exampleInputPhone')[0].previousElementSibling.lastElementChild.innerText = '手机格式错误';
+            return;
+        }
+        if(!regEmail.test($('#exampleInputEmail').val()) && $('#exampleInputEmail').val() != '' ){
+            //验证邮箱
+            $('#exampleInputEmail')[0].previousElementSibling.lastElementChild.innerText = '邮箱格式错误';
             return;
         }
         //无错 则开启提交模式

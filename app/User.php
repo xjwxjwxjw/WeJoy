@@ -4,7 +4,11 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+<<<<<<< HEAD
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+=======
+use Illuminate\Support\Facades\Hash;
+>>>>>>> 5964fb85cb1ce335a5a7fe11919afe7dea6c4bd5
 
 class User extends Authenticatable
 {
@@ -17,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password','icon','confirmed_code'
     ];
 
     /**
@@ -28,4 +32,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 }

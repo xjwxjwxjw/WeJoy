@@ -5,7 +5,107 @@
 			<a href="javascript:void(0);" class="W_icon icon_setskin" title="模板设置"></a>
 		</div>
 	</div>
-	<div id="v6_pl_rightmod_myinfo">
+	{{--判断 如果登陆则显示头像 否则显示登陆界面--}}
+	{{--登陆界面--}}
+	<div class="login_box" id="pl_login_form">
+		<div class="login_innerwrap">
+			<div class="info_header">
+				<div class="tab clearfix">
+					<a href="javascript:void(0);" >帐号登录</a>
+					{{--<a href="javascript:void(0);" class=" ">安全登录</a>--}}
+				</div>
+			</div>
+			<!-- 登录框content -->
+			<div class="W_login_form">
+				<!--<div class="info_list pre_info clearfix" node-type="prename_box" style="display:none"></div>-->
+				<div class="info_list username">
+					<div class="input_wrap">
+						<input id="loginname" type="text" class="W_input" maxlength="128" autocomplete="off" name="username" tabindex="1" placeholder="手机/邮箱/用户名">
+					</div>
+				</div>
+				<div class="info_list password">
+					<div class="input_wrap">
+						<input type="password" type="password" class="W_input" maxlength="24" autocomplete="off" value="" tabindex="2" placeholder="请输入密码">
+					</div>
+				</div>
+				<!-- 输入验证码 -->
+				<div class="info_list verify clearfix" style="display: none">
+					<div class="input_wrap W_fl">
+						<input type="text" class="W_input" maxlength="6" autocomplete="off" value="" name="verifycode" tabindex="3" placeholder="验证码">
+					</div>
+					<a class="code W_fl" onclick="return false;" href="javascript:void(0);">
+						<img width="90" height="34" src="about:blank">
+					</a>
+				</div>
+				<!-- /输入验证码 -->
+				<div class="info_list auto_login clearfix">
+					<div class="right W_fr">
+						<a href="javascript:void(0);" onclick="var loginname=document.getElementById('loginname').value;window.open('https://security.weibo.com/iforgot/loginname?entry=weibo&amp;loginname='+loginname);" class="S_txt2">忘记密码</a>
+					</div>
+					<label for="login_form_savestate" class="W_fl W_label" title="建议在网吧或公共电脑上取消该选项。">
+						<input type="checkbox" id="login_form_savestate" checked="checked" tabindex="5" class="W_checkbox">
+						<span class="S_txt2">记住我</span>
+					</label>
+				</div>
+				<div class="info_list login_btn">
+					<a href="javascript:void(0)" class="W_btn_a btn_32px" tabindex="6">
+						<span>登录</span>
+					</a>
+				</div>
+				<div class="info_list register">
+					<span class="S_txt2">还没有微博？</span>
+					<a target="_blank" href="">立即注册!</a>
+				</div>
+			</div>
+			<!-- 短信登陆 -->
+			<div class="W_login_form" style="display: none;">
+				<div class="info_list phone">
+					<div class="input_wrap W_input_focus">
+						<input type="text" class="W_input" maxlength="128" autocomplete="off" placeholder="手机号码，仅支持大陆手机" value="" name="username">
+					</div>
+				</div>
+				<div class="info_list msgInfo clearfix">
+					<div class="input_wrap W_fr">
+						<input type="text" class="W_input" maxlength="6" value="短信验证码" name="password">
+					</div>
+					<a href="javascript:void(0);" class="W_btn_b btn_32px W_fl">获取短信验证码</a>
+					<a style="display:none" href="javascript:void(0);" class="W_btn_b btn_32px W_fl W_btn_b_disable">
+						<em>60</em>秒后再获取短信</a>
+				</div>
+				<div class="info_list auto_login clearfix">
+					<div class="right W_fr">
+						<a href="" target="_blank" class="S_txt2">忘记密码</a></div>
+					<label for="login_form_savestate1" class="login_form_savestate" title="建议在网吧或公共电脑上取消该选项。">
+						<input type="checkbox" id="login_form_savestate1" checked="checked" tabindex="5" class="W_checkbox">
+						<span class="S_txt2">记住我</span>
+					</label>
+				</div>
+				<div class="info_list login_btn">
+					<a class="W_btn_a btn_32px" href="javascript:void(0)">
+						<span>登录</span>
+					</a>
+				</div>
+				<div class="info_list register">
+					<span class="S_txt2">还没有微博？</span>
+					<a target="_blank" href="">立即注册!</a>
+				</div>
+			</div>
+			<div class="info_list other_login clearfix" style="display: none;">
+				<span class="tit W_fl S_txt2">其它登录：</span>
+				<div class="other_login_list W_fl">
+					<iframe scrolling="no" frameborder="no" src="" allowtransparency="true" style="width: 16px; height: 16px; overflow: hidden;float: left;margin-right: 3px;margin-top: -1px;"></iframe>
+					<a target="_blank" href="" class="cp_logo icon_qq"></a>
+					<a target="_blank" href="" class="cp_logo icon_yidong"></a>
+					<a target="_blank" href="" class="cp_logo icon_tianyi"></a>
+					<a target="_blank" href="" class="cp_logo icon_360"></a>
+					<a target="_blank" href="" class="cp_logo icon_unicom"></a>
+					<a target="_blank" href="" class="cp_logo icon_baidu"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{--个人信息--}}
+	<div id="v6_pl_rightmod_myinfo" style="display: none">
 		<div class="WB_cardwrap S_bg2">
 			<div class="W_person_info">
 				<div class="cover" id="skin_cover_s" style="background-image:url({{url('/home/bg.jpg')}});background-size:100% 100%;">
@@ -17,7 +117,11 @@
 				</div>
 				<div class="WB_innerwrap">
 					<div class="nameBox">
-						<a href="" class="name S_txt1" title="名字">名字</a>
+						@if(Auth::check())
+							<a href="" class="name S_txt1" title="名字">{{Auth::user()->username}}</a>
+							@else
+							<a href="" class="name S_txt1" title="名字">名字</a>
+							@endif
 						<a title="微博会员" target="_blank" href="">
 							<i class="W_icon icon_member_dis" style="background-image:url({{url('/home/icon.png')}})"></i>
 						</a>

@@ -24,12 +24,19 @@ class UserLoginRequest extends FormRequest
     public function rules()
     {
         return [
+<<<<<<< HEAD
+=======
+            //
+>>>>>>> 5964fb85cb1ce335a5a7fe11919afe7dea6c4bd5
             'email' => 'required',
             'password' => 'required',
             'code' => 'captcha'
         ];
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5964fb85cb1ce335a5a7fe11919afe7dea6c4bd5
     public function messages()
     {
         return [

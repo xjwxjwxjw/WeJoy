@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 <link rel="icon" type="image/png" href={{url("/admin/assets/i/favicon.png")}}>
 <link rel="stylesheet" href={{url("/css/app.css")}}>
 <link rel="stylesheet" href={{url("/css/bootstrap.css")}}>
@@ -7,7 +6,8 @@
 <link rel="stylesheet" type="text/css" href={{url("/home/css/sinaFaceAndEffec.css")}}>
 <link rel="stylesheet" type="text/css" href={{url("/home/css/wejoyIndex.css")}}>
 <link rel="stylesheet" href={{url("/home/css/footer.css")}} >
->>>>>>> develop
+<link rel="stylesheet" href={{url("/home/css/set/setmain.css")}}>
+
 <script src={{url("/js/app.js")}}></script>
 <script src={{url("home/js/jquery-1.8.3.min.js")}}></script>
 <script src={{url("home/js/jQueryColor.js")}}></script>

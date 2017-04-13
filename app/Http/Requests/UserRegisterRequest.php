@@ -23,18 +23,32 @@ class UserRegisterRequest extends FormRequest
      */
     public function rules()
     {
+<<<<<<< HEAD
         return [
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
             'password_confirmation' =>'required',
         ];
+=======
+           return [
+               'username' => 'required|min:3',
+               'email' => 'required|email|unique:users,email',
+               'password' => 'required|confirmed',
+               'password_confirmation' =>'required',
+           ];
+>>>>>>> 5964fb85cb1ce335a5a7fe11919afe7dea6c4bd5
     }
 
     public function messages()
     {
         return [
+<<<<<<< HEAD
             'name.required' => '用户名不能为空',
+=======
+            'username.required' => '用户名不能为空',
+            'username.min:3' =>'用户名最少3位',
+>>>>>>> 5964fb85cb1ce335a5a7fe11919afe7dea6c4bd5
             'email.required' => '邮箱不能为空',
             'email.email' => '邮箱格式不正确',
             'password.required' => '密码不能为空',
@@ -44,3 +58,8 @@ class UserRegisterRequest extends FormRequest
         ];
     }
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 5964fb85cb1ce335a5a7fe11919afe7dea6c4bd5
