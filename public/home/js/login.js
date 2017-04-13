@@ -26,18 +26,24 @@ var npclick = function(obj){
     }
     // data = data.substring(0,data.length-1);
     var tourl = location.href
-    console.log(tourl)
-
 //   传送数据  即添加数据
     $.ajax({
         url: tourl+'/doLogin',
         data:data,
         type:'post',
         success:function(error){
-            alert(1);
+            if(isNaN(error)){
+                alert('登陆成功');
+                window.location = tourl;
+                // $($('.W_login_form').parents('.login_box')).attr('style','display:none');
+
+            }else{
+                $($('.W_login_form').children('.login_prompt')).attr('style','display:inline-block');
+            }
         },
         error:function (error) {
-            alert(2)
+            alert('登陆失败，刷新重试');
+            window.location = tourl;
         },
         dataType:'json'
     })

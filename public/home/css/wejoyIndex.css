@@ -70,7 +70,6 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 .PCD_pictext_g, .WB_innerwrap,.WB_right_module{
     background-color: #fff;
 }
-<<<<<<< HEAD
 /*右侧1 登陆界面*/
 .login_box {
     min-height: 280px;
@@ -79,9 +78,15 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
     border-radius: 2px;
     box-shadow: 0 0 2px rgba(0,0,0,0.15);
     margin: 0 0 10px 0;
+    background-color: #fff;
 }
 .info_header {
     position: relative;
+}
+.login_prompt{
+    width: 185px;
+    text-align: center;
+    margin-top: 10px;
 }
 .info_header .tab {
     margin-bottom: 16px;
@@ -213,11 +218,6 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
     color: #ef7350;
 }
 
-
-
-
-=======
->>>>>>> 4ab2f3839ab08b9de163e924a63615dd8c1b9db3
 /*右侧1  个人信息*/
 .WB_cardwrap {
     margin: 0 0 10px 0;
@@ -240,10 +240,14 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
     padding: 3px;
     background: rgba(255,255,255,0.3);
     border-radius: 50%;
+    overflow: hidden;
     position: absolute;
     bottom: -20px;
     left: 50%;
     margin-left: -30px;
+}
+.W_person_info .cover .headpic .W_face_radius{
+    border-radius: 50%;
 }
 .W_person_info .WB_innerwrap {
     padding: 16px 16px 9px 16px;

@@ -26,11 +26,14 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href={{url('home/index')}}><span class="glyphicon glyphicon glyphicon-th" aria-hidden="true"></span> 首页</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> 视频</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 发现</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span> 游戏</a></li>
-        @if(Auth::check())
-          <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{Auth::user()->username}}</a></li>
+        @if(Session::has('UserId'))
+          <li>
+            <a href="#">
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+              {{Session::get('UserNickname')}}
+            </a>
+          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-envelope"></span><span class="badge">4</span></a>
             <ul class="dropdown-menu">
@@ -57,13 +60,11 @@
               <li><a href="#">信息设置</a></li>
               <li><a href="#">帮助中心</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href={{url('home/logout')}}>退出</a></li>
+              <li><a href={{url('home/index/doLogout')}}>退出</a></li>
             </ul>
           </li>
           @else
-          <li><a href={{url('home/login')}}>登录</a></li>
-          <li><a>|</a></li>
-          <li><a href={{url('home/register')}}>注册</a></li>
+          <li><a href="">注册</a></li>
           @endif
       </ul>
     </div><!-- /.navbar-collapse -->

@@ -1,6 +1,5 @@
 <style type="text/css">
-    body{background-image:url( {{ url('home/image/body_repeat.png') }} );}
-    .bodybg{background-image:url(  {{ url('home/image/body_repeat.png') }} ) ; }
+    body{background-image:url( {{ url('home/image/body_bg.jpg') }} );}
 </style>
 	<div class="box-content" id="box-content" style="float:left;position: relative;">
 	<div id="imloading" class="well well-sm" style=" text-align: center;position: absolute;bottom:-70px;width:602px;z-index:999;background:#f2dede;display:none;" >I'm Loading...</div>
