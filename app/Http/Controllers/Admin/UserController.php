@@ -2,85 +2,147 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\UserLoginRequest;
+use App\Http\Requests\UserRegisterRequest;
+use App\Permission;
+use App\Role;
+use App\Tool\Result;
+use App\Tool\SMS\SendTemplateSMS;
+use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    public function index() {
-        $result = DB::select('select * from user');
-        return view('admin.user.index', compact('result'));
-    }
-    //    添加用户
-    public function add(Request $request)
+    //显示注册表单
+    public function register()
     {
-//        判断上传图片且不出错 则上传
-        if ($request->hasFile('icon') && $request->file('icon')->isValid()){
-            $iconname = $request->file('icon')->store('image');
+        return view('home.register');
+    }
+
+    //保存用户的信息
+    public function store(UserRegisterRequest $request)
+    {
+        //dd($request->all());
+        $confirmed_code = str_random(10);
+        $data = [
+            'avatar'=>'image/default.jpg',
+            'confirmed_code' =>$confirmed_code,
+        ];
+        $user = User::create(array_merge($request->all(), $data));
+        //dd($user);
+        //发送邮件
+        $view = 'home.emailConfirmed';
+        $subject = '请验证邮箱';
+        $this->sendEmail($user,$view, $subject, $data);
+        return redirect('/');
+    }
+
+    public function sendEmail($user, $view, $subject, $data)
+    {
+        Mail::send($view, $data, function ($m) use ($subject,$user) {
+            $m->to($user->email)->subject($subject);
+        });
+    }
+
+    public function emailConfirm($code)
+    {
+        //dd($code);
+        //查询与之匹配的这个用户
+        $user = User::where('confirmed_code', $code)->first();
+        //dd($user);
+        if (is_null($user)) {
+            return redirect('/');
         }
-        $_POST['icon'] = empty($iconname)?'':$iconname;
-        $_POST['status'] = 1;
-        $arr = array();
-        foreach ($_POST as $k=>$v){
-            if ($k == '_token' || $k == 'password_confirmation' || $v == ''){
-                continue;
+        $user->confirmed_code = str_random(10);
+        $user->is_confirmed = 1;
+        $user->save();
+        return redirect('/login');
+    }
+
+    //显示登录表单
+    public function login()
+    {
+        return view('home.login');
+    }
+
+    //处理登录
+    public function singin(UserLoginRequest $request)
+    {
+        //dd($request->all());
+        Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')]);
+        //dd($flag);
+        return redirect('/');
+    }
+
+    //用户注销
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
+
+    //发送手机验证码
+    public function sendSMS()
+    {
+        $sms = new SendTemplateSMS();
+        $result = $sms->sendSMS('15801986376', array('1234', 5), 1);
+        //dd($result);
+
+        return $result->toJosn();
+    }
+
+    //用户列表
+    public function userList()
+    {
+        $users = User::paginate(5);
+        foreach ($users as $user) {
+            $roles = array();
+            foreach ($user->roles as $role) {
+                $roles[] = $role->display_name;
             }
-            if ($k == 'password'){
-                $arr['pwd'] = md5($v);
-                continue;
+            $user->roles= implode(',', $roles);
+        }
+
+        return view('admin.index',compact('users'),['content' => '/admin/permission/adminuser/content'] );
+    }
+    //添加用户
+    public function userAdd(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $result = $request->all();
+            unset($result['repassword']);
+            User::create(array_merge($result,['avatar'=>'image/default.jpg']));
+        }
+    }
+
+    //分配角色
+    public function attachRole(Request $request,$id)
+    {
+        if ($request->isMethod('post')) {
+            //获取当前用户的角色
+            $user = User::find($id);
+            DB::table('role_user')->where('user_id', $id)->delete();
+            foreach ($request->input('role_id') as $role_id){
+                $user->attachRole(Role::find($role_id));
             }
-            $arr[$k] = $v;
-        }
-        $arr['regtime'] = time();
-        $result = DB::table('user')->insert($arr);
-        if ($result){
-            return redirect('admin/user');
-        }else{
-            return back()->withErrors('添加失败');
-        }
-    }
-    //    删除用户
-    public function del($id)
-    {
-        $result = DB::delete('delete from user where id=?',[$id]);
-        if ($result){
-            return $this->index();
-            exit;
-        }else{
-            return back();
-        }
-    }
-    //    查找被修改的用户信息
-    public function find($id)
-    {
-        $result = DB::select('select * from user where id='.$id);
-        $data = json_encode($result);
-        echo $data;
-    }
-    //    确认修改
-    public function edit(Request $request,$id)
-    {
-        // 判断上传图片且不出错 则上传
-        if ($request->hasFile('icon') && $request->file('icon')->isValid()){
-            $iconname = $request->file('icon')->store('image');
-        }
-        $_POST['icon'] = empty($iconname)?'':$iconname;
-        $_POST['status'] = 1;
-        $arr = array();
-        foreach ($_POST as $k=>$v){
-            if ($k == '_token' || $v == ''){
-                continue;
+            // 返回当条数据
+            $users = User::find($id);
+            $roles = array();
+            foreach ($users->roles as $role) {
+                $roles[] = $role->display_name;
             }
-            $arr[$k] = $v;
-        }
-        $arr['regtime'] = time();
-        $result = DB::table('user')->where('id',$id)->update($arr);
-        if ($result){
-            return redirect('admin/user');
+            $users['role'] = $users->roles= implode(',', $roles);
+            return response()->json($users);
         }else{
-            return back()->withErrors('修改失败');
+        //   //查询所有的权限
+          $roles = Role::all();
+          return response()->json($roles);
         }
+
     }
 }

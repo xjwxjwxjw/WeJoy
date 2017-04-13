@@ -1,5 +1,5 @@
-  <!-- content start -->
-  <script src={{url("/admin/js/news_app.js")}}></script>
+<script src={{url("/admin/js/adminuser_app.js")}}></script>
+<!-- content start -->
 <!-- <div id="slide-target"> -->
   <div class="admin-content" id="admin-content">
 
@@ -43,33 +43,32 @@
         </div>
       </div>
     </div>
-    
+
     <div class="am-g">
       <div class="am-u-sm-12">
           <table class="am-table am-table-striped am-table-hover table-main">
             <thead>
               <tr>
-                <th class="table-check"><input type="checkbox" /></th><th class="table-id">编号</th><th class="table-title">内容</th><th class="table-type">话题</th><th class="table-author">发布者</th><th class="table-date">发布日期</th><th class="table-set">操作</th>
+                <th class="table-check"><input type="checkbox" /></th><th class="table-id">ID</th><th class="table-title">用户名</th><th class="table-type">邮箱</th><th class="table-author">角色名称</th><th class="table-set">操作</th>
               </tr>
           </thead>
           <tbody id="task-list">
-            @if(empty($tasks))
+            @if(empty($users))
             <tr><td>无数据</td></tr>
             @else
-            @foreach ($tasks as $v)
-              <tr id="task{{ $v->nid }}">
+            @foreach ($users as $user)
+              <tr id="task{{ $user->id }}">
                 <td><input type="checkbox" /></td>
-                <td>{{$v->mid}}</td>
-                <td><a href="#">{{$v->comments}}</a></td>
-                <td>{{$v->topic}}</td>
-                <td>{{$v->uid}}</td>
-                <td>{{$v->postedtime}}</td>
+                <td>{{$user->id}}</td>
+                <td>{{$user->name}}</td>
+                <td><a href="#">{{$user->email}}</a></td>
+                <td>{{$user->roles}}</td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn edit am-btn-default am-btn-xs am-text-secondary" value="{{$v->nid}}"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs"><span class="am-icon-copy"></span> 复制</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger delete" value="{{$v->nid}}"><span class="am-icon-trash-o"></span> 删除</button>
+                      <button class="am-btn edit am-btn-default am-btn-xs am-text-secondary attachRole" value="{{$user->id}}"><span class="am-icon-pencil-square-o"></span> 分配角色</button>
+                      <button class="am-btn edit am-btn-default am-btn-xs am-text-secondary" value="{{$user->id}}"><span class="am-icon-pencil-square-o"></span> 修改</button>
+                      <button class="am-btn am-btn-default am-btn-xs am-text-danger delete" value="{{$user->id}}"><span class="am-icon-trash-o"></span> 删除</button>
                     </div>
                   </div>
                 </td>
@@ -81,40 +80,75 @@
           <div class="am-cf">
             共 15 条记录
              <nav aria-label="...">
-              {{$tasks->links('admin/news.page')}}
+               {{$users->links('admin/permission/adminuser.page')}}
             </nav>
           </div>
           <hr />
       </div>
     </div>
   </div>
-  <!-- Large modal -->
+  <!-- Large user modal start -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="exampleModalLabel">修改 微博</h4>
+          <h4 class="modal-title" id="exampleModalLabel">添加管理员</h4>
         </div>
         <div class="modal-body">
-          <form>
+          <form action=''  method="post" id="formuser">
+            {{csrf_field()}}
             <div class="form-group">
-              <label for="recipient-name" class="control-label">话题:</label>
-              <input type="text" class="form-control" id="topic">
+              <label for="recipient-name" class="control-label">用户名：</label>
+              <input type="text" class="form-control" name="name" id="name">
             </div>
             <div class="form-group">
-              <label for="message-text" class="control-label" >内容:</label>
-              <textarea class="form-control" id="content"></textarea>
+              <label for="message-text" class="control-label" >邮箱：</label>
+              <input class="form-control" name="email" type="email" id="email">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="control-label" >密码：</label>
+              <input class="form-control" name="password" type="password" id="password">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="control-label" >确认密码：</label>
+              <input class="form-control" name="repassword" type="password" id="repassword">
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Send message</button>
+          <button type="button" class="btn btn-primary" id="btn" >Send message</button>
         </div>
       </div>
     </div>
   </div>
+  <!-- large modal end -->
+
+  <!-- Large roles modal start -->
+  <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel">分配角色</h4>
+        </div>
+        <div class="modal-body">
+          <form action=''  method="post" id="formrole">
+            {{csrf_field()}}
+            <div class="form-group row" id ="froles">
+              {{$users->links('admin/permission/adminuser.page')}}
+            </div
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="btnrole" >Send message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- large modal end -->
 <!-- </div> -->
   <!-- content end -->
 </body>

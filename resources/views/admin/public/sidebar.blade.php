@@ -46,13 +46,21 @@
     <div id="jquery-accordion-menu" class="jquery-accordion-menu mar100 red">
       <div class="jquery-accordion-menu-header" id="form"></div>
       <ul id="demo-list">
+        <!-- 侧边栏菜单 -->
         <li><a href="#"><i class="fa fa-cog"></i>信息管理 </a>
           <ul class="submenu">
             <li><a href={{url('admin/new')}}>查看微博 </a></li>
             <li class="edit"><a id="new" href="#">Hosting </a></li>
           </ul>
         </li>
-        
+        <li><a href="#"><i class="fa fa-cog"></i>权限管理 </a>
+              <ul class="submenu">
+                  <li><a href={{url('admin/permission/permission')}}>权限管理 </a></li>
+                  <li><a href={{url('admin/permission/role')}}>角色管理 </a></li>
+                  <li class="edit"><a href={{url('admin/permission/adminuser')}}>管理员管理 </a></li>
+              </ul>
+          </li>
+
       </ul>
 
       <div class="jquery-accordion-menu-footer">
@@ -77,7 +85,7 @@
 </div>
 <script type="text/javascript">
   $('document').ready(function(){
-   
+
     $('#new').on('click',function(){
       $.ajax({
         type: 'get',

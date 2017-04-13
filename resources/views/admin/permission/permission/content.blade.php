@@ -1,5 +1,5 @@
-  <!-- content start -->
-  <script src={{url("/admin/js/news_app.js")}}></script>
+<script src={{url("/admin/js/permission_app.js")}}></script>
+<!-- content start -->
 <!-- <div id="slide-target"> -->
   <div class="admin-content" id="admin-content">
 
@@ -43,33 +43,31 @@
         </div>
       </div>
     </div>
-    
+
     <div class="am-g">
       <div class="am-u-sm-12">
           <table class="am-table am-table-striped am-table-hover table-main">
             <thead>
               <tr>
-                <th class="table-check"><input type="checkbox" /></th><th class="table-id">编号</th><th class="table-title">内容</th><th class="table-type">话题</th><th class="table-author">发布者</th><th class="table-date">发布日期</th><th class="table-set">操作</th>
+                <th class="table-check"><input type="checkbox" /></th><th class="table-id">ID</th><th class="table-title">权限路由</th><th class="table-type">权限名称</th><th class="table-author">权限描述</th><th class="table-set">操作</th>
               </tr>
           </thead>
           <tbody id="task-list">
-            @if(empty($tasks))
+            @if(empty($permissions))
             <tr><td>无数据</td></tr>
             @else
-            @foreach ($tasks as $v)
-              <tr id="task{{ $v->nid }}">
+            @foreach ($permissions as $permission)
+              <tr id="task{{ $permission->id }}">
                 <td><input type="checkbox" /></td>
-                <td>{{$v->mid}}</td>
-                <td><a href="#">{{$v->comments}}</a></td>
-                <td>{{$v->topic}}</td>
-                <td>{{$v->uid}}</td>
-                <td>{{$v->postedtime}}</td>
+                <td>{{$permission->id}}</td>
+                <td>{{$permission->name}}</td>
+                <td><a href="#">{{$permission->display_name}}</a></td>
+                <td>{{$permission->description}}</td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn edit am-btn-default am-btn-xs am-text-secondary" value="{{$v->nid}}"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs"><span class="am-icon-copy"></span> 复制</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger delete" value="{{$v->nid}}"><span class="am-icon-trash-o"></span> 删除</button>
+                      <button class="am-btn edit am-btn-default am-btn-xs am-text-secondary" value="{{$permission->id}}"><span class="am-icon-pencil-square-o"></span> 修改</button>
+                      <button class="am-btn am-btn-default am-btn-xs am-text-danger delete" value="{{$permission->id}}"><span class="am-icon-trash-o"></span> 删除</button>
                     </div>
                   </div>
                 </td>
@@ -81,7 +79,7 @@
           <div class="am-cf">
             共 15 条记录
              <nav aria-label="...">
-              {{$tasks->links('admin/news.page')}}
+               {{$permissions->links('admin/permission/permission.page')}}
             </nav>
           </div>
           <hr />
@@ -94,23 +92,28 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="exampleModalLabel">修改 微博</h4>
+          <h4 class="modal-title" id="exampleModalLabel">添加权限</h4>
         </div>
         <div class="modal-body">
-          <form>
+          <form action=''  method="post" id="testform">
+            {{csrf_field()}}
             <div class="form-group">
-              <label for="recipient-name" class="control-label">话题:</label>
-              <input type="text" class="form-control" id="topic">
+              <label for="recipient-name" class="control-label">权限路由：</label>
+              <input type="text" class="form-control" name="name" id="name">
             </div>
             <div class="form-group">
-              <label for="message-text" class="control-label" >内容:</label>
-              <textarea class="form-control" id="content"></textarea>
+              <label for="message-text" class="control-label" >权限描述：</label>
+              <textarea class="form-control" name="display_name" id="content"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="control-label" >描述：</label>
+              <textarea class="form-control" name="description" id="content2"></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Send message</button>
+          <button type="button" class="btn btn-primary" id="btn" >Send message</button>
         </div>
       </div>
     </div>
