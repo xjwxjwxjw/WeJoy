@@ -1,18 +1,5 @@
-<!-- <div class="list-group slideleft test2" style="width:150px;float:left;margin-right:10px;">
-  <button type="button" class="list-group-item test2">首页</button>
-  <button type="button" class="list-group-item test2">我的收藏</button>
-  <button type="button" class="list-group-item test2">我的赞</button>
-  <button type="button" class="list-group-item test2">热门微博</button>
-  <button type="button" class="list-group-item test2">好友圈</button>
-  <button type="button" class="list-group-item test2">特别关注</button>
-  <button type="button" class="list-group-item test2">新闻趣事</button>
-  <button type="button" class="list-group-item test2">新闻趣事</button>
-  <button type="button" class="list-group-item test2">新闻趣事</button>
-  <button type="button" class="list-group-item test2">新闻趣事</button>
-</div> -->
-
 <div>
- <ul class="slideleft MJ_slideleft" style="width:150px;float:left;margin-right:10px;">
+ <ul id='slideleft' class="slideleft MJ_slideleft">
    <li>首页<span class="glyphicon glyphicon-repeat bg1 right"></span></li>
    <li>我的收藏</li>
    <li>我的赞</li>

@@ -1,19 +1,17 @@
 <style type="text/css">
-    body{background-image:url( {{ url('home/image/body_repeat.png') }} );}
-    .bodybg{background-image:url(  {{ url('home/image/body_repeat.png') }} ) ; }
+    body{background-image:url( {{ url('home/image/body_bg.jpg') }} );}
 </style>
 	<div class="box-content" id="box-content" style="float:left;position: relative;">
 	<div id="imloading" class="well well-sm" style=" text-align: center;position: absolute;bottom:-70px;width:602px;z-index:999;background:#f2dede;display:none;" >I'm Loading...</div>
 	  <ul style="list-style:none;" id="test">
 	    <li class="panel panel-default boxtest" style="height:165px;padding:10px;">
 	      &nbsp;&nbsp;&nbsp;有什么新鲜事想告诉大家?
-	        <div class="cont-box">
-	          <textarea id="textarea" oninput="" onpropertychange="" class="text" placeholder="请输入..."></textarea>
+	        <div class="cont-box" id="cont-box" >
+	          <textarea  id="textarea" oninput="" onpropertychange="" class="text" placeholder="请输入..."></textarea>
 	        </div>
 	        <div class="tools-box" style="border:0px solid red;">
 	          <div class="operator-box-btn"><span class="face-icon"  >☺</span><span class="img-icon">▧</span></div>
-	          <div class="submit-btn"><input id="issue" type="button" class="bgsmred" onClick="out()" value="发布">
-	          <!-- <button id="issue" disabled="true">test</button> -->
+	          <div class="submit-btn"><input id="issue" type="button" class="bgsmred" value="发布">
 	          </div>
 	        </div>
 	        <!-- <div id="info-show">
@@ -27,7 +25,7 @@
 					<div></div>
 					<div class="Wejoy_detail">
 						<div class="WJ_info clearfix">
-							<span class="left">Test</span>
+							<span class="left"></span>
 							<div class="dropdown">
 							  <a class="right dropdown-toggle Wj_cursons" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 							    <span class="glyphicon glyphicon-chevron-down"></span>
@@ -42,16 +40,16 @@
 							  </ul>
 							</div>
 						</div>
-						<div class="WJ_text clearfix">今天 09:02 来自 微博 weibo.com</div>
-						<div class="WJ_text2 clearfix">我们不是出生在一个和平的年代，而是一个和平的国家。</div>
+						<div class="WJ_text clearfix"> 来自 微博 weibo.com</div>
+						<div class="WJ_text2 clearfix"></div>
 						<div class="Wj_media_wrap clearfix bg2"></div>
 					</div>
 				</div>
 				<div class="WJ_feed_handle clearfix">
 					<ul class="WJ_row_line row">
-						<li class="left"><span class="glyphicon glyphicon-star-empty pos" >收藏</span></li>
-						<li class="left"><span class="glyphicon glyphicon-share" > 999</span></li>
-						<li class="left"><span class="glyphicon glyphicon-comment" > 666</span></li>
+						<li class="left"><span class="glyphicon glyphicon-star-empty pos" > 收藏</span></li>
+						<li class="left"><span class="glyphicon glyphicon-share" > </span></li>
+						<li class="left"><span class="glyphicon glyphicon-comment" > </span></li>
 						<li class="left"><span class="glyphicon glyphicon-thumbs-up" > 129</span></li>
 					</ul>
 				</div>
@@ -60,7 +58,16 @@
 	  </ul>
 	</div>
 <script type="text/javascript">
-	$(document).bind('propertychange input', function () {  
+
+  $('#textarea').focus(function(){
+    $('#cont-box').addClass('Weborder');
+
+    $('#textarea').blur(function(){
+      $('#cont-box').removeClass('Weborder');
+    })
+  })
+
+	$(document).bind('propertychange input', function () {
         var counter = $('#textarea').val().length;
         // $('#tips var').text(300 - counter);    //每次减去字符长度
         $('#issue').attr("disabled",false).addClass('bgred').removeClass('bgsmred');
@@ -96,6 +103,32 @@
 				/*瀑布流开始*/
 				var container = $('.box-content ul:first');
 				var loading=$('#imloading');
+        var sqlJson=[];
+        // 侧边栏到底改变css
+        $(window).scroll(function(){
+          if ( $(document).height() - $(document).scrollTop() <= 900 ) {
+            console.log('后面的');
+            $('#slideleft').addClass('slidefloat').show('2000');
+          } else {
+            $('#slideleft').removeClass('slidefloat').show('2000');
+          }
+
+          // if ( $(document).height() - $(document).scrollTop() <= 1200 ) {
+          //   console.log('后面的');
+          //   $('#slideleft').removeClass('slideleft').addClass('slidefloat');
+          // }
+        })
+
+        // 获取后台信息数据
+        $.ajax({
+          url:'contentIndex',
+          type:'get',
+          success:function(data){
+            sqlJson = data;
+          },
+          error:function(data){
+          }
+        });
 				// 初始化loading状态
 				loading.data("on",true);
 				/*判断瀑布流最大布局宽度，最大为1280*/
@@ -130,7 +163,7 @@
 				});
 
 				/*模拟从后台获取到的数据*/
-				var sqlJson=[{'title':'瀑布流其实就是几个函数的事！','intro':'爆料，苏亚雷斯又咬人啦，C罗哪有内马尔帅，梅西今年要不夺冠，你就去泰国吧，老子买了阿根廷赢得彩票，输了就去不成了。','src':'./images/one.jpeg','writer':'志强不息','date':'2小时前','looked':321},{'title':'瀑布流其实就是几个函数的事！','intro':'爆料了，苏亚雷斯又咬人啦，C罗哪有内马尔帅，梅西今年要不夺冠，你就去泰国吧，老子买了阿根廷赢得彩票，输了就去不成了。','src':'./images/demo2.jpg','writer':'志强不息','date':'2小时前','looked':321},{'title':'瀑布流其实就是几个函数的事！','intro':'爆料了，苏亚雷斯又咬人啦，C罗哪有内马尔帅，梅西今年要不夺冠，你就去泰国吧，老子买了阿根廷赢得彩票，输了就去不成了。','src':'./images/p1.jpg','writer':'志强不息','date':'2小时前','looked':321},{'title':'瀑布流其实就是几个函数的事！','intro':'爆料了，苏亚雷斯又咬人啦，C罗哪有内马尔帅，梅西今年要不夺冠，你就去泰国吧，老子买了阿根廷赢得彩票，输了就去不成了。','src':'./images/p1.jpg','writer':'志强不息','date':'2小时前','looked':321}];
+				// var sqlJson=[{'title':'瀑布流其实就是几个函数的事！','intro':'爆料，苏亚雷斯又咬人啦，C罗哪有内马尔帅，梅西今年要不夺冠，你就去泰国吧，老子买了阿根廷赢得彩票，输了就去不成了。','src':'./images/one.jpeg','writer':'志强不息','date':'2小时前','looked':321},{'title':'瀑布流其实就是几个函数的事！','intro':'爆料了，苏亚雷斯又咬人啦，C罗哪有内马尔帅，梅西今年要不夺冠，你就去泰国吧，老子买了阿根廷赢得彩票，输了就去不成了。','src':'./images/demo2.jpg','writer':'志强不息','date':'2小时前','looked':321},{'title':'瀑布流其实就是几个函数的事！','intro':'爆料了，苏亚雷斯又咬人啦，C罗哪有内马尔帅，梅西今年要不夺冠，你就去泰国吧，老子买了阿根廷赢得彩票，输了就去不成了。','src':'./images/p1.jpg','writer':'志强不息','date':'2小时前','looked':321},{'title':'瀑布流其实就是几个函数的事！','intro':'爆料了，苏亚雷斯又咬人啦，C罗哪有内马尔帅，梅西今年要不夺冠，你就去泰国吧，老子买了阿根廷赢得彩票，输了就去不成了。','src':'./images/p1.jpg','writer':'志强不息','date':'2小时前','looked':321}];
 				/*本应该通过ajax从后台请求过来类似sqljson的数据然后，便利，进行填充，这里我们用sqlJson来模拟一下数据*/
 				$(window).scroll(function(){
 					if(!loading.data("on")) return;
@@ -150,17 +183,17 @@
 								var html="";
 								for(var i in sqlJson){
 									html += "<li class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><div class='Wejoy_face bg2'></div><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
-									html += "<span class='left'>"+i+"</span>";
+									html += "<span class='left'>"+sqlJson[i].uid+"</span>";
 									html += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";
 									html += "<li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
-									html += "<div class='WJ_text clearfix'>今天 09:02 来自 微博 weibo.com</div>";
-									html += "<div class='WJ_text2 clearfix'>我们不是出生在一个和平的年代，而是一个和平的国家。</div>";
+									html += "<div class='WJ_text clearfix'>"+sqlJson[i].created_at+" 来自 微博 weibo.com</div>";
+									html += "<div class='WJ_text2 clearfix'>"+sqlJson[i].content+"</div>";
 									html += "<div class='Wj_media_wrap clearfix bg2'></div></div></div>";
 									html += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
 									html += "<li class='left'><span class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
-									html += "<li class='left'><span class='glyphicon glyphicon-share' > 999</span></li>";
-									html += "<li class='left'><span class='glyphicon glyphicon-comment' > 666</span></li>";
-									html += "<li class='left'><span class='glyphicon glyphicon-thumbs-up' > 129</span></li>";
+									html += "<li class='left'><span class='glyphicon glyphicon-share' > "+sqlJson[i].transmits+"</span></li>";
+									html += "<li class='left'><span class='glyphicon glyphicon-comment' > "+sqlJson[i].comments+"</span></li>";
+									html += "<li class='left'><span class='glyphicon glyphicon-thumbs-up' > "+sqlJson[i].favtimes+"</span></li>";
 									html += "</ul></div></div></li>";
 								}
 								/*模拟ajax请求数据时延时800毫秒*/
@@ -204,5 +237,3 @@
 				 });
 		})
 </script>
-
-

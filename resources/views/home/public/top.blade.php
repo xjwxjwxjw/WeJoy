@@ -26,9 +26,7 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href={{url('home/index')}}><span class="glyphicon glyphicon glyphicon-th" aria-hidden="true"></span> 首页</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span> 视频</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 发现</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span> 游戏</a></li>
         @if(Auth::check())
           <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>{{Auth::user()->username}}</a></li>
           <li class="dropdown">

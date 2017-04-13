@@ -17,6 +17,7 @@
 
 {{--右侧用于登陆的js--}}
 <script src="{{url('home/js/login.js')}}"></script>
+<script src="{{url('home/js/main.js')}}"></script>
 
 <link rel="icon" type="image/png" href={{url("/admin/assets/i/favicon.png")}}>
 <link rel="stylesheet" href={{url("css/app.css")}}>

@@ -36,6 +36,10 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 .MJ_slideleft li:hover{background-color: #81B8D9;cursor: pointer;}
 .panel{margin-bottom: 5px;}
 .WJbadge{background-color: #ff6700;height: 14px;float: right;width: 20px;text-align: center;border: 1px solid #ff6700;border-radius:2px;}
+/*js 用途css*/
+.Weborder{border:1px solid #ff6700;}
+/*js 用途css end*/
+.slidefloat{bottom:360px;}
 /*右侧css开始*/
 .WB_main_r {
     width: 215px;
