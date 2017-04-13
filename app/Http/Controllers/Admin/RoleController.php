@@ -58,11 +58,13 @@ class RoleController extends Controller
         // return view('admin/permission.permissionUpdate', compact('permission'));
     }
 
-    //删除权限
+    //删除角色
     public function roleDelete($id)
     {
         //删除信息
-        Role::destroy([$id]);
+        DB::table('roles')->where('id', $id)->delete();
+        DB::table('role_user')->where('role_id', $id)->delete();
+        DB::table('permission_role')->where('role_id', $id)->delete();
 
     }
 

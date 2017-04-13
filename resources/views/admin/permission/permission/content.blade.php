@@ -61,7 +61,7 @@
                 <td><input type="checkbox" /></td>
                 <td>{{$permission->id}}</td>
                 <td>{{$permission->name}}</td>
-                <td><a href="#">{{$permission->display_name}}</a></td>
+                <td>{{$permission->display_name}}</td>
                 <td>{{$permission->description}}</td>
                 <td>
                   <div class="am-btn-toolbar">

@@ -22,16 +22,12 @@ class PermissionController extends Controller
         if ($request->isMethod('post')) {
            //添加权限操作
             $permission = Permission::create($request->all());
-            // return redirect('/permission-list');
             $permissions = Permission::all();
-            return view('admin.index',compact('permissions'),['content' => '/admin/permission/permission/content'] );
         }
-        return view('admin.index',compact('permissions'),['content' => '/admin/permission/permission/content'] );
 
     }
     public function permissionfind($id)
     {
-        // return redirect('/permission-list');
         $permissions = Permission::where('id','=',$id)->get();
         return response()->json($permissions);
     }
@@ -54,8 +50,7 @@ class PermissionController extends Controller
     //删除权限
     public function permissionDelete($id)
     {
-      dd($id);
-        
-
+      Permission::destroy([$id]);
+      DB::table('permission_role')->where('permission_id', $id)->delete();
     }
 }

@@ -61,7 +61,7 @@
                 <td><input type="checkbox" /></td>
                 <td>{{$user->id}}</td>
                 <td>{{$user->name}}</td>
-                <td><a href="#">{{$user->email}}</a></td>
+                <td>{{$user->email}}</td>
                 <td>{{$user->roles}}</td>
                 <td>
                   <div class="am-btn-toolbar">

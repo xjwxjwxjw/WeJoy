@@ -61,7 +61,7 @@
                 <td><input type="checkbox" /></td>
                 <td>{{$role->id}}</td>
                 <td>{{$role->name}}</td>
-                <td><a href="#">{{$role->display_name}}</a></td>
+                <td>{{$role->display_name}}</td>
                 <td>{{$role->description}}</td>
                 <td>{{$role->perms}}</td>
                 <td>

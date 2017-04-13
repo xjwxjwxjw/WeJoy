@@ -120,6 +120,13 @@ class UserController extends Controller
         }
     }
 
+    //删除管理员
+    public function userDelete($id)
+    {
+        //删除信息
+        DB::table('users')->where('id', $id)->delete();        
+    }
+
     //分配角色
     public function attachRole(Request $request,$id)
     {

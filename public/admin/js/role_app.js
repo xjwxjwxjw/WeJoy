@@ -110,13 +110,18 @@ $(document).ready(function(){
 				$('#myModal').modal('hide');
         $('#btn').removeClass('save');
         $datalist = data[0];
+        if ( $datalist['perm'] == undefined ) {
+          $datalist['perm'] = '';
+        }
         var task = '<tr id="task' + $datalist['id'] + '">' +
                     '<td><input type="checkbox" /></td>'+
                     '<td>'+ $datalist['id'] +'</td>' +
                     '<td>'+ $datalist['name'] +'</td>' +
                     '<td>'+ $datalist['display_name'] +'</td>' +
                     '<td>'+ $datalist['description'] +'</td>' +
+                    '<td>'+ $datalist['perm'] +'</td>' +
                     '<td>'+
+                    "<button class='am-btn am-btn-default am-btn-xs am-text-secondary attachPermission' value='" + $datalist['id'] + "'><span class='am-icon-pencil-square-o'></span> 分配权限</button>"+
                     "<button class='am-btn edit am-btn-default am-btn-xs am-text-secondary' value='" + $datalist['id'] + "'><span class='am-icon-pencil-square-o'></span> 修改</button>"+
                     "<button class='am-btn am-btn-default am-btn-xs am-text-danger delete' value='" + $datalist['id'] + "'><span class='am-icon-trash-o'></span> 删除</button>"+
                     '</td>' +
