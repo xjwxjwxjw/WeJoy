@@ -51,12 +51,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     });
   });
 	// 用户
-	Route::get('user', 'HomeUserController@index');
+	Route::get('user', 'UserController@index');
 	Route::group(['prefix' => 'user'], function () {
-		Route::post('doAdd', 'HomeUserController@add');
-    	Route::get('doDel/{id}', 'HomeUserController@del');
-    	Route::get('doFind/{id}', 'HomeUserController@find');
-    	Route::post('doEdit/{id}', 'HomeUserController@edit');
+		Route::post('doAdd', 'UserController@add');
+    	Route::get('doDel/{id}', 'UserController@del');
+    	Route::get('doFind/{id}', 'UserController@find');
+    	Route::post('doEdit/{id}', 'UserController@edit');
 	});
 
 });
@@ -65,47 +65,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
 	Route::get('index','IndexController@index');
 	Route::get('user','UserController@index');
-});
-// 	用户路由
+// //	用户路由
 // 	Route::group(['prefix'=>'user'],function(){
 // 	    Route::get('index','UserController@index');
 //     });
 
-<<<<<<< HEAD
 });
-//后台登陆控制器
-Route::get('admin/login','Admin\LoginController@login');
-Route::post('admin/login','Admin\LoginController@showlogin');
-=======
-	
-	//后台登陆控制器
-Route::get('admin/login','Admin\LoginController@login');
-Route::post('admin/login','Admin\LoginController@showlogin');
-
->>>>>>> 5964fb85cb1ce335a5a7fe11919afe7dea6c4bd5
-//// 后台除登陆控制器
-//Route::group(['middleware'=>'check.login'],function(){
-//	Route::get('/admin/index','Admin\IndexController@index');
-//	Route::get('/admin/myIndex','Admin\IndexController@myIndex');
-//	Route::get('/admin/myIndex/del/{id?}','Admin\IndexController@myDel');
-//});
-<<<<<<< HEAD
-=======
-
->>>>>>> 5964fb85cb1ce335a5a7fe11919afe7dea6c4bd5
-//前台登陆注册
-Route::get('home/register','Home\LoginController@register');
-Route::post('home/store','Home\LoginController@store');
-Route::get('verify/{confirmed_code}', 'Home\LoginController@emailConfirm');
-Route::get('home/login','Home\LoginController@login');
-Route::post('home/singin', 'Home\LoginController@singin');
-<<<<<<< HEAD
-Route::get('home/logout', 'Home\LoginController@logout');
-=======
-Route::get('home/logout', 'Home\LoginController@logout');
-
-//前台设置
-Route::get('home/set','Home\SetController@set');
-
-
->>>>>>> 5964fb85cb1ce335a5a7fe11919afe7dea6c4bd5
