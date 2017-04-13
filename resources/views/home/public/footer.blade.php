@@ -91,7 +91,7 @@
             </p>
         </div>
     </div>
-    <div class="W_fold" style="display: none">
+    <div class="W_fold">
         <a href="javascript:void(0);">
             <em class="W_ficon ficon_arrow_right S_ficon"></em>
         </a>

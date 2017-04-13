@@ -1,4 +1,5 @@
   <!-- content start -->
+  <script src={{url("/admin/js/news_app.js")}}></script>
 <!-- <div id="slide-target"> -->
   <div class="admin-content" id="admin-content">
 

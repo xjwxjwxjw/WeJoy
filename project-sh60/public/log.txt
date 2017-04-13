@@ -1,0 +1,90 @@
+request body = <TemplateSMS>
+                    <to>15801986376</to> 
+                    <appId>8aaf07085a3c0ea1015a590d520c09d4</appId>
+                    <templateId>1</templateId>
+                    <datas><data>1234</data><data>5</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a216da856c131340156d0c4fe9e0b44/SMS/TemplateSMS?sig=7EEA74EA48F8D9B17EF84A4445F6B635
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Response>
+    <statusCode>121002</statusCode>
+    <statusMsg>Authen: 呼叫鉴权，余额不足</statusMsg>
+</Response>
+
+request body = <TemplateSMS>
+                    <to>15801986376</to> 
+                    <appId>8aaf07085a3c0ea1015a590d520c09d4</appId>
+                    <templateId>1</templateId>
+                    <datas><data>1234</data><data>5</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a216da856c131340156d0c4fe9e0b44/SMS/TemplateSMS?sig=64319846E34FD2CB90EBCE82BE0C0B64
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Response>
+    <statusCode>000000</statusCode>
+    <TemplateSMS>
+        <smsMessageSid>68e8367a13444596b37c2f792f05d150</smsMessageSid>
+        <dateCreated>20170410163854</dateCreated>
+    </TemplateSMS>
+</Response>
+
+request body = <TemplateSMS>
+                    <to>15801986376</to> 
+                    <appId>8aaf07085a3c0ea1015a590d520c09d4</appId>
+                    <templateId>1</templateId>
+                    <datas><data>1234</data><data>5</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a216da856c131340156d0c4fe9e0b44/SMS/TemplateSMS?sig=DE0C73F3DAF182940CA7B29865464956
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Response>
+    <statusCode>000000</statusCode>
+    <TemplateSMS>
+        <smsMessageSid>a834ccc3789c47a9a81fd71332cb3e68</smsMessageSid>
+        <dateCreated>20170410164235</dateCreated>
+    </TemplateSMS>
+</Response>
+
+request body = <TemplateSMS>
+                    <to>15801986376</to> 
+                    <appId>8aaf07085a3c0ea1015a590d520c09d4</appId>
+                    <templateId>1</templateId>
+                    <datas><data>1234</data><data>5</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a216da856c131340156d0c4fe9e0b44/SMS/TemplateSMS?sig=4394CDF775768ECA980F0D266CC0EECD
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Response>
+    <statusCode>000000</statusCode>
+    <TemplateSMS>
+        <smsMessageSid>cfc94e6cdbd44b22bfa61a7bf673cf3e</smsMessageSid>
+        <dateCreated>20170410164550</dateCreated>
+    </TemplateSMS>
+</Response>
+
+request body = <TemplateSMS>
+                    <to>15801986376</to> 
+                    <appId>8aaf07085a3c0ea1015a590d520c09d4</appId>
+                    <templateId>1</templateId>
+                    <datas><data>1234</data><data>5</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a216da856c131340156d0c4fe9e0b44/SMS/TemplateSMS?sig=7C501FA3A0DF4C316181AEF516149427
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Response>
+    <statusCode>160038</statusCode>
+    <statusMsg>短信验证码发送过频繁</statusMsg>
+</Response>
+
+request body = <TemplateSMS>
+                    <to>15801986376</to> 
+                    <appId>8aaf07085a3c0ea1015a590d520c09d4</appId>
+                    <templateId>1</templateId>
+                    <datas><data>1234</data><data>5</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a216da856c131340156d0c4fe9e0b44/SMS/TemplateSMS?sig=0A64407C4115E321414960D0D85E3D3A
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Response>
+    <statusCode>000000</statusCode>
+    <TemplateSMS>
+        <smsMessageSid>3e010c698fa843c3aecda78332d8b9dc</smsMessageSid>
+        <dateCreated>20170410164718</dateCreated>
+    </TemplateSMS>
+</Response>
+

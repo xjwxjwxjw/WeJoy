@@ -47,12 +47,12 @@ $(document).ready(function(){
 			},
 			error: function(data) {
 				console.log(data);
-                var errors = data.responseJSON;
-                var errorsHtml= '';
-                $.each( errors, function( key, value ) {
-                    errorsHtml += '<li>' + value[0] + '</li>';
-                });
-                toastr.error( errorsHtml , "Error " + data.status +': '+ errorThrown);
+        var errors = data.responseJSON;
+        var errorsHtml= '';
+        $.each( errors, function( key, value ) {
+            errorsHtml += '<li>' + value[0] + '</li>';
+        });
+        toastr.error( errorsHtml , "Error " + data.status +': '+ errorThrown);
 			}
 		})
 	})
@@ -64,14 +64,14 @@ $(document).ready(function(){
 			data:{id:""+tid+""},
 			url:url+'edit/'+tid,
 			success:function(data) {
-				console.log(data);
 				$datalist = data[0];
+        console.log($datalist);
 				$('#myModal').modal('show');
 				$('#topic').val($datalist['topic']);
 				$('#content').val($datalist['content']);
 			},
 			error: function() {
-				
+
 			}
 		})
 	})
