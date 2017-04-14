@@ -6,6 +6,7 @@
 	  <ul style="list-style:none;" id="test">
 	    <li class="panel panel-default boxtest" style="height:165px;padding:10px;">
 	      &nbsp;&nbsp;&nbsp;有什么新鲜事想告诉大家?
+        <div style="float:right;" id="result">可输入150字</div>
         <form id="testform" action="" method="post">
           {{csrf_field()}}
 	        <div class="cont-box" id="cont-box" >

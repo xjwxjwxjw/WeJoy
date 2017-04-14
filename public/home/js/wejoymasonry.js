@@ -7,12 +7,25 @@
   })
 
 	$(document).bind('propertychange input', function () {
-        var counter = $('#textarea').val().length;
-        // $('#tips var').text(300 - counter);    //每次减去字符长度
-        $('#issue').attr("disabled",false).addClass('bgred').removeClass('bgsmred');
-        if ( $('#textarea').val() == '' ) {
-        	$('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
-        };
+         var length = 150;
+         var content_len = $("#textarea").val().length;
+         var in_len = length-content_len;
+         // 当用户输入的字数大于制定的数时，让提交按钮失效
+         // 小于制定的字数，就可以提交
+         if(in_len >=0){
+            $("#result").html('可输入'+in_len+'字');
+              $('#issue').attr("disabled",false).addClass('bgred').removeClass('bgsmred');
+            // 可以继续执行其他操作
+         }else{
+            $("#result").html('可输入'+in_len+'字');
+            $('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
+            return false;
+         }
+        //  console.log( $('#textarea').val() );
+         if ( $('#textarea').val() == '' ) {
+         	 $('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
+         };
+
 	});
 	// 输入框,输入内容改变按钮
 	// // 绑定表情
