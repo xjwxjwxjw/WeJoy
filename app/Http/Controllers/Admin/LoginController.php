@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class Logincontroller extends Controller
 {
@@ -17,23 +18,25 @@ class Logincontroller extends Controller
     {
 
         $rules = array(
-            'username'=>'required',
+            'name'=>'required',
             'password'=>'required',
         );
         $message = array(
-            'useername.required'=>'用户名不能为空',
+            'name.required'=>'用户名不能为空',
             'password.required'=>'密码不能为空',
         );
         $this->validate($request,$rules,$message);
 
-        $username=$request->input('username');
+        $name=$request->input('name');
         $password=$request->input('password');
-        $result=DB::table('VIP')->where('username',$username)
+        $result=DB::table('users')->where('name',$name)
                                 ->where('password',$password)
                                 ->get();
-
+        $id=DB::table('users')->value('id');
         if(!empty($result->all())) {
-            return redirect('/');
+            Session::put('id',$id);
+            Session::put('name',$name);
+            return redirect('admin/index');
 
         }else{
             return redirect('admin/login');

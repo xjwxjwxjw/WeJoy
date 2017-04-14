@@ -10,9 +10,19 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+//权限管理中间件
+//Route::group(['middleware'=>'rbac'],function(){
+//    Route::get('admin/permission/role','Admin\RoleController@roleList');
+//
+//});
+
 
 // 后台路由
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
@@ -35,7 +45,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/permissionfind/{id}', 'PermissionController@permissionfind');
     });
     //  角色
-    Route::get('/role', 'RoleController@roleList');
+   Route::get('/role', 'RoleController@roleList');
     Route::group(['prefix' => 'role'], function () {
         Route::any('/role-add', 'RoleController@roleAdd');
         Route::any('/role-update/{id}', 'RoleController@roleUpdate');
