@@ -1,24 +1,27 @@
 <style type="text/css">
     body{background-image:url( {{ url('home/image/body_bg.jpg') }} );}
 </style>
-	<div class="box-content" id="box-content" style="float:left;position: relative;">
-	<div id="imloading" class="well well-sm" style=" text-align: center;position: absolute;bottom:-70px;width:602px;z-index:999;background:#f2dede;display:none;" >I'm Loading...</div>
+	<div class="box-content clearfix" id="box-content" style="float:left;position: relative;">
+	<div id="imloading" class="well well-sm" style=" text-align: center;position: absolute;bottom:-60px;width:602px;z-index:999;background:#f2dede;display:none;" >I'm Loading...</div>
 	  <ul style="list-style:none;" id="test">
 	    <li class="panel panel-default boxtest" style="height:165px;padding:10px;">
 	      &nbsp;&nbsp;&nbsp;有什么新鲜事想告诉大家?
+        <form id="testform" action="" method="post">
+          {{csrf_field()}}
 	        <div class="cont-box" id="cont-box" >
-	          <textarea  id="textarea" oninput="" onpropertychange="" class="text" placeholder="请输入..."></textarea>
-	        </div>
+              <textarea  id="textarea" oninput="" onpropertychange="" class="text" placeholder="请输入..."></textarea
+          </div>
 	        <div class="tools-box" style="border:0px solid red;">
 	          <div class="operator-box-btn"><span class="face-icon"  >☺</span><span class="img-icon">▧</span></div>
 	          <div class="submit-btn"><input id="issue" type="button" class="bgsmred" value="发布">
 	          </div>
 	        </div>
+          </form>
 	        <!-- <div id="info-show">
 				<ul></ul>
 	    	</div> -->
 	    </li>
-		<li class='panel panel-default boxtest'>
+		  <li class='panel panel-default boxtest'>
 			<div>
 				<div class="Wejoy_feed_detail clearfix">
 					<div class="Wejoy_face bg2"></div>
@@ -108,15 +111,10 @@
         $(window).scroll(function(){
           if ( $(document).height() - $(document).scrollTop() <= 900 ) {
             console.log('后面的');
-            $('#slideleft').addClass('slidefloat').show('2000');
+            $('#slideleft').addClass('slidefloat');
           } else {
-            $('#slideleft').removeClass('slidefloat').show('2000');
+            $('#slideleft').removeClass('slidefloat');
           }
-
-          // if ( $(document).height() - $(document).scrollTop() <= 1200 ) {
-          //   console.log('后面的');
-          //   $('#slideleft').removeClass('slideleft').addClass('slidefloat');
-          // }
         })
 
         // 获取后台信息数据
@@ -167,6 +165,7 @@
 				/*本应该通过ajax从后台请求过来类似sqljson的数据然后，便利，进行填充，这里我们用sqlJson来模拟一下数据*/
 				$(window).scroll(function(){
 					if(!loading.data("on")) return;
+          // toastr.success('正在加载中');
 					// 计算所有瀑布流块中距离顶部最大，进而在滚动条滚动时，来进行ajax请求，方法很多这里只列举最简单一种，最易理解一种
 					var itemNum=$('#box-content').find('.boxtest').length;
 					var itemArr=[];
@@ -174,16 +173,18 @@
 					var maxTop=Math.max.apply(null,itemArr);
 					if(maxTop<$(window).height()+$(document).scrollTop()){
 						//加载更多数据
-						loading.data("on",false).fadeIn(800);
+						loading.data("on",false);
+            toastr.success('正在加载中');
 						(function(sqlJson){
 							/*这里会根据后台返回的数据来判断是否你进行分页或者数据加载完毕这里假设大于30就不在加载数据*/
-							if(itemNum>2){
-								loading.text('就有这么多了！');
+              if(itemNum>sqlJson.length){
+								// loading.text('就有这么多了！');
+                toastr.success('只有这么多了!');
 							}else{
 								var html="";
 								for(var i in sqlJson){
 									html += "<li class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><div class='Wejoy_face bg2'></div><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
-									html += "<span class='left'>"+sqlJson[i].uid+"</span>";
+									html += "<span class='left'>"+sqlJson[i].username+"</span>";
 									html += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";
 									html += "<li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
 									html += "<div class='WJ_text clearfix'>"+sqlJson[i].created_at+" 来自 微博 weibo.com</div>";
@@ -205,7 +206,7 @@
 									$newElems.imagesLoaded(function(){
 										$newElems.animate({ opacity: 1},800);
 										container.masonry( 'appended', $newElems,true);
-										loading.data("on",true).fadeOut();
+										loading.data("on",true);
 										clearTimeout(time);
 							        });
 								},800)

@@ -68,7 +68,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('user','UserController@index');
   Route::get('index/doLogout', 'LoginHomeController@doLogout');
   Route::any('content','ContentController@contentAdd');
-  Route::get('contentIndex','ContentController@contentFind');
+  Route::any('contentIndex','ContentController@contentFind');
 
 // //	用户路由
 // 	Route::group(['prefix'=>'user'],function(){

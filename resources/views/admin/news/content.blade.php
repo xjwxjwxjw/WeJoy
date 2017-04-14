@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="am-g">
       <div class="am-u-sm-12">
           <table class="am-table am-table-striped am-table-hover table-main">
@@ -57,7 +57,7 @@
             <tr><td>无数据</td></tr>
             @else
             @foreach ($tasks as $v)
-              <tr id="task{{ $v->nid }}">
+              <tr id="task{{ $v->id }}">
                 <td><input type="checkbox" /></td>
                 <td>{{$v->mid}}</td>
                 <td><a href="#">{{$v->comments}}</a></td>
@@ -67,9 +67,9 @@
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn edit am-btn-default am-btn-xs am-text-secondary" value="{{$v->nid}}"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                      <button class="am-btn edit am-btn-default am-btn-xs am-text-secondary" value="{{$v->id}}"><span class="am-icon-pencil-square-o"></span> 编辑</button>
                       <button class="am-btn am-btn-default am-btn-xs"><span class="am-icon-copy"></span> 复制</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger delete" value="{{$v->nid}}"><span class="am-icon-trash-o"></span> 删除</button>
+                      <button class="am-btn am-btn-default am-btn-xs am-text-danger delete" value="{{$v->id}}"><span class="am-icon-trash-o"></span> 删除</button>
                     </div>
                   </div>
                 </td>
