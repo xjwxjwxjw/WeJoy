@@ -11,10 +11,13 @@
 <script src={{url("home/js/jQueryColor.js")}}></script>
 <!--这个插件是瀑布流主插件函数必须-->
 <script src={{url("home/js/jquery.masonry.min.js")}}></script>
+<!-- toastr提示插件 -->
+<link rel="stylesheet" href={{url("admin/css/toastr.min.css")}}>
+<script src={{url("/admin/js/toastr.min.js")}}></script>
 <!--这个插件只是为了扩展jquery的animate函数动态效果可有可无-->
 <script src={{url("home/js/jQeasing.js")}}></script>
 <script src={{url("home/js/sinaFaceAndEffec.js")}}></script>
-
+<script src={{url("home/js/wejoymasonry.js")}}></script>
 {{--右侧用于登陆的js--}}
 <script src="{{url('home/js/login.js')}}"></script>
 <script src="{{url('home/js/main.js')}}"></script>

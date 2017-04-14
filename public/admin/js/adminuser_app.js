@@ -83,7 +83,7 @@ $(document).ready(function(){
 
     $('body').on('click','#btnrole',function(){
       $.ajax({
-        type: 'post',
+        type: 'get',
         data: $('form:last').serialize(),
         url:url+'attach-role/'+tid,
         success:function(data) {

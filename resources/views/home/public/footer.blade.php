@@ -1,4 +1,6 @@
-<div id="plc_bot">
+<div class="" style="width:602px;margin:0 auto;" >
+</div>
+<div id="plc_bot" style="position: relative;">
     <div class="WB_footer S_bg2">
         <div class="footer_link clearfix">
             <dl class="list">
