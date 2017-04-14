@@ -59,7 +59,6 @@
         // 侧边栏到底改变css
         $(window).scroll(function(){
           if ( $(document).height() - $(document).scrollTop() <= 900 ) {
-            console.log('后面的');
             $('#slideleft').addClass('slidefloat');
           } else {
             $('#slideleft').removeClass('slidefloat');
@@ -176,7 +175,7 @@
 				        	return img.src;
 				       };
 				  };
-				  loadImage('./images/one.jpeg',test());
+				  // loadImage('./images/one.jpeg',test());
 				 /*item hover效果*/
 				 var rbgB=['#71D3F5','#F0C179','#F28386','#8BD38B'];
 				 $('#box-content').on('mouseover','boxtest',function(){

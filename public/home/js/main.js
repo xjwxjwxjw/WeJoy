@@ -37,6 +37,7 @@
         }
     })
 })(jQuery);
+
 $(document).ready(function(){
 	$(".img-icon").click(function(){
 		$(".cont-box .text").insertContent('<img src="请在这里输入图片地址" alt=""/>', -10);

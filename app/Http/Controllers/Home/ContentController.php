@@ -35,7 +35,7 @@ class ContentController extends Controller
     foreach ($news as $new ) {
        $new->username = DB::table('homeuser')->where('id','=','4')->value('name');
     }
-    // return response()->json($news);
+    return response()->json($news);
   }
 
 }
