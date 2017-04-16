@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\UserFans;
 use Illuminate\Auth\Access\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -50,12 +51,13 @@ class LoginHomeController extends Controller
          echo false;
          exit;
       }
+        $fans = count(UserFans::where('uid',$loginUser[0]->id)->where('status',1)->get());
+        $fansed = count(UserFans::where('uid_ed',$loginUser[0]->id)->where('status',1)->get());
+//    $hei = count(UserFans::where('uid',$loginUser[0]->id)->where('status',2)->get());
         Cookie::queue('UserId',$loginUser[0]->id,0);
         Cookie::queue('UserNickname', $loginUser[0]->name,0);
-//        $request->cookie('UserId',$loginUser[0]->id);
-//        $request->cookie('UserNickname', $loginUser[0]->name);
-//      Session::put('UserId',$loginUser[0]->id);
-//      Session::put('UserNickname', $loginUser[0]->name);
+        Cookie::queue('fans', $fans,0);
+        Cookie::queue('fansed', $fansed,0);
       $loginUser = json_encode($loginUser);
       echo $loginUser;
   }
