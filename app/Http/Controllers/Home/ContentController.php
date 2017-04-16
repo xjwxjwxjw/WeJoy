@@ -30,12 +30,19 @@ class ContentController extends Controller
   }
 
   public function contentFind(Request $request){
-
-    $news = Content::all();
-    foreach ($news as $new ) {
-       $new->username = DB::table('homeuser')->where('id','=','4')->value('name');
+    $skip = $_GET['skip'];
+    if ( $skip == 0 ) {
+      $count = Content::count();
     }
+    $news = Content::skip($skip)->take(5)->get();
+    foreach ($news as $new ) {
+      $new->username = DB::table('homeuser')->where('id','=','4')->value('name');
+    }
+    $news->count = $count;
+    // dd($news->count);
+    // return response()->json($news);
     return response()->json($news);
+
   }
 
 }

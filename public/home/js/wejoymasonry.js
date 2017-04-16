@@ -56,6 +56,8 @@
 				var container = $('.box-content ul:first');
 				var loading=$('#imloading');
         var sqlJson=[];
+        var skip = 10;
+        var conunt = 0;
         // 侧边栏到底改变css
         $(window).scroll(function(){
           if ( $(document).height() - $(document).scrollTop() <= 900 ) {
@@ -67,10 +69,12 @@
 
         // 获取后台信息数据
         $.ajax({
-          url:'contentIndex',
+          url:'contentIndex?skip=0',
           type:'get',
           success:function(data){
+            // console.log(data);
             sqlJson = data;
+
           },
           error:function(data){
           }
@@ -120,6 +124,17 @@
 					itemArr[0]=$('#box-content').find('.boxtest').eq(itemNum-1).offset().top+$('#box-content').find('.boxtest').eq(itemNum-1)[0].offsetHeight;
 					var maxTop=Math.max.apply(null,itemArr);
 					if(maxTop<$(window).height()+$(document).scrollTop()){
+
+            $.ajax({
+              url:'contentIndex?skip='+skip,
+              type:'get',
+              success:function(data){
+                sqlJson = data;
+              },
+              error:function(data){
+              }
+            });
+
 						//加载更多数据
 						loading.data("on",false);
             toastr.success('正在加载中');
@@ -127,11 +142,12 @@
 							/*这里会根据后台返回的数据来判断是否你进行分页或者数据加载完毕这里假设大于30就不在加载数据*/
               if(itemNum>sqlJson.length){
               // if(itemNum>5){
-								// loading.text('就有这么多了！');
+								loading.text('就有这么多了！');
                 toastr.success('只有这么多了!');
 							}else{
 								var html="";
-								for(var i = 0; i <= 5 ; i++){
+                skip = skip + 5;
+								for(var i = 0; i < 5 ; i++){
 									html += "<li class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><div class='Wejoy_face bg2'></div><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
 									html += "<span class='left'>"+sqlJson[i].username+"</span>";
 									html += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";

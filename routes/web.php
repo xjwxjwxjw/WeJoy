@@ -67,8 +67,12 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::post('index/doLogin','LoginHomeController@doLogin');
   Route::get('user','UserController@index');
   Route::get('index/doLogout', 'LoginHomeController@doLogout');
+  Route::get('registersuccess', function (){return view('home.registersuccess');});
+  Route::get('register', function (){return view('home.register');});
+  Route::post('index/doRegister', 'LoginHomeController@store');
+  Route::get('verify/{confirmed_code}', 'LoginHomeController@emailConfirm');
   Route::any('content','ContentController@contentAdd');
-  Route::any('contentIndex','ContentController@contentFind');
+  Route::get('contentIndex','ContentController@contentFind');
 
 // //	用户路由
 // 	Route::group(['prefix'=>'user'],function(){
@@ -86,7 +90,6 @@ Route::post('admin/login','Admin\LoginController@showlogin');
 //	Route::get('/admin/myIndex/del/{id?}','Admin\IndexController@myDel');
 //});
 //前台登陆注册
-Route::get('home/register','Home\LoginController@register');
 Route::post('home/store','Home\LoginController@store');
 Route::get('verify/{confirmed_code}', 'Home\LoginController@emailConfirm');
 Route::get('home/login','Home\LoginController@login');

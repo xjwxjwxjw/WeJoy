@@ -27,11 +27,11 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href={{url('home/index')}}><span class="glyphicon glyphicon glyphicon-th" aria-hidden="true"></span> 首页</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 发现</a></li>
-        @if(Session::has('UserId'))
+        @if(Cookie::has('UserId'))
           <li>
             <a href="#">
               <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-              {{Session::get('UserNickname')}}
+              {{Cookie::get('UserNickname')}}
             </a>
           </li>
           <li class="dropdown">
@@ -64,7 +64,7 @@
             </ul>
           </li>
           @else
-          <li><a href="">注册</a></li>
+          <li><a href="" data-toggle='modal' data-target='#myModal'>注册</a></li>
           @endif
       </ul>
     </div><!-- /.navbar-collapse -->
