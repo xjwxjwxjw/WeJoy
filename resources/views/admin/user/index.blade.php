@@ -23,41 +23,44 @@
 <body>
 <table class='table table-striped table-bordered table-hover'>
     <caption>用户列表<br>
-        {{--<a href="{!!url('/admin/myIndex/add')!!}" class="btn btn-warning">添加用户</a><!-- 完成删除 -->--}}
         <button class="btn btn-warning" id="add">添加用户</button>
     </caption>
     <tr class='success'>
         <th>id</th>
         <th>name</th>
+        <th>truename</th>
         <th>pwd</th>
         <th>sex</th>
         <th>phone</th>
         <th>email</th>
+        <th>QQ</th>
         <th>address</th>
         <th>icon</th>
         <th>birthday</th>
+        <th>confirmed_code</th>
         <th>status</th>
-        <th>regtime</th>
+        <th>create time</th>
         <th>DoWork</th>
     </tr>
-    @foreach($result as $value)
+    @foreach($returnuser as $value)
         <tr>
-            <td>{{$value->id}}</td>
-            <td>{{$value->name}}</td>
-            <td>{{$value->pwd}}</td>
-            <td>{{$value->sex}}</td>
-            <td>{{$value->phone}}</td>
-            <td>{{$value->email}}</td>
-            <td>{{$value->address}}</td>
-            <td>{{$value->icon}}</td>
-            <td>{{$value->birthday}}</td>
-            <td>{{$value->status}}</td>
-            <td>{{$value->regtime}}</td>
+            <td>{{$value[0]->id}}</td>
+            <td>{{$value[0]->name}}</td>
+            <td>{{$value[1]->name}}</td>
+            <td>{{$value[0]->password}}</td>
+            <td>{{$value[1]->sex}}</td>
+            <td>{{$value[0]->phone}}</td>
+            <td>{{$value[0]->email}}</td>
+            <td>{{$value[1]->qq}}</td>
+            <td>{{$value[1]->address}}</td>
+            <td>{{$value[1]->icon}}</td>
+            <td>{{$value[1]->birthday}}</td>
+            <td>{{$value[0]->confirmed_code}}</td>
+            <td>{{$value[0]->is_confirmed}}</td>
+            <td>{{$value[0]->create_time}}</td>
             <td>
-                {{--<a href="{!!url('/admin/myIndex/edit/'.$value->id)!!}" class="btn btn-info">修改</a><!-- 完成删除 -->--}}
-                {{--<a href="{!!url('/admin/myIndex/del/'.$value->id)!!}" class="btn btn-danger">删除</a><!-- 完成删除 -->--}}
-                <button  class="btn btn-info edit" value="{{ $value->id }}">编辑</button>
-                <button class="btn btn-danger delete" value="{{ $value->id }}">删除</button>
+                <button  class="btn btn-info edit" value="{{ $value[0]->id }}">编辑</button>
+                <button class="btn btn-danger delete" value="{{ $value[0]->id }}">删除</button>
             </td>
         </tr>
 
@@ -73,15 +76,15 @@
                 <div class="modal-body">
                     <form id="task" onsubmit="return false;" action="{{ url('admin/user/doEdit') }}" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="exampleInputName">用户名：<span class="selfError"></span></label>
+                            <label for="exampleInputName"><b style="color: red">*</b>用户名：<span class="selfError"></span></label>
                             <input type="text" class="form-control" id="exampleInputName" placeholder="Please enter your name" name="name" value="" autocomplete="off">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">密码：<span class="selfError"></span></label>
+                            <label for="exampleInputPassword1"><b style="color: red">*</b>密码：<span class="selfError"></span></label>
                             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Please enter your password" name="password" value="" autocomplete="off" maxlength="18">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword2">确认密码：<span class="selfError"></span></label>
+                            <label for="exampleInputPassword2"><b style="color: red">*</b>确认密码：<span class="selfError"></span></label>
                             <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Please enter password again" name="password_confirmation" value="" autocomplete="off" maxlength="18">
                         </div>
                         <div class="form-group">
@@ -91,12 +94,20 @@
                             <label><input type="radio" id="exampleInputSex3" name="sex" value="3" checked>保密</label>
                         </div>
                         <div class="form-group">
+                            <label for="exampleInputTruename">真实姓名：<span class="selfError"></span></label>
+                            <input type="text" class="form-control" id="exampleInputTruename" placeholder="Please enter your truename" name="truename" value="" autocomplete="off">
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputPhone">手机号码：<span class="selfError"></span></label>
                             <input type="text" onkeyup="value=value.replace(/[^\d]/g,'')" class="form-control" id="exampleInputPhone" placeholder="Please enter your Phone" name="phone" value="" autocomplete="off" maxlength="11">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail">邮箱：<span class="selfError"></span></label>
                             <input type="text" class="form-control" id="exampleInputEmail" placeholder="Please enter your email" name="email" value="" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputQQ">QQ：<span class="selfError"></span></label>
+                            <input type="text" class="form-control" id="exampleInputQQ" placeholder="Please enter your qq number" name="qq" value="" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputAddress">住址：<span class="selfError"></span></label>

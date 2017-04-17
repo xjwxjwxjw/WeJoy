@@ -128,14 +128,14 @@
 				<div class="W_person_info">
 					<div class="cover" id="skin_cover_s" style="background-image:url({{url('/home/bg.jpg')}});background-size:100% 100%;">
 						<div class="headpic">
-							<a href="" title="{{Cookie::get('UserNickname')}}">
+							<a href="{{url('/home.user.index')}}" title="{{Cookie::get('UserNickname')}}">
 								<img class="W_face_radius" src={{url('home/1.jpg')}} width="60" height="60" alt="{{Cookie::get('UserNickname')}}">
 							</a>
 						</div>
 					</div>
 					<div class="WB_innerwrap">
 						<div class="nameBox">
-							<a href="" class="name S_txt1" title="{{Cookie::get('UserNickname')}}">{{Cookie::get('UserNickname')}}</a>
+							<a href="{{url('/home.user.index')}}" class="name S_txt1" title="{{Cookie::get('UserNickname')}}">{{Cookie::get('UserNickname')}}</a>
 							<a title="微博会员" target="_blank" href="">
 								<i class="W_icon icon_member_dis" style="background-image:url({{url('/home/icon.png')}})"></i>
 							</a>
@@ -402,42 +402,44 @@
                         }
 					?>
 					@for($j = 0;$j < 4;$j++)
-					<div>
-						{{--<div class="WB_cardtitle_d">--}}
-							{{--一起走进设计师的世界      </div>--}}
-						<div class="WB_innerwrap S_bg1">
-							<div class="m_wrap clearfix">
-								<div class="friends_dynamic">
-									<ul class="group_list">
-										<li class="S_line1">
-											<div class="pic">
-												<a target="_blank" href="">
-													<img src="<?= $userInfo[$j]->icon ?>" width="30" height="30" alt="">
-												</a>
-											</div>
-											<div class="con">
-												<p class="name">
-													<a target="_blank" href="" class="W_name"><?= $user[$j]->name ?></a>
+						@if($user[$j]->name != Cookie::get('UserNickname'))
+						<div>
+							{{--<div class="WB_cardtitle_d">--}}
+								{{--一起走进设计师的世界      </div>--}}
+							<div class="WB_innerwrap S_bg1">
+								<div class="m_wrap clearfix">
+									<div class="friends_dynamic">
+										<ul class="group_list">
+											<li class="S_line1">
+												<div class="pic">
 													<a target="_blank" href="">
-														<i title="微博个人认证 " class="W_icon icon_approve"></i>
-													</a>
-												</p>
-												<div class="info S_txt2 W_autocut">
-													<?= $userInfo[$j]->signature ?>
-												</div>
-												<div class="opt_m">
-													<a href="javascript:void(0);" class="W_btn_b" onclick="addFans(this)" type="button">
-														<em class="W_ficon ficon_add">+</em>
-														<span>关注</span>
+														<img src="<?= $userInfo[$j]->icon ?>" width="30" height="30" alt="">
 													</a>
 												</div>
-											</div>
-										</li>
-									</ul>
+												<div class="con">
+													<p class="name">
+														<a target="_blank" href="" class="W_name"><?= $user[$j]->name ?></a>
+														<a target="_blank" href="">
+															<i title="微博个人认证 " class="W_icon icon_approve"></i>
+														</a>
+													</p>
+													<div class="info S_txt2 W_autocut">
+														<?= $userInfo[$j]->signature ?>
+													</div>
+													<div class="opt_m">
+														<a href="javascript:void(0);" class="W_btn_b" onclick="addFans(this)" type="button">
+															<em class="W_ficon ficon_add">+</em>
+															<span>关注</span>
+														</a>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+						@endif
 					@endfor
 					<div style="display:none;">
 					</div>

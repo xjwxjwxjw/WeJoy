@@ -115,8 +115,9 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
     background:#fff;
     border-radius:5px; /* 圆角 */
     margin:30px auto 0;
-    top: 0px;
-    left: 210px;
+    top: -80px;
+    left: -5px;
+    box-shadow: 0 4px 20px 1px rgba(0,0,0,0.2);
 }
 .send_div .close_div{
     display: inline-block;
@@ -125,14 +126,14 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
     right: 3px;
 }
 .send_div .arrow_div {
-    position:absolute;
-    top:7px;
-    left:-16px; /* 圆角的位置需要细心调试哦 */
-    width:0;
-    height:0;
-    font-size:0;
-    border:solid 8px;
-    border-color: transparent #fff transparent transparent;
+    position: absolute;
+    top: 40px;
+    left: 89px;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    border: solid 8px;
+    border-color: #fff transparent transparent transparent;
 }
 
 .info_header .tab {
@@ -654,7 +655,7 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
     height: 14px;
     margin-left: 3px;
     vertical-align: -2px;
-    vertical-align: text-bottom\9;
+    vertical-align: text-bottom;
 }
 .WB_right_module .friends_dynamic .info {
     width: 8em;
