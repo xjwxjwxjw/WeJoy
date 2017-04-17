@@ -43,7 +43,7 @@ var npclick = function(obj){
         },
         error:function (error) {
             alert('登陆失败，刷新重试');
-            window.location = tourl;
+            // window.location = tourl;
         },
         dataType:'json'
     })

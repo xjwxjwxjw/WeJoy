@@ -122,14 +122,14 @@
 				<div class="W_person_info">
 					<div class="cover" id="skin_cover_s" style="background-image:url({{url('/home/bg.jpg')}});background-size:100% 100%;">
 						<div class="headpic">
-							<a href="" title="{{Session::get('UserNickname')}}">
-								<img class="W_face_radius" src={{url('home/1.jpg')}} width="60" height="60" alt="{{Session::get('UserNickname')}}">
+							<a href="" title="{{Cookie::get('UserNickname')}}">
+								<img class="W_face_radius" src={{url('home/1.jpg')}} width="60" height="60" alt="{{Cookie::get('UserNickname')}}">
 							</a>
 						</div>
 					</div>
 					<div class="WB_innerwrap">
 						<div class="nameBox">
-							<a href="" class="name S_txt1" title="{{Session::get('UserNickname')}}">{{Session::get('UserNickname')}}</a>
+							<a href="" class="name S_txt1" title="{{Cookie::get('UserNickname')}}">{{Cookie::get('UserNickname')}}</a>
 							<a title="微博会员" target="_blank" href="">
 								<i class="W_icon icon_member_dis" style="background-image:url({{url('/home/icon.png')}})"></i>
 							</a>
@@ -146,13 +146,13 @@
 						<ul class="user_atten clearfix W_f18">
 							<li class="S_line1">
 								<a href="" class="S_txt1">
-									<strong>23</strong>
+									<strong>{{Cookie::get('fans')}}</strong>
 									<span class="S_txt2">关注</span>
 								</a>
 							</li>
 							<li class="S_line1">
 								<a href="" class="S_txt1">
-									<strong>32</strong>
+									<strong>{{Cookie::get('fansed')}}</strong>
 									<span class="S_txt2">粉丝</span>
 								</a>
 							</li>
