@@ -59,7 +59,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 		Route::get('edit/{id}','NewsController@edit');
 	});
 
-    
+
 	// 用户
 	Route::get('user', 'HomeUserController@index');
 	Route::group(['prefix' => 'user'], function () {
@@ -85,6 +85,8 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('contentIndex','ContentController@contentFind');
   Route::get('contentComment','ContentController@publishComments');
   Route::post('contentIssue','ContentController@publishIssue');
+  Route::get('contentPos','ContentController@contentPos');
+  Route::get('contentGood','ContentController@contentGood');
 
  //	用户路由
  	Route::group(['prefix'=>'user'],function(){

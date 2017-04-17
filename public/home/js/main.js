@@ -39,7 +39,7 @@
 })(jQuery);
 
 $(document).ready(function(){
-	$(".img-icon").live('click',function(){
+  	$(".img-icon").live('click',function(){
 		$(".cont-box .text").insertContent('<img src="请在这里输入图片地址" alt=""/>', -10);
 	});
   $('#issue').live('click',function(){
@@ -52,7 +52,7 @@ $(document).ready(function(){
       data:contents,
       url:'content',
       success:function(data){
-        console.log(data);
+        $('#textarea').val('');
         var newcontent = '';
         newcontent += "<li class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><div class='Wejoy_face bg2'></div><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
         newcontent += "<span class='left'>"+$('.name').attr('title')+"</span>";
@@ -62,11 +62,11 @@ $(document).ready(function(){
         newcontent += "<div class='WJ_text2 clearfix'>"+data.content+"</div>";
         newcontent += "<div class='Wj_media_wrap clearfix bg2'></div></div></div>";
         newcontent += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
-        newcontent += "<li class='left'><span class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
+        newcontent += "<li class='left'><span id='pos"+data.hid+"' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
         newcontent += "<li class='left'><span class='glyphicon glyphicon-share' > "+data.transmits+"</span></li>";
-        newcontent += "<li class='left'><span id='"+data.id+"' class='glyphicon glyphicon-comment comshow' > "+data.comments+"</span></li>";
-        newcontent += "<li class='left'><span class='glyphicon glyphicon-thumbs-up' > "+data.favtimes+"</span></li>";
-        newcontent += "</ul></div><div class='E_feed_publish con"+data.id+" clearfix'></div></li></div></li>";
+        newcontent += "<li class='left'><span id='"+data.hid+"' class='glyphicon glyphicon-comment comshow' > "+data.comments+"</span></li>";
+        newcontent += "<li class='left'><span id='good"+data.hid+"' class='glyphicon glyphicon-thumbs-up good' > "+data.favtimes+"</span></li>";
+        newcontent += "</ul></div><div class='WE_feed_publish con"+data.hid+" clearfix'></div></li></div></li>";
         $('.boxtest:first').after(newcontent);
         // 解析表情
         $(".WJ_text2").emojiParse({

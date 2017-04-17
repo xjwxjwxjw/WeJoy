@@ -148,11 +148,11 @@
 									html += "<div class='WJ_text2 clearfix'>"+sqlJson[i].content+"</div>";
 									html += "<div class='Wj_media_wrap clearfix bg2'></div></div></div>";
 									html += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
-									html += "<li class='left'><span class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
+									html += "<li class='left'><span id='pos"+sqlJson[i].hid+"' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
 									html += "<li class='left'><span class='glyphicon glyphicon-share' > "+sqlJson[i].transmits+"</span></li>";
-									html += "<li class='left'><span id='"+sqlJson[i].id+"' class='glyphicon glyphicon-comment comshow' > "+sqlJson[i].comments+"</span></li>";
-									html += "<li class='left'><span class='glyphicon glyphicon-thumbs-up' > "+sqlJson[i].favtimes+"</span></li>";
-									html += "</ul></div><div class='E_feed_publish con"+sqlJson[i].id+" clearfix'></div></li></div></li>";
+									html += "<li class='left'><span id='"+sqlJson[i].hid+"' class='glyphicon glyphicon-comment comshow' > "+sqlJson[i].countcom+"</span></li>";
+									html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up good' > "+sqlJson[i].favtimes+"</span></li>";
+									html += "</ul></div><div class='WE_feed_publish con"+sqlJson[i].hid+" clearfix'></div></li></div></li>";
 								}
 								/*模拟ajax请求数据时延时800毫秒*/
 								var time=setTimeout(function(){

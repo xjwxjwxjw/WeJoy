@@ -5,6 +5,79 @@ $(function(){
            dataType: 'json',
         }
     });
+// 收藏
+  $('.pos').live('click',function(){
+    var posid = $(this).attr('id').replace(/pos/, "");
+    $.ajax({
+      url:'contentPos?pos='+posid,
+      type:'get',
+      success:function(data){
+        toastr.success('收藏成功');
+        $('#pos'+posid).css('color','#ff6700');
+        $('#pos'+posid).text('已收藏');
+        $('#pos'+posid).removeClass('pos').addClass('posdie');
+      },
+      error:function(jqXHR, textStatus, errorThrown){
+        toastr.error(jqXHR.responseText);
+      }
+    })
+  })
+// 取消收藏
+  $('.posdie').live('click',function(){
+    var posid = $(this).attr('id').replace(/pos/, "");
+    $.ajax({
+      url:'contentPos?posdie='+posid,
+      type:'get',
+      success:function(data){
+        toastr.success('取消收藏');
+        $('#pos'+posid).css('color','');
+        $('#pos'+posid).text('收藏');
+        $('#pos'+posid).removeClass('posdie').addClass('pos');
+      },
+      error:function(jqXHR, textStatus, errorThrown){
+        toastr.error(jqXHR.responseText);
+      }
+    })
+  })
+// 点赞
+  $('.good').live('click',function(){
+    var goodid = $(this).attr('id').replace(/good/, "");
+    $.ajax({
+      url:'contentGood?good='+goodid,
+      type:'get',
+      success:function(data){
+        toastr.success('点赞成功');
+        $('#good'+goodid).css('color','#ff6700');
+        $text = $('#good'+goodid).text();
+        $text++;
+        $('#good'+goodid).text(" "+$text);
+        $('#good'+goodid).removeClass('good').addClass('gooddie');
+      },
+      error:function(jqXHR, textStatus, errorThrown){
+        toastr.error(jqXHR.responseText);
+      }
+    })
+  })
+// 取消点赞
+  $('.gooddie').live('click',function(){
+    var goodid = $(this).attr('id').replace(/good/, "");
+    $.ajax({
+      url:'contentGood?gooddie='+goodid,
+      type:'get',
+      success:function(data){
+        toastr.success('取消点赞');
+        $('#good'+goodid).css('color','');
+        $text = $('#good'+goodid).text();
+        $text--;
+        $('#good'+goodid).text(" "+$text);
+        $('#good'+goodid).removeClass('gooddie').addClass('good');
+      },
+      error:function(jqXHR, textStatus, errorThrown){
+        toastr.error(jqXHR.responseText);
+      }
+    })
+  })
+// 点赞结束
 
   $('.comnone').live('click',function(){
     var comid = $(this).attr('id');
@@ -28,6 +101,7 @@ $(function(){
      $('#docomment'+comid).live('click', function () {
         data = $('#testform'+comid).serialize();
         data += '&mid='+comid;
+        console.log(data);
         $.ajax({
           url:'contentIssue',
           data: data,

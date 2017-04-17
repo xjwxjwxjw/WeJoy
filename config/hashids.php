@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'default' => 'main',
+    'default' => 'wejoy',
 
     /*
     |--------------------------------------------------------------------------
@@ -44,16 +44,13 @@ return [
     'connections' => [
         'wejoy' => [
             'salt' => 'A－Z、a－z、0－9',
-
-            'length' => 'your-length-integer',
-
-            'length' => '50',
+            'length' => '8',
 
         ],
 
         'main' => [
             'salt' => 'your-salt-string',
-            'length' => 'your-length-integer',
+            'length' => '6',
         ],
 
         'alternative' => [
