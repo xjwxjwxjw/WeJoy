@@ -18,23 +18,8 @@ Route::get('/', function () {
 });
 
 //权限管理中间件
-//Route::group(['middleware'=>'rbac'],function(){
-//    Route::get('admin/permission/role','Admin\RoleController@roleList');
-//
-//});
-
-
-// 后台路由
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-	Route::get('index','IndexController@index');
-
-	// 信息
-	Route::get('new','NewsController@newsIndex');
-	Route::group(['prefix' => 'new'], function () {
-		Route::get('delete/{id}','NewsController@delete');
-		Route::get('edit/{id}','NewsController@edit');
-	});
-
+Route::group(['middleware'=>'rbac','prefix' => 'admin', 'namespace' => 'Admin'],function(){
+    //Route::get('admin/permission/role','Admin\RoleController@roleList');
     //  权限
   Route::group(['prefix' => 'permission'], function () {
     Route::get('permission','PermissionController@permissionList');
@@ -54,12 +39,27 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::any('/attach-permission/{id}', 'RoleController@attachPermission');
     });
     //管理员管理
-    Route::get('/adminuser', 'UserController@userList');
     Route::group(['prefix' => 'adminuser'], function () {
         Route::any('/user-add', 'UserController@userAdd');
         Route::any('/attach-role/{id}', 'UserController@attachRole');
     });
   });
+
+});
+//管理员列表
+ Route::get('/admin/permission/adminuser', 'Admin\UserController@userList');
+// 后台路由
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+	Route::get('index','IndexController@index');
+
+	// 信息
+	Route::get('new','NewsController@newsIndex');
+	Route::group(['prefix' => 'new'], function () {
+		Route::get('delete/{id}','NewsController@delete');
+		Route::get('edit/{id}','NewsController@edit');
+	});
+
+    
 	// 用户
 	Route::get('user', 'UserController@index');
 	Route::group(['prefix' => 'user'], function () {
@@ -68,7 +68,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     	Route::get('doFind/{id}', 'UserController@find');
     	Route::post('doEdit/{id}', 'UserController@edit');
 	});
-
 });
 
 // 前台路由
@@ -89,6 +88,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
 //后台登陆控制器
 Route::get('admin/login','Admin\LoginController@login');
 Route::post('admin/login','Admin\LoginController@showlogin');
+
 //// 后台除登陆控制器
 //Route::group(['middleware'=>'check.login'],function(){
 //	Route::get('/admin/index','Admin\IndexController@index');

@@ -32,7 +32,9 @@ class Logincontroller extends Controller
         $result=DB::table('users')->where('name',$name)
                                 ->where('password',$password)
                                 ->get();
-        $id=DB::table('users')->value('id');
+        $id=DB::table('users')->where('name',$name)
+                                ->where('password',$password)
+                                ->value('id');
         if(!empty($result->all())) {
             Session::put('id',$id);
             Session::put('name',$name);
