@@ -22,6 +22,7 @@ class CreateHomeuserinfoTable extends Migration
             $table->string('qq');
             $table->string('address');
             $table->string('birthday');
+            $table->string('signature');
         });
     }
 

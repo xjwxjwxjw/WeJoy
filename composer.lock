@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
+    "content-hash": "5c85ab6ced47f4b33c2df70cc500da43",
+=======
     "content-hash": "2772d723196d1a105d01c0f422cc45f6",
+>>>>>>> 7f88b4775f0100aa13a329c3a415772b47403ee9
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -220,6 +224,8 @@
             "time": "2017-01-01T13:08:54+00:00"
         },
         {
+<<<<<<< HEAD
+=======
             "name": "guzzlehttp/guzzle",
             "version": "6.2.3",
             "source": {
@@ -398,6 +404,7 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
+>>>>>>> 7f88b4775f0100aa13a329c3a415772b47403ee9
             "name": "hashids/hashids",
             "version": "2.0.3",
             "source": {

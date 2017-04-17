@@ -12,7 +12,9 @@ var npclick = function(obj){
         input[i-a] = $(obj).parents('.W_login_form').find('input')[i];
         //判断是否为空
         if ($(input[i-a]).val() == ''){
-            $(input[i-a]).prop('placeholder','不能为空');
+            $($('.W_login_form').children('.login_prompt')).attr('style','display:inline-block');
+            $($($('.W_login_form').children('.login_prompt'))).children('div').text('用户名或密码不能为空');
+            // $(input[i-a]).prop('placeholder','不能为空');
             return false;
         }
     }
@@ -39,6 +41,7 @@ var npclick = function(obj){
                 window.location = tourl;
             }else{
                 $($('.W_login_form').children('.login_prompt')).attr('style','display:inline-block');
+                $($($('.W_login_form').children('.login_prompt'))).children('div').text('用户名或密码有误或账号未激活');
             }
         },
         error:function (error) {
@@ -109,4 +112,48 @@ var registbtn = function (obj) {
         document.getElementById('registform').submit();
         obj.innerText = '验证数据';
     }
+}
+var addFans = function (obj) {
+    //判断是否登陆
+    if($($(obj).parents('.WB_main_r')).children('#pl_login_form').length > 0){
+        $(window).scrollTop(0);
+        $($('.W_login_form').children('.login_prompt')).attr('style','display:inline-block');
+        $($($('.W_login_form').children('.login_prompt'))).children('div').text('请先登录后再关注');
+    }else{
+        var name = $($(obj).parents('.con').children('.name')).children('.W_name').text();
+        $.ajax({
+            type:'get',
+            url:'/home/addFans',
+            data: 'name='+name,
+            success:function(error){
+                console.log(error)
+                if (error == 1){
+                    $('.out_biv').attr('style','display:inline-block');
+                    $('.W_layer').attr('style','display:inline-block');
+                    $($($($($('.W_layer').children('.content')).children('.W_layer_content')).children('.fans_status')).children('.fans_status_span')).text('关注成功');
+                }else{
+                    $('.out_biv').attr('style','display:none');
+                    $('.W_layer').attr('style','display:none');
+                    $($($($($('.W_layer').children('.content')).children('.W_layer_content')).children('.fans_status')).children('.fans_status_span')).text('关注失败');
+                }
+            },
+            error:function (error) {
+                alert('关注失败，刷新重试');
+            }
+        })
+    }
+}
+var closediv = function () {
+    $('.out_biv').attr('style','display:none');
+    $('.W_layer').attr('style','display:none');
+    window.location.href = location.href;
+}
+
+window.onkeydown = function(){
+    $($('.W_login_form').children('.login_prompt')).attr('style','display:none');
+    $($($('.W_login_form').children('.login_prompt'))).children('div').text('');
+}
+var doClose = function () {
+    $($('.W_login_form').children('.login_prompt')).attr('style','display:none');
+    $($($('.W_login_form').children('.login_prompt'))).children('div').text('');
 }

@@ -44,7 +44,11 @@ return [
     'connections' => [
         'wejoy' => [
             'salt' => 'A－Z、a－z、0－9',
+
+            'length' => 'your-length-integer',
+
             'length' => '50',
+
         ],
 
         'main' => [
