@@ -34,9 +34,11 @@
 						</div>
 					</div>
 					<!-- 输入验证码 -->
-					<div class="login_prompt" style="display: none">
-							<div style="color: red">用户名或密码有误或账号未激活</div>
-						</div>
+					<div class="login_prompt send_div" style="display: none">
+						<div class="arrow_div"></div>
+						<a href="javascript:void(0)" class="close_div" onclick="doClose()">X</a>
+						<div style="color: red">用户名或密码有误或账号未激活</div>
+					</div>
 					<div class="info_list verify clearfix" style="display: none">
 						<div class="input_wrap W_fl">
 							<input type="text" class="W_input" maxlength="6" autocomplete="off" value="" name="verifycode" tabindex="3" placeholder="验证码" disabled>
@@ -117,6 +119,10 @@
 		</div>
 	@else
 	{{--个人信息--}}
+	<?php
+        $fansed = count(\App\UserFans::where('uid_ed',Cookie::get('UserId'))->where('status',1)->get());
+        $fans = count(\App\UserFans::where('uid',Cookie::get('UserId'))->where('status',1)->get());
+	?>
 		<div id="v6_pl_rightmod_myinfo">
 			<div class="WB_cardwrap S_bg2">
 				<div class="W_person_info">
@@ -146,13 +152,13 @@
 						<ul class="user_atten clearfix W_f18">
 							<li class="S_line1">
 								<a href="" class="S_txt1">
-									<strong>{{Cookie::get('fans')}}</strong>
+									<strong><?= $fans ?></strong>
 									<span class="S_txt2">关注</span>
 								</a>
 							</li>
 							<li class="S_line1">
 								<a href="" class="S_txt1">
-									<strong>{{Cookie::get('fansed')}}</strong>
+									<strong><?= $fansed ?></strong>
 									<span class="S_txt2">粉丝</span>
 								</a>
 							</li>
@@ -385,13 +391,20 @@
 				<div class="WB_right_module">
 					<div class="WB_cardtitle_b S_line2">
 						<h4 class="obj_name">
-							<span class="main_title W_fb W_f14">好友关注动态</span>
+							<span class="main_title W_fb W_f14">推荐距友</span>
 						</h4>
 					</div>
+
+					<?php
+						$user = DB::select('SELECT * FROM homeuser  ORDER BY  RAND() LIMIT 4');
+						for ($i = 0;$i < 4;$i++){
+							$userInfo[$i] = DB::select('SELECT * FROM homeuserinfo WHERE uid='.$user[$i]->id)[0];
+                        }
+					?>
+					@for($j = 0;$j < 4;$j++)
 					<div>
-						<div class="WB_cardtitle_d">
-							<a href="" class="W_autocut">@每日笑话微博</a>等64万人关注了
-						</div>
+						{{--<div class="WB_cardtitle_d">--}}
+							{{--一起走进设计师的世界      </div>--}}
 						<div class="WB_innerwrap S_bg1">
 							<div class="m_wrap clearfix">
 								<div class="friends_dynamic">
@@ -399,19 +412,21 @@
 										<li class="S_line1">
 											<div class="pic">
 												<a target="_blank" href="">
-													<img src="" width="30" height="30" alt="">
+													<img src="<?= $userInfo[$j]->icon ?>" width="30" height="30" alt="">
 												</a>
 											</div>
 											<div class="con">
 												<p class="name">
-													<a target="_blank" href="">逗比小学弟</a>
+													<a target="_blank" href="" class="W_name"><?= $user[$j]->name ?></a>
 													<a target="_blank" href="">
-														<i title="微博个人认证 " class="W_icon icon_approve_gold" style="background-image: url({{url('/home/icon.png')}});"></i>
+														<i title="微博个人认证 " class="W_icon icon_approve"></i>
 													</a>
 												</p>
-												<div class="info S_txt2 W_autocut">微博知名搞笑幽默帐号</div>
+												<div class="info S_txt2 W_autocut">
+													<?= $userInfo[$j]->signature ?>
+												</div>
 												<div class="opt_m">
-													<a href="javascript:void(0);" class="W_btn_b">
+													<a href="javascript:void(0);" class="W_btn_b" onclick="addFans(this)" type="button">
 														<em class="W_ficon ficon_add">+</em>
 														<span>关注</span>
 													</a>
@@ -423,111 +438,7 @@
 							</div>
 						</div>
 					</div>
-					<div>
-						<div class="WB_cardtitle_d">
-							一起走进设计师的世界      </div>
-						<div class="WB_innerwrap S_bg1">
-							<div class="m_wrap clearfix">
-								<div class="friends_dynamic">
-									<ul class="group_list">
-										<li class="S_line1">
-											<div class="pic">
-												<a target="_blank" href="">
-													<img src="" width="30" height="30" alt="">
-												</a>
-											</div>
-											<div class="con">
-												<p class="name">
-													<a target="_blank" href="">ide0007</a>
-													<a target="_blank" href="">
-														<i title="微博个人认证 " class="W_icon icon_approve"></i>
-													</a>
-												</p>
-												<div class="info S_txt2 W_autocut">
-													北京红缨教育集团高级平面设计师 微博头条文章作者
-												</div>
-												<div class="opt_m">
-													<a href="javascript:void(0);" class="W_btn_b">
-														<em class="W_ficon ficon_add">+</em>
-														<span>关注</span>
-													</a>
-												</div>
-											</div>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div>
-						<div class="WB_cardtitle_d">
-							<a href="" class="W_autocut">@每日笑话微博</a>等64万人关注了
-						</div>
-						<div class="WB_innerwrap S_bg1">
-							<div class="m_wrap clearfix">
-								<div class="friends_dynamic">
-									<ul class="group_list">
-										<li class="S_line1">
-											<div class="pic">
-												<a target="_blank" href="">
-													<img src="" width="30" height="30" alt="">
-												</a>
-											</div>
-											<div class="con">
-												<p class="name">
-													<a target="_blank" href="">逗比小学弟</a>
-													<a target="_blank" href="">
-														<i title="微博个人认证 " class="W_icon icon_approve_gold"></i>
-													</a>
-												</p>
-												<div class="info S_txt2 W_autocut">微博知名搞笑幽默帐号</div>
-												<div class="opt_m">
-													<a href="javascript:void(0);" class="W_btn_b">
-														<em class="W_ficon ficon_add">+</em>关注
-													</a>
-												</div>
-											</div>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div>
-						<div class="WB_cardtitle_d">
-							一起走进设计师的世界      </div>
-						<div class="WB_innerwrap S_bg1">
-							<div class="m_wrap clearfix">
-								<div class="friends_dynamic">
-									<ul class="group_list">
-										<li class="S_line1">
-											<div class="pic">
-												<a target="_blank" href="">
-													<img src="" width="30" height="30" alt="">
-												</a>
-											</div>
-											<div class="con">
-												<p class="name">
-													<a target="_blank" href="">ide0007</a>
-													<a target="_blank" href="">
-														<i title="微博个人认证 " class="W_icon icon_approve"></i>
-													</a>
-												</p>
-												<div class="info S_txt2 W_autocut">
-													北京红缨教育集团高级平面设计师 微博头条文章作者
-												</div>
-												<div class="opt_m">
-													<a href="javascript:void(0);" class="W_btn_b">
-														<em class="W_ficon ficon_add">+</em>关注
-													</a>
-												</div>
-											</div>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
+					@endfor
 					<div style="display:none;">
 					</div>
 					<a href="" class="WB_cardmore S_txt1 S_line1 clearfix">
@@ -620,6 +531,27 @@
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 					</div>
 				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{{--关注成功弹窗--}}
+<div style="display: none" class="out_biv"></div>
+<div class="W_layer " style="display: none">
+	<div tabindex="0"></div>
+	<div class="content">
+		<div class="W_layer_title">Wejoy微距</div>
+		<div class="W_layer_close">
+			<a href="javascript:void(0);" class="W_ficon ficon_close S_ficon" onclick="closediv()">X</a>
+		</div>
+		<div class="W_layer_content">
+			<div class="fans_status">
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+				<span class="fans_status_span">关注成功</span>
+			</div>
+			<div class="ficon_close_div">
+				<a href="javascript:void(0)" class="btn btn-warning ficon_close" onclick="closediv()">确定</a>
 			</div>
 		</div>
 	</div>

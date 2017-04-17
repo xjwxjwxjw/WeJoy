@@ -65,7 +65,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('index','LoginHomeController@index');
   Route::post('index/doLogin','LoginHomeController@doLogin');
-  Route::get('user','UserController@index');
+    Route::get('user','UserController@index');
+    Route::get('addFans','UserController@addFans');
   Route::get('index/doLogout', 'LoginHomeController@doLogout');
   Route::get('registersuccess', function (){return view('home.registersuccess');});
   Route::get('register', function (){return view('home.register');});

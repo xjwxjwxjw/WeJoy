@@ -88,10 +88,38 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
     position: relative;
 }
 .login_prompt{
-    width: 185px;
+    width: 200px;
     text-align: center;
     margin-top: 10px;
 }
+.send_div {
+    position:absolute;
+    width:200px;
+    height:40px;
+    line-height: 40px;
+    background:#fff;
+    border-radius:5px; /* 圆角 */
+    margin:30px auto 0;
+    top: 0px;
+    left: 210px;
+}
+.send_div .close_div{
+    display: inline-block;
+    position: absolute;
+    top: -13px;
+    right: 3px;
+}
+.send_div .arrow_div {
+    position:absolute;
+    top:7px;
+    left:-16px; /* 圆角的位置需要细心调试哦 */
+    width:0;
+    height:0;
+    font-size:0;
+    border:solid 8px;
+    border-color: transparent #fff transparent transparent;
+}
+
 .info_header .tab {
     margin-bottom: 16px;
     padding-top: 11px;
@@ -657,4 +685,70 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 }
 .W_btn_b span{
     color: #000;
+}
+/*关注窗口*/
+.W_layer {
+    position: fixed;
+    z-index: 9999;
+    top: 300px;
+    left: 719px;
+    opacity: 1;
+}
+.W_layer .content {
+    position: relative;
+    background: #fff;
+    border-radius: 3px;
+    border-top: 2px solid #fa7f40;
+}
+.W_layer .W_layer_title {
+    border-bottom: 1px solid #f2f2f5;
+    line-height: 38px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 0 0 0 16px;
+    vertical-align: middle;
+}
+.W_layer .W_layer_close .ficon_close {
+    position: absolute;
+    z-index: 2;
+    right: 12px;
+    top: 9px;
+    font-size: 18px;
+}
+.W_layer .W_layer_content {
+    width: 450px;
+    height: 200px;
+}
+.W_layer .W_layer_content  .fans_status{
+    text-align: center;
+    line-height: 150px;
+    position: relative;
+    width: 450px;
+    height: 150px;
+}
+.W_layer .W_layer_content  .fans_status .fans_status_span{
+    font-size: 22px;
+    margin-left: 20px;
+    display: inline-block;
+}
+.W_layer .W_layer_content  .fans_status .glyphicon{
+    font-size: 45px;
+    color: #fa7f40;
+}
+.W_layer .W_layer_content .ficon_close_div{
+    text-align: center;
+}
+.W_layer .W_layer_content .ficon_close{
+    width: 200px;
+    background-color: #fa7f40;
+    border: 0px;
+    outline: none;
+    opacity: 0.9;
+}
+.W_layer .W_layer_content .ficon_close:hover{
+    opacity: 1;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.25);
+}
+.out_biv{
+    position: fixed;top: 0px;left: 0px;width: 100%;height: 100%;background: rgb(0, 0, 0);opacity: 0.3;z-index: 9999;
 }
