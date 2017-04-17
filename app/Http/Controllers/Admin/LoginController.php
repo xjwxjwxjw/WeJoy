@@ -11,6 +11,13 @@ class Logincontroller extends Controller
 {
     public function login()
     {
+
+        return view('admin.login');
+    }
+
+    public function logout()
+    {
+        Session::flush();
         return view('admin.login');
     }
     //登陆验证
@@ -41,9 +48,11 @@ class Logincontroller extends Controller
             return redirect('admin/index');
 
         }else{
-            return redirect('admin/login');
+            return redirect('admin/login')->with('message', '用户名或密码错误');
+
         }
 
     }
+
 }
 

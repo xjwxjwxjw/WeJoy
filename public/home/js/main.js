@@ -2,7 +2,7 @@
     $.fn.extend({
         insertContent: function(myValue, t) {
             var $t = $(this)[0];
-            if (document.selection) { //ie
+            if (document.selection) {
                 this.focus();
                 var sel = document.selection.createRange();
                 sel.text = myValue;

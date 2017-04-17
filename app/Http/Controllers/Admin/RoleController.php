@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\AdminroleRequset;
 use App\Permission;
 use App\Role;
 use Illuminate\Support\Facades\DB;
@@ -26,8 +27,22 @@ class RoleController extends Controller
         return view('admin.index',compact('roles'),['content' => '/admin/permission/role/content'] );
     }
     //添加权限表单
+
     public function roleAdd(Request $request)
     {
+        $rules = array(
+            'name'=>'required',
+            'display_name'=>'required',
+            'description'=>'required',
+        );
+        $message = array(
+
+            'name.required'=>'角色名不能为空',
+            'display_name.required'=>'权限不能为空',
+            'description.required'=>'描述不能为空',
+
+        );
+        $this->validate($request,$rules,$message);
         if ($request->isMethod('post')) {
            //添加权限操作
             $roles = Role::create($request->all());

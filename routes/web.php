@@ -90,9 +90,11 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
 
 });
 //后台登陆控制器
-Route::get('admin/login','Admin\LoginController@login');
-Route::post('admin/login','Admin\LoginController@showlogin');
-
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'],function(){
+Route::get('login','LoginController@login');
+Route::post('login','LoginController@showlogin');
+Route::get('logout','LoginController@logout');
+});
 //// 后台除登陆控制器
 //Route::group(['middleware'=>'check.login'],function(){
 //	Route::get('/admin/index','Admin\IndexController@index');

@@ -37,7 +37,11 @@
           <div class="am-input-group am-input-group-sm">
             <input type="text" class="am-form-field">
                 <span class="am-input-group-btn">
-                  <button class="am-btn am-btn-default" type="button">搜索</button>
+                  <button class="am-btn am-btn-default" type="button">搜索
+                    @if(count($errors))
+                      {{$errors->all()}}
+                    @endif
+                  </button>
                 </span>
           </div>
         </div>
@@ -95,6 +99,7 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="exampleModalLabel">添加权限</h4>
+          {{$errors->first('name')}}
         </div>
         <div class="modal-body">
           <form action=''  method="post" id="testform">
@@ -132,8 +137,7 @@
           <form action=''  method="post" id="formrole">
             {{csrf_field()}}
             <div class="form-group row" id ="froles">
-
-            </div
+            </div>
           </form>
         </div>
         <div class="modal-footer">
