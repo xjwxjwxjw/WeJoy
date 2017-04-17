@@ -61,12 +61,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     
 	// 用户
-	Route::get('user', 'UserController@index');
+	Route::get('user', 'HomeUserController@index');
 	Route::group(['prefix' => 'user'], function () {
-		Route::post('doAdd', 'UserController@add');
-    	Route::get('doDel/{id}', 'UserController@del');
-    	Route::get('doFind/{id}', 'UserController@find');
-    	Route::post('doEdit/{id}', 'UserController@edit');
+		Route::post('doAdd', 'HomeUserController@add');
+    	Route::get('doDel/{id}', 'HomeUserController@del');
+    	Route::get('doFind/{id}', 'HomeUserController@find');
+    	Route::post('doEdit/{id}', 'HomeUserController@edit');
 	});
 });
 
@@ -74,7 +74,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('index','LoginHomeController@index');
   Route::post('index/doLogin','LoginHomeController@doLogin');
-  Route::get('user','UserController@index');
+    Route::get('user','UserController@index');
+    Route::get('addFans','UserController@addFans');
   Route::get('index/doLogout', 'LoginHomeController@doLogout');
   Route::get('registersuccess', function (){return view('home.registersuccess');});
   Route::get('register', function (){return view('home.register');});
@@ -82,11 +83,13 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('verify/{confirmed_code}', 'LoginHomeController@emailConfirm');
   Route::any('content','ContentController@contentAdd');
   Route::get('contentIndex','ContentController@contentFind');
+  Route::get('contentComment','ContentController@publishComments');
+  Route::post('contentIssue','ContentController@publishIssue');
 
-// //	用户路由
-// 	Route::group(['prefix'=>'user'],function(){
-// 	    Route::get('index','UserController@index');
-//     });
+ //	用户路由
+ 	Route::group(['prefix'=>'user'],function(){
+ 	    Route::get('index','UserController@index');
+     });
 
 });
 //后台登陆控制器

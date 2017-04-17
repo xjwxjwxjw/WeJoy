@@ -17,14 +17,15 @@ class CreateSetcommentTable extends Migration
 
         Schema::create('comment', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('uid');
+            $table->increments('uid');
+            $table->string('mid');
             $table->string('description');
             $table->timestamps();
         });
 
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('uid');
+            $table->increments('uid');
             $table->string('description');
             $table->timestamps();
         });
