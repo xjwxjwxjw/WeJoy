@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cookie;
 
 
 class ContentController extends Controller
@@ -17,8 +18,10 @@ class ContentController extends Controller
 
     if ($request->isMethod('post') ) {
       $data['mid'] = UUID::generate();
-      $data['uid'] = Session::get('UserId');
+      $data['uid'] = Cookie::has('UserId');
       $data['content'] = $_POST['content'];
+      $data['created_at'] =date('Y-m-d H:i:s');
+      $data['updated_at'] =date('Y-m-d H:i:s');
       $ids = Content::insertGetId( $data );
       if ( !empty( $ids ) ) {
         $newcontent = Content::find($ids);
@@ -30,12 +33,20 @@ class ContentController extends Controller
   }
 
   public function contentFind(Request $request){
-
-    $news = Content::all();
-    foreach ($news as $new ) {
-       $new->username = DB::table('homeuser')->where('id','=','4')->value('name');
-    }
+    // $skip = $_GET['skip'];
+    // if ( $skip == 0 ) {
+    //   $count = Content::count();
+    // }
+    // $news = Content::skip($skip)->take(5)->get();
+    // foreach ($news as $new ) {
+    //   $new->username = DB::table('homeuser')->where('id','=','4')->value('name');
+    // }
+    // $news->count = $count;
+    // dd($news->count);
     // return response()->json($news);
+    // return response()->json($news);
+    return true;
+
   }
 
 }

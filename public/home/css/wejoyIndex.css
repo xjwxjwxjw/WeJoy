@@ -36,6 +36,21 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 .MJ_slideleft li:hover{background-color: #81B8D9;cursor: pointer;}
 .panel{margin-bottom: 5px;}
 .WJbadge{background-color: #ff6700;height: 14px;float: right;width: 20px;text-align: center;border: 1px solid #ff6700;border-radius:2px;}
+.WE_feed_publish{    background-color: #f2f2f5;}
+.WE_repeat{    padding: 16px 0 6px;    padding: 16px 0 6px;    border-top-width: 1px;    border-top-style: solid;border-top-color:#d9d9d9;border-color: #d9d9d9;}
+.WE_feed_comments{padding-left: 20px; padding-right: 20px;}
+.WE_publish{margin-left: 40px;margin-bottom: 2px;margin-top: 2px;}
+.WE_publish input{width: 100%;}
+.WE_publish_face{position: relative;width: 30px;height: 30px;float: left;}
+.WE_publish_face img{width: 100%;height: 100%;}
+.repeat_list{padding:0 20px;}
+.tab_feed_a{margin:6px 0 4px;padding:12px 0 0;border-top-width: 1px;border-top-style: solid;border-color: #d9d9d9;height: 20px;}
+.list_li{margin:0 0 -1px;padding:5px 0 7px;border-bottom-width: 1px;border-bottom-style: solid;border-color:#d9d9d9;}
+.WE_face{position: relative;width: 30px;height: 30px;float: left;}
+.WE_face img{width: 100%;height: 100%;}
+.list_con{margin: 0 0 0 40px;}
+.WE_time{color: rgb(128, 128, 128); font-size: 12px;}
+.WE_text a{text-decoration: none;cursor: pointer;color:#eb7350;}
 /*js 用途css*/
 .Weborder{border:1px solid #ff6700;}
 /*js 用途css end*/

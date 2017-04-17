@@ -7,12 +7,25 @@
   })
 
 	$(document).bind('propertychange input', function () {
-        var counter = $('#textarea').val().length;
-        // $('#tips var').text(300 - counter);    //每次减去字符长度
-        $('#issue').attr("disabled",false).addClass('bgred').removeClass('bgsmred');
-        if ( $('#textarea').val() == '' ) {
-        	$('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
-        };
+         var length = 150;
+         var content_len = $("#textarea").val().length;
+         var in_len = length-content_len;
+         // 当用户输入的字数大于制定的数时，让提交按钮失效
+         // 小于制定的字数，就可以提交
+         if(in_len >=0){
+            $("#result").html('可输入'+in_len+'字');
+              $('#issue').attr("disabled",false).addClass('bgred').removeClass('bgsmred');
+            // 可以继续执行其他操作
+         }else{
+            $("#result").html('可输入'+in_len+'字');
+            $('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
+            return false;
+         }
+        //  console.log( $('#textarea').val() );
+         if ( $('#textarea').val() == '' ) {
+         	 $('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
+         };
+
 	});
 	// 输入框,输入内容改变按钮
 	// // 绑定表情
@@ -43,10 +56,11 @@
 				var container = $('.box-content ul:first');
 				var loading=$('#imloading');
         var sqlJson=[];
+        var skip = 10;
+        var conunt = 0;
         // 侧边栏到底改变css
         $(window).scroll(function(){
           if ( $(document).height() - $(document).scrollTop() <= 900 ) {
-            console.log('后面的');
             $('#slideleft').addClass('slidefloat');
           } else {
             $('#slideleft').removeClass('slidefloat');
@@ -55,10 +69,12 @@
 
         // 获取后台信息数据
         $.ajax({
-          url:'contentIndex',
+          url:'contentIndex?skip=0',
           type:'get',
           success:function(data){
+            // console.log(data);
             sqlJson = data;
+
           },
           error:function(data){
           }
@@ -108,18 +124,30 @@
 					itemArr[0]=$('#box-content').find('.boxtest').eq(itemNum-1).offset().top+$('#box-content').find('.boxtest').eq(itemNum-1)[0].offsetHeight;
 					var maxTop=Math.max.apply(null,itemArr);
 					if(maxTop<$(window).height()+$(document).scrollTop()){
+
+            $.ajax({
+              url:'contentIndex?skip='+skip,
+              type:'get',
+              success:function(data){
+                sqlJson = data;
+              },
+              error:function(data){
+              }
+            });
+
 						//加载更多数据
 						loading.data("on",false);
             toastr.success('正在加载中');
 						(function(sqlJson){
 							/*这里会根据后台返回的数据来判断是否你进行分页或者数据加载完毕这里假设大于30就不在加载数据*/
-              if(itemNum>sqlJson.length){
-              // if(itemNum>5){
-								// loading.text('就有这么多了！');
+              // if(itemNum>sqlJson.length){
+              if(itemNum>0){
+								loading.text('就有这么多了！');
                 toastr.success('只有这么多了!');
 							}else{
 								var html="";
-								for(var i = 0; i <= 5 ; i++){
+                skip = skip + 5;
+								for(var i = 0; i < 5 ; i++){
 									html += "<li class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><div class='Wejoy_face bg2'></div><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
 									html += "<span class='left'>"+sqlJson[i].username+"</span>";
 									html += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";
@@ -130,9 +158,9 @@
 									html += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
 									html += "<li class='left'><span class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
 									html += "<li class='left'><span class='glyphicon glyphicon-share' > "+sqlJson[i].transmits+"</span></li>";
-									html += "<li class='left'><span class='glyphicon glyphicon-comment' > "+sqlJson[i].comments+"</span></li>";
+									html += "<li class='left'><span class='glyphicon glyphicon-comment comshow' > "+sqlJson[i].comments+"</span></li>";
 									html += "<li class='left'><span class='glyphicon glyphicon-thumbs-up' > "+sqlJson[i].favtimes+"</span></li>";
-									html += "</ul></div></div></li>";
+									html += "</ul></div><div class='E_feed_publish con"+data.id+" clearfix'></div></li></div></li>";
 								}
 								/*模拟ajax请求数据时延时800毫秒*/
 								var time=setTimeout(function(){
@@ -163,7 +191,7 @@
 				        	return img.src;
 				       };
 				  };
-				  loadImage('./images/one.jpeg',test());
+				  // loadImage('./images/one.jpeg',test());
 				 /*item hover效果*/
 				 var rbgB=['#71D3F5','#F0C179','#F28386','#8BD38B'];
 				 $('#box-content').on('mouseover','boxtest',function(){

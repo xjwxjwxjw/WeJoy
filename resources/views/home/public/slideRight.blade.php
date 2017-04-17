@@ -6,7 +6,7 @@
 		</div>
 	</div>
 	{{--判断 如果登陆则显示头像 否则显示登陆界面--}}
-	@if(!Session::has('UserId'))
+	@if(!Cookie::has('UserId'))
 		{{--登陆界面--}}
 		<div class="login_box" id="pl_login_form">
 			<div class="login_innerwrap">
@@ -35,7 +35,7 @@
 					</div>
 					<!-- 输入验证码 -->
 					<div class="login_prompt" style="display: none">
-							<div style="color: red">用户名或密码有误,请检查</div>
+							<div style="color: red">用户名或密码有误或账号未激活</div>
 						</div>
 					<div class="info_list verify clearfix" style="display: none">
 						<div class="input_wrap W_fl">
@@ -56,7 +56,7 @@
 						</label>
 					</div>
 					<div class="info_list login_btn">
-						<a href="javascript:void(0)" class="W_btn_a btn_32px" tabindex="6" onclick="npclick(this)">
+						<a href="javascript:void(0)" class="W_btn_a btn_32px" tabindex="6" onclick="npclick(this)" type="button">
 							<span>
 								登录
 							</span>
@@ -64,7 +64,7 @@
 					</div>
 					<div class="info_list register">
 						<span class="S_txt2">还没有微博？</span>
-						<a target="_blank" href="">立即注册!</a>
+						<a target="_blank" href="javascript:void(0)" data-toggle='modal' data-target='#myModal'>立即注册!</a>
 					</div>
 				</div>
 				<!-- 短信登陆 -->
@@ -98,7 +98,7 @@
 					</div>
 					<div class="info_list register">
 						<span class="S_txt2">还没有微博？</span>
-						<a target="_blank" href="">立即注册!</a>
+						<a target="_blank" href="javascript:void(0)"  data-toggle='modal' data-target='#myModal'>立即注册!</a>
 					</div>
 				</div>
 				<div class="info_list other_login clearfix" style="display: none;">
@@ -117,19 +117,19 @@
 		</div>
 	@else
 	{{--个人信息--}}
-		<div id="v6_pl_rightmod_myinfo" <?= (!Session::has('UserId'))?'style="display:none"':'' ?>>
+		<div id="v6_pl_rightmod_myinfo">
 			<div class="WB_cardwrap S_bg2">
 				<div class="W_person_info">
 					<div class="cover" id="skin_cover_s" style="background-image:url({{url('/home/bg.jpg')}});background-size:100% 100%;">
 						<div class="headpic">
-							<a href="" title="{{Session::get('UserNickname')}}">
-								<img class="W_face_radius" src={{url('home/1.jpg')}} width="60" height="60" alt="{{Session::get('UserNickname')}}">
+							<a href="" title="{{Cookie::get('UserNickname')}}">
+								<img class="W_face_radius" src={{url('home/1.jpg')}} width="60" height="60" alt="{{Cookie::get('UserNickname')}}">
 							</a>
 						</div>
 					</div>
 					<div class="WB_innerwrap">
 						<div class="nameBox">
-							<a href="" class="name S_txt1" title="{{Session::get('UserNickname')}}">{{Session::get('UserNickname')}}</a>
+							<a href="" class="name S_txt1" title="{{Cookie::get('UserNickname')}}">{{Cookie::get('UserNickname')}}</a>
 							<a title="微博会员" target="_blank" href="">
 								<i class="W_icon icon_member_dis" style="background-image:url({{url('/home/icon.png')}})"></i>
 							</a>
@@ -146,13 +146,13 @@
 						<ul class="user_atten clearfix W_f18">
 							<li class="S_line1">
 								<a href="" class="S_txt1">
-									<strong>23</strong>
+									<strong>{{Cookie::get('fans')}}</strong>
 									<span class="S_txt2">关注</span>
 								</a>
 							</li>
 							<li class="S_line1">
 								<a href="" class="S_txt1">
-									<strong>32</strong>
+									<strong>{{Cookie::get('fansed')}}</strong>
 									<span class="S_txt2">粉丝</span>
 								</a>
 							</li>
@@ -567,5 +567,60 @@
 		<span>
 			<input type="hidden">
 		</span>
+	</div>
+</div>
+{{--模态框--}}
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Wejoy用户注册</h4>
+			</div>
+			<div class="modal-body">
+				<form  action="{{url('home/index/doRegister')}}" method="post" {{--autocomplete="off"--}} id="registform">
+					{{csrf_field()}}
+					<div class="form-group">
+						<label>用户名：
+							<span style="color:red" class="name_prompt"></span>
+						</label>
+						<input class="form-control" name="nickname"  type="text" placeholder='用户名即您的昵称，可做登陆使用' >
+					</div>
+					<div class="form-group">
+						<label>邮箱地址：
+							<span style="color:red" class="email_prompt"></span>
+						</label>
+						<input class="form-control" name="email"  type="email" placeholder='注意：注册需要验证邮箱激活才可登陆'>
+
+					</div>
+					<div class="form-group">
+						<label>登陆密码：
+							<span style="color:red" class="pwd_prompt"></span>
+						</label>
+						<input class="form-control" name="password"  type="password">
+
+					</div>
+					<div class="form-group">
+						<label>重复密码:
+							<span style="color:red" class="repwd_prompt"></span>
+						</label>
+						<input class="form-control" name="password_confirmation"  type="password">
+					</div>
+					@if(count($errors))
+						<div class="form-group">
+							<label>
+								<span style="color:red" class="repwd_prompt">{{$errors}}</span>
+							</label>
+						</div>
+					@endif
+					<div class="modal-footer btn-box">
+						<a href="javascript:void(0)" type="button" class="btn btn-primary btn1" onclick="registbtn(this)">验证数据</a>
+						{{--<button type="submit" class="btn btn-primary btn1" style="display: none;">注册</button>--}}
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>

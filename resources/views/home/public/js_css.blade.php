@@ -18,6 +18,7 @@
 <script src={{url("home/js/jQeasing.js")}}></script>
 <script src={{url("home/js/sinaFaceAndEffec.js")}}></script>
 <script src={{url("home/js/wejoymasonry.js")}}></script>
+<script src={{url("home/js/wejoycomments.js")}}></script>
 {{--右侧用于登陆的js--}}
 <script src="{{url('home/js/login.js')}}"></script>
 <script src="{{url('home/js/main.js')}}"></script>

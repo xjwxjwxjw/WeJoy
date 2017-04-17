@@ -37,6 +37,7 @@
         }
     })
 })(jQuery);
+
 $(document).ready(function(){
 	$(".img-icon").click(function(){
 		$(".cont-box .text").insertContent('<img src="请在这里输入图片地址" alt=""/>', -10);
@@ -62,8 +63,9 @@ $(document).ready(function(){
         newcontent += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
         newcontent += "<li class='left'><span class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
         newcontent += "<li class='left'><span class='glyphicon glyphicon-share' > "+data.transmits+"</span></li>";
-        newcontent += "<li class='left'><span class='glyphicon glyphicon-comment' > "+data.comments+"</span></li>";
+        newcontent += "<li class='left'><span class='glyphicon glyphicon-comment comshow' > "+data.comments+"</span></li>";
         newcontent += "<li class='left'><span class='glyphicon glyphicon-thumbs-up' > "+data.favtimes+"</span></li>";
+        newcontent += "</ul></div><div class='E_feed_publish con"+data.uid+" clearfix'></div></li></div></li>";
         $('.boxtest:first').after(newcontent);
         toastr.success('发布微博成功');
       },
