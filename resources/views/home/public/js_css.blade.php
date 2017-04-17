@@ -1,4 +1,4 @@
-
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <link rel="icon" type="image/png" href={{url("/admin/assets/i/favicon.png")}}>
 <link rel="stylesheet" href={{url("/css/app.css")}}>
 <link rel="stylesheet" href={{url("/css/bootstrap.css")}}>
@@ -29,3 +29,11 @@
 <link  rel="stylesheet" href={{url("home/css/main.css")}} >
 <link rel="stylesheet" type="text/css" href={{url("home/css/sinaFaceAndEffec.css")}}>
 <link rel="stylesheet" type="text/css" href={{url("home/css/wejoyIndex.css")}}>
+<!-- emojoy -->
+<link  rel="stylesheet" href={{url("home/css/jquery.mCustomScrollbar.min.css")}} >
+<link  rel="stylesheet" href={{url("home/css/jquery.emoji.css")}} >
+<link  rel="stylesheet" href={{url("home/css/railscasts.css")}} >
+<script src={{url("home/js/highlight.pack.js")}}></script>
+<script src={{url("home/js/jquery.mousewheel-3.0.6.min.js")}}></script>
+<script src={{url("home/js/jquery.mCustomScrollbar.min.js")}}></script>
+<script src={{url("home/js/jquery.emoji.min.js")}}></script>

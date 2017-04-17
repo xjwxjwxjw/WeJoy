@@ -27,14 +27,6 @@
          };
 
 	});
-	// 输入框,输入内容改变按钮
-	// // 绑定表情
-	$('.face-icon').SinaEmotion($('.text'));
-	// 测试本地解析
-	function out() {
-		var inputText = $('.text').val();
-		$('#info-show ul').append(reply(AnalyticEmotion(inputText)));
-	}
 
 	var html;
 	function reply(content){
@@ -141,7 +133,7 @@
 						(function(sqlJson){
 							/*这里会根据后台返回的数据来判断是否你进行分页或者数据加载完毕这里假设大于30就不在加载数据*/
               // if(itemNum>sqlJson.length){
-              if(itemNum>0){
+              if(itemNum>5){
 								loading.text('就有这么多了！');
                 toastr.success('只有这么多了!');
 							}else{
@@ -158,9 +150,9 @@
 									html += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
 									html += "<li class='left'><span class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
 									html += "<li class='left'><span class='glyphicon glyphicon-share' > "+sqlJson[i].transmits+"</span></li>";
-									html += "<li class='left'><span class='glyphicon glyphicon-comment comshow' > "+sqlJson[i].comments+"</span></li>";
+									html += "<li class='left'><span id='"+sqlJson[i].id+"' class='glyphicon glyphicon-comment comshow' > "+sqlJson[i].comments+"</span></li>";
 									html += "<li class='left'><span class='glyphicon glyphicon-thumbs-up' > "+sqlJson[i].favtimes+"</span></li>";
-									html += "</ul></div><div class='E_feed_publish con"+data.id+" clearfix'></div></li></div></li>";
+									html += "</ul></div><div class='E_feed_publish con"+sqlJson[i].id+" clearfix'></div></li></div></li>";
 								}
 								/*模拟ajax请求数据时延时800毫秒*/
 								var time=setTimeout(function(){
@@ -168,6 +160,70 @@
 										loadImage($(this).attr('src'));
 									})
 									var $newElems = $(html).css({ opacity: 0}).appendTo(container);
+                  // 解析表情
+                  $(".WJ_text2").emojiParse({
+                    icons: [{
+                        path: "/home/image/tieba/",
+                        file: ".jpg",
+                        placeholder: ":{alias}:",
+                        alias: {
+                            1: "hehe",
+                            2: "haha",
+                            3: "tushe",
+                            4: "a",
+                            5: "ku",
+                            6: "lu",
+                            7: "kaixin",
+                            8: "han",
+                            9: "lei",
+                            10: "heixian",
+                            11: "bishi",
+                            12: "bugaoxing",
+                            13: "zhenbang",
+                            14: "qian",
+                            15: "yiwen",
+                            16: "yinxian",
+                            17: "tu",
+                            18: "yi",
+                            19: "weiqu",
+                            20: "huaxin",
+                            21: "hu",
+                            22: "xiaonian",
+                            23: "neng",
+                            24: "taikaixin",
+                            25: "huaji",
+                            26: "mianqiang",
+                            27: "kuanghan",
+                            28: "guai",
+                            29: "shuijiao",
+                            30: "jinku",
+                            31: "shengqi",
+                            32: "jinya",
+                            33: "pen",
+                            34: "aixin",
+                            35: "xinsui",
+                            36: "meigui",
+                            37: "liwu",
+                            38: "caihong",
+                            39: "xxyl",
+                            40: "taiyang",
+                            41: "qianbi",
+                            42: "dnegpao",
+                            43: "chabei",
+                            44: "dangao",
+                            45: "yinyue",
+                            46: "haha2",
+                            47: "shenli",
+                            48: "damuzhi",
+                            49: "ruo",
+                            50: "OK"
+                        }
+                    }, {
+                        path: "/home/image/qq/",
+                        file: ".gif",
+                        placeholder: "#qq_{alias}#"
+                    }]
+                  });
 									$newElems.imagesLoaded(function(){
 										$newElems.animate({ opacity: 1},800);
 										container.masonry( 'appended', $newElems,true);

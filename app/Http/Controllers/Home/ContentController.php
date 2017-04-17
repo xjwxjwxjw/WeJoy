@@ -18,10 +18,10 @@ class ContentController extends Controller
 
     if ($request->isMethod('post') ) {
       $data['mid'] = UUID::generate();
-      $data['uid'] = Cookie::has('UserId');
+      $data['uid'] = Cookie::get('UserId');
       $data['content'] = $_POST['content'];
-      $data['created_at'] =date('Y-m-d H:i:s');
-      $data['updated_at'] =date('Y-m-d H:i:s');
+      $data['created_at'] = date('Y-m-d H:i:s');
+      $data['updated_at'] = date('Y-m-d H:i:s');
       $ids = Content::insertGetId( $data );
       if ( !empty( $ids ) ) {
         $newcontent = Content::find($ids);
@@ -33,20 +33,39 @@ class ContentController extends Controller
   }
 
   public function contentFind(Request $request){
-    // $skip = $_GET['skip'];
+    $skip = $_GET['skip'];
     // if ( $skip == 0 ) {
     //   $count = Content::count();
     // }
-    // $news = Content::skip($skip)->take(5)->get();
-    // foreach ($news as $new ) {
-    //   $new->username = DB::table('homeuser')->where('id','=','4')->value('name');
-    // }
+    $news = Content::skip($skip)->take(5)->orderBy('id', 'desc')->get();
+    foreach ($news as $new ) {
+      $new->username = DB::table('homeuser')->where('id','=','4')->value('name');
+    }
     // $news->count = $count;
     // dd($news->count);
-    // return response()->json($news);
-    // return response()->json($news);
-    return true;
+    return response()->json($news);
 
+  }
+
+  public function publishComments(Request $request){
+    $id = $_GET['id'];
+
+    $pucoms = DB::table('comment')->where('mid','=',$id)->orderBy('created_at','desc')->get();
+    foreach ($pucoms as $pucom){
+      $pucom->uname = DB::table('homeuser')->where('id','=',$pucom->uid)->value('name');
+    }
+    return response()->json($pucoms);
+  }
+
+  public function publishIssue(Request $request){
+    $id = Cookie::get('UserId');
+    $data = $request->all();
+    $data['uid'] = $id;
+    $data['created_at'] = date('Y-m-d H:i:s');
+    $data['updated_at'] = date('Y-m-d H:i:s');
+    $newid = DB::table('comment')->insertGetId($data);
+    $result = DB::table('comment')->where('id','=',$newid)->get();
+    return response()->json($result);
   }
 
 }

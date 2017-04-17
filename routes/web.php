@@ -73,6 +73,8 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('verify/{confirmed_code}', 'LoginHomeController@emailConfirm');
   Route::any('content','ContentController@contentAdd');
   Route::get('contentIndex','ContentController@contentFind');
+  Route::get('contentComment','ContentController@publishComments');
+  Route::post('contentIssue','ContentController@publishIssue');
 
 // //	用户路由
 // 	Route::group(['prefix'=>'user'],function(){
