@@ -57,6 +57,59 @@
 						<li class="left"><span class="glyphicon glyphicon-thumbs-up" > 129</span></li>
 					</ul>
 				</div>
+        <div class="WE_feed_publish clearfix">
+          <div class="WE_repeat clearfix">
+            <!-- 发布评论 -->
+            <div class="WE_feed_comments">
+              <div class="WE_publish_face">
+                <img src="{{url('/home/1.jpg')}}" alt="">
+              </div>
+              <div class="WE_publish clearfix">
+                <form id="testform" action="" method="post">
+              {{csrf_field()}}
+    	        <div class="WE_feed_publish_comments" id="cont-box2" >
+                  <input type="text" name="comments" id='publishcomments' value="">
+              </div>
+    	        <div class="tools-box" style="border:0px solid red;">
+    	          <div class="operator-box-btn"><span class="face-icon"  >☺</span><span class="img-icon">▧</span></div>
+    	          <div class="submit-btn"><input id="docomment" type="button" class="bgsmred" value="评论">
+    	          </div>
+    	        </div>
+              </form>
+            </div>
+            </div>
+            <!-- 评论列表 -->
+            <div class="repeat_list">
+              <!-- 列表标题 -->
+              <div class="tab_feed_a">
+
+              </div>
+              <!-- 评论列表内容 -->
+              <div class="list_box">
+                <!-- 一级评论 -->
+                <div class="list_li">
+                  <!--评论头像 -->
+                  <div class="WE_face">
+                    <img src="{{url('/home/1.jpg')}}" alt="">
+                  </div>
+                  <!-- 评论内容 -->
+                  <div class="list-con">
+                    <div class="WE_text">
+                      <a>温柔大哥</a>
+                        : 详情看主页
+                    </div>
+                    <div class="WE_func clearfix">
+                      <div class="WE_time">11分钟前</div>
+                      <div class="">
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 			</div>
 		</li>
 	  </ul>

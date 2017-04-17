@@ -140,8 +140,8 @@
             toastr.success('正在加载中');
 						(function(sqlJson){
 							/*这里会根据后台返回的数据来判断是否你进行分页或者数据加载完毕这里假设大于30就不在加载数据*/
-              if(itemNum>sqlJson.length){
-              // if(itemNum>5){
+              // if(itemNum>sqlJson.length){
+              if(itemNum>0){
 								loading.text('就有这么多了！');
                 toastr.success('只有这么多了!');
 							}else{
@@ -158,9 +158,9 @@
 									html += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
 									html += "<li class='left'><span class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
 									html += "<li class='left'><span class='glyphicon glyphicon-share' > "+sqlJson[i].transmits+"</span></li>";
-									html += "<li class='left'><span class='glyphicon glyphicon-comment' > "+sqlJson[i].comments+"</span></li>";
+									html += "<li class='left'><span class='glyphicon glyphicon-comment comshow' > "+sqlJson[i].comments+"</span></li>";
 									html += "<li class='left'><span class='glyphicon glyphicon-thumbs-up' > "+sqlJson[i].favtimes+"</span></li>";
-									html += "</ul></div></div></li>";
+									html += "</ul></div><div class='E_feed_publish con"+data.id+" clearfix'></div></li></div></li>";
 								}
 								/*模拟ajax请求数据时延时800毫秒*/
 								var time=setTimeout(function(){
