@@ -51,12 +51,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     });
   });
 	// 用户
-	Route::get('user', 'UserController@index');
+	Route::get('user', 'HomeUserController@index');
 	Route::group(['prefix' => 'user'], function () {
-		Route::post('doAdd', 'UserController@add');
-    	Route::get('doDel/{id}', 'UserController@del');
-    	Route::get('doFind/{id}', 'UserController@find');
-    	Route::post('doEdit/{id}', 'UserController@edit');
+		Route::post('doAdd', 'HomeUserController@add');
+    	Route::get('doDel/{id}', 'HomeUserController@del');
+    	Route::get('doFind/{id}', 'HomeUserController@find');
+    	Route::post('doEdit/{id}', 'HomeUserController@edit');
 	});
 
 });
@@ -75,10 +75,10 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::any('content','ContentController@contentAdd');
   Route::get('contentIndex','ContentController@contentFind');
 
-// //	用户路由
-// 	Route::group(['prefix'=>'user'],function(){
-// 	    Route::get('index','UserController@index');
-//     });
+ //	用户路由
+ 	Route::group(['prefix'=>'user'],function(){
+ 	    Route::get('index','UserController@index');
+     });
 
 });
 //后台登陆控制器
