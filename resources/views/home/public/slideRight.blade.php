@@ -122,6 +122,7 @@
 	<?php
         $fansed = count(\App\UserFans::where('uid_ed',Cookie::get('UserId'))->where('status',1)->get());
         $fans = count(\App\UserFans::where('uid',Cookie::get('UserId'))->where('status',1)->get());
+        $loginUser = DB::table('homeuserinfo')->where('uid',Cookie::get('UserId'))->get()[0];
 	?>
 		<div id="v6_pl_rightmod_myinfo">
 			<div class="WB_cardwrap S_bg2">
@@ -129,7 +130,7 @@
 					<div class="cover" id="skin_cover_s" style="background-image:url({{url('/home/bg.jpg')}});background-size:100% 100%;">
 						<div class="headpic">
 							<a href="{{url('/home/user/index')}}" title="{{Cookie::get('UserNickname')}}">
-								<img class="W_face_radius" src={{url('home/1.jpg')}} width="60" height="60" alt="{{Cookie::get('UserNickname')}}">
+								<img class="W_face_radius" src={{url(empty($loginUser->icon)?'/home/image/default.jpg':$loginUser->icon)}} width="60" height="60" alt="{{Cookie::get('UserNickname')}}">
 							</a>
 						</div>
 					</div>
@@ -413,7 +414,7 @@
 											<li class="S_line1">
 												<div class="pic">
 													<a target="_blank" href="">
-														<img src="<?= $userInfo[$j]->icon ?>" width="30" height="30" alt="">
+														<img src={{url(empty($userInfo[$j]->icon)?'/home/image/default.jpg':$userInfo[$j]->icon)}} width="30" height="30" alt="">
 													</a>
 												</div>
 												<div class="con">

@@ -88,7 +88,9 @@ class UserController extends Controller
         if($request->file('icon')->move($basename,$filename)){
 //            删除原图片
             $oldicon = DB::select('select icon from homeuserinfo where uid='.$uid)[0]->icon;
-            unlink(public_path().'/'.$oldicon);
+            if ($oldicon){
+                unlink(public_path().'/'.$oldicon);
+            }
 //            更新数据
             DB::update('update homeuserinfo set icon="'.$basename.'/'.$filename.'" where uid='.$uid);
             return back();
