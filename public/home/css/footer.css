@@ -80,6 +80,7 @@ fieldset, img {
 }
 .WB_footer .other_link {
     text-align: center;
+    width: 100%;
     padding: 20px 0 45px;
 }
 .S_bg1, .SW_fun_bg:hover, .SW_fun_bg_active {

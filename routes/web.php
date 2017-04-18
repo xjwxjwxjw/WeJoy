@@ -90,9 +90,11 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('contentFindcollect','ContentController@contentFindcollect');
 
  //	用户路由
- 	Route::group(['prefix'=>'user'],function(){
- 	    Route::get('index','UserController@index');
-     });
+ Route::group(['prefix'=>'user'],function(){
+       Route::get('index','UserController@index');
+       Route::get('info','UserController@info');
+       Route::post('edit','UserController@edit');
+    });
 
 });
 //后台登陆控制器

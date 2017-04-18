@@ -52,9 +52,6 @@ h1, h2, h3, h4, h5, h6 {
 .PCD_header .pf_username .icon_bed .W_icon {
     margin-left: 0;
 }
-.icon_pf_male {
-    background-position: -100px -50px;
-}
 .icon_pf_male, .icon_pf_female {
     width: 16px;
     height: 16px;

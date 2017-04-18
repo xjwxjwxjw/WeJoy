@@ -14,6 +14,7 @@ class CreateHomeuserinfoTable extends Migration
     public function up()
     {
         Schema::create('homeuserinfo', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('uid');
             $table->string('icon');

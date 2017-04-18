@@ -157,3 +157,30 @@ var doClose = function () {
     $($('.W_login_form').children('.login_prompt')).attr('style','display:none');
     $($($('.W_login_form').children('.login_prompt'))).children('div').text('');
 }
+var doEdit = function(obj){
+    if ($($(obj).children('span')).text() != '保存'){
+        $($(obj).parents('.infoblock')).children('.edit_info_div').attr('style','display:inline-block');
+        $($(obj).parents('.infoblock')).children('.edit_info').attr('style','display:none');
+        $($(obj).children('span')).text('保存');
+        $($(obj).children('span')).attr('style','background-color:#ff8140;color:white');
+        oldinfo = $($($($(obj).parents('.infoblock')).children('.edit_info_div')).children('.edit_info_form')).serialize();
+    }else{
+        var newinfo = $($($($(obj).parents('.infoblock')).children('.edit_info_div')).children('.edit_info_form')).serialize();
+        if (oldinfo != newinfo){
+            $.ajax({
+                url : '/home/user/edit',
+                type: 'post',
+                data: newinfo,
+                success:function (error) {
+                    location.reload();
+                },
+                error:function () {
+                    alert('修改失败，请刷新重试');
+                    location.reload();
+                }
+            })
+        }
+    }
+
+
+}

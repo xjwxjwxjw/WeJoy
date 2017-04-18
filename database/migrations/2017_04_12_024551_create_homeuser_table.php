@@ -14,6 +14,7 @@ class CreateHomeuserTable extends Migration
     public function up()
     {
         Schema::create('homeuser', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('phone')->unique();
