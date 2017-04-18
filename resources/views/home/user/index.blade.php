@@ -20,8 +20,7 @@
             <?php
                 $user = DB::select('select * from homeuser where id='.Cookie::get('UserId'))[0];
                 $userinfo = DB::table('homeuserinfo')->where('uid',Cookie::get('UserId'))->get()[0];
-            var_dump($user);
-            var_dump($userinfo);
+
             ?>
             <div class="col-md-12">
                 <div id="Pl_Official_Headerv6__1" class="text-center">
