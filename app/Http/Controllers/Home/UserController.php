@@ -63,8 +63,10 @@ class UserController extends Controller
                 $str_info .= $k .'="'. $v .'",';
             }
             $str_user .= 'update_time='.time();
+            $str_info .= 'update_time='.time();
             $str_user = trim($str_user,',');
             $str_info = trim($str_info,',');
+
             $success_user = DB::update('update homeuser set '.$str_user.' where name="'.$nickname.'"');
             $uid = DB::table('homeuser')->select('id')->where('name',$nickname)->get()[0]->id;
             $success_info = DB::update('update homeuserinfo set '.$str_info.' where uid='.$uid);

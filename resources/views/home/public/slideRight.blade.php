@@ -135,7 +135,7 @@
 					</div>
 					<div class="WB_innerwrap">
 						<div class="nameBox">
-							<a href="{{url('/home.user.index')}}" class="name S_txt1" title="{{Cookie::get('UserNickname')}}">{{Cookie::get('UserNickname')}}</a>
+							<a href="{{url('/home/user/index')}}" class="name S_txt1" title="{{Cookie::get('UserNickname')}}">{{Cookie::get('UserNickname')}}</a>
 							<a title="微博会员" target="_blank" href="">
 								<i class="W_icon icon_member_dis" style="background-image:url({{url('/home/icon.png')}})"></i>
 							</a>

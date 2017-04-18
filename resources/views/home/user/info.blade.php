@@ -295,7 +295,7 @@
                         </div>
                     </div>
                     <div style="display:none;" class="edit_info_div">
-                        <form onsubmit="return false" class="edit_info_form">
+                        <form onsubmit="return false" class="edit_info_form" autocomplete="off">
                             {{csrf_field()}}
                             <input type="hidden" name="oldnick" value="<?= $user->name ?>">
                             <div class="pf_item clearfix">
@@ -404,7 +404,7 @@
                         </div>
                     </div>
                     <div style="display:none" class="edit_info_div">
-                        <form onsubmit="return false" class="edit_info_form">
+                        <form onsubmit="return false" class="edit_info_form" autocomplete="off">
                             {{csrf_field()}}
                             <input type="hidden" name="oldnick" value="<?= $user->name ?>">
                             <div class="pf_item clearfix">
