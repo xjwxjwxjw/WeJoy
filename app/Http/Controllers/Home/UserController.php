@@ -17,7 +17,10 @@ class UserController extends Controller
     {
         return view('home.user.index');
     }
-
+    public function lookIndex()
+    {
+        return view('home.user.index');
+    }
     public function addFans(Request $request)
     {
         $user_ed = DB::table('homeuser')->where('name',$request->name)->get()[0]->id;

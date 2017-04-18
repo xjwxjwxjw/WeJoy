@@ -96,6 +96,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
      Route::post('edit','UserController@edit');
      Route::post('editIcon','UserController@editIcon');
     });
+    Route::get('user/{id}','UserController@lookIndex');
 
 });
 //后台登陆控制器
