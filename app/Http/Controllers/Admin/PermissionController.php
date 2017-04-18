@@ -12,9 +12,15 @@ class PermissionController extends Controller
     //显示权限列表
     public function permissionList()
     {
-        //查询所有的权限
-        $permissions = Permission::paginate(5);
-        return view('admin.index',compact('permissions'),['content' => '/admin/permission/permission/content'] );
+      //查询所有的权限
+        if( empty($_GET['search']) ){
+          $permissions = Permission::paginate(5);
+          return view('admin.index',compact('permissions'),['content' => '/admin/permission/permission/content'] );
+        } else {
+          $search = $_GET['search'];
+          $permissions = Permission::where('name','like','%'.$search.'%')->paginate(5);
+          return view('admin.index',compact('permissions'),['keepsearch'=>$search ,'content' => '/admin/permission/permission/content'] );
+        }
     }
     //添加权限表单
     public function permissionAdd(Request $request)

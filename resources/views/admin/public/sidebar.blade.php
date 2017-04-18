@@ -50,7 +50,7 @@
         <li><a href="#"><i class="fa fa-cog"></i>信息管理 </a>
           <ul class="submenu">
             <li><a href={{url('admin/new')}}>查看微博 </a></li>
-            <li class="edit"><a id="new" href="#">Hosting </a></li>
+            <li class="edit"><a id="new" href="#">查看评论 </a></li>
           </ul>
         </li>
         <li><a href="#"><i class="fa fa-cog"></i>权限管理 </a>
@@ -83,23 +83,3 @@
       </div>
   </div>
 </div>
-<script type="text/javascript">
-  $('document').ready(function(){
-
-    $('#new').on('click',function(){
-      $.ajax({
-        type: 'get',
-        url:'/admin/new',
-        success:function(data) {
-          $('#admin-content').remove();
-          $('#slide-target').append(data);
-          toastr.success('success');
-        },
-        error: function(data) {
-          toastr.success('失败');
-        }
-      })
-    })
-  })
-
-</script>

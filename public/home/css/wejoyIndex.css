@@ -16,6 +16,7 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 .left{float: left;}
 .WJ-menu-right{top:20px;}
 .Wj_cursons{cursor: pointer;}
+.masonry{height:100% !important;}
 .WJ_text{color: #808080;height: 20px;margin-bottom: 2px;}
 .WJ_text2{margin-bottom: 2px;}
 .Wj_media_wrap{height: 200px;width: 100%;}

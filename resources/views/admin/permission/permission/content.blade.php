@@ -35,10 +35,12 @@
       <div class="am-u-md-3 am-cf">
         <div class="am-fr">
           <div class="am-input-group am-input-group-sm">
-            <input type="text" class="am-form-field">
-                <span class="am-input-group-btn">
-                  <button class="am-btn am-btn-default" type="button">搜索</button>
-                </span>
+            <form action={{url('/admin/permission/permission')}} method="get">
+              <input style="width:179px;height:36px;" name="search" type="text" class="searchval am-form-field">
+                  <span class="am-input-group-btn">
+                    <input style="height:36px;width:56px;font-size: 1.4rem;" class="am-btn search am-btn-default" type="submit" value="搜索">
+                  </span>
+            </form>
           </div>
         </div>
       </div>
@@ -78,7 +80,11 @@
         </table>
           <div class="am-cf">
              <nav aria-label="...">
-               {{$permissions->links('admin/permission/permission.page')}}
+               @if( !empty($keepsearch) )
+                {{$permissions->appends(['search' => $keepsearch])->links('admin/permission/permission.page')}}
+               @else
+                {{$permissions->links('admin/permission/permission.page')}}
+               @endif
             </nav>
           </div>
           <hr />

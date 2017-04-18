@@ -65,9 +65,7 @@
           url:'contentIndex?skip=0',
           type:'get',
           success:function(data){
-            // console.log(data);
             sqlJson = data;
-
           },
           error:function(data){
           }
@@ -135,7 +133,6 @@
               success:function(data){
                 sqlfind['collect'] = data['collect'];
                 sqlfind['favtimes'] = data['favtimes'];
-                console.log(sqlfind);
               },
               error:function(data){
 

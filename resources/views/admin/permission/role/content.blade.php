@@ -35,10 +35,12 @@
       <div class="am-u-md-3 am-cf">
         <div class="am-fr">
           <div class="am-input-group am-input-group-sm">
-            <input type="text" class="am-form-field">
-                <span class="am-input-group-btn">
-                  <button class="am-btn am-btn-default" type="button">搜索</button>
-                </span>
+            <form action={{url('/admin/permission/role')}} method="get">
+              <input style="width:179px;height:36px;" name="search" type="text" class="searchval am-form-field">
+                  <span class="am-input-group-btn">
+                    <input style="height:36px;width:56px;font-size: 1.4rem;" class="am-btn search am-btn-default" type="submit" value="搜索">
+                  </span>
+            </form>
           </div>
         </div>
       </div>
@@ -79,9 +81,12 @@
           </tbody>
         </table>
           <div class="am-cf">
-            共 15 条记录
              <nav aria-label="...">
-               {{$roles->links('admin/permission/role.page')}}
+               @if( !empty($keepsearch) )
+                {{$roles->appends(['search' => $keepsearch])->links('admin/permission/role.page')}}
+               @else
+                {{$roles->links('admin/permission/role.page')}}
+               @endif
             </nav>
           </div>
           <hr />
