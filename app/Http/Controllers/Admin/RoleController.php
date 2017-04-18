@@ -15,15 +15,30 @@ class RoleController extends Controller
     {
 
         //查询所有的权限
-        $roles = Role::paginate(5);
-        foreach ($roles as $role) {
-            $perms = array();
-            foreach ($role->perms as $perm) {
-                $perms[] = $perm->display_name;
-            }
-            $role->perms= implode(',', $perms);
-        }
+
+        if( empty($_GET['search']) ){
+          $roles = Role::paginate(5);
+          foreach ($roles as $role) {
+              $perms = array();
+              foreach ($role->perms as $perm) {
+                  $perms[] = $perm->display_name;
+              }
+              $role->perms= implode(',', $perms);
+          }
         return view('admin.index',compact('roles'),['content' => '/admin/permission/role/content'] );
+        } else {
+          $search = $_GET['search'];
+          $roles = Role::where('name','like','%'.$search.'%')->paginate(5);
+          foreach ($roles as $role) {
+              $perms = array();
+              foreach ($role->perms as $perm) {
+                  $perms[] = $perm->display_name;
+              }
+              $role->perms= implode(',', $perms);
+          }
+          return view('admin.index',compact('roles'),['keepsearch'=>$search ,'content' => '/admin/permission/role/content'] );
+        }
+
     }
     //添加权限表单
     public function roleAdd(Request $request)

@@ -35,10 +35,12 @@
       <div class="am-u-md-3 am-cf">
         <div class="am-fr">
           <div class="am-input-group am-input-group-sm">
-            <input type="text" class="am-form-field">
-                <span class="am-input-group-btn">
-                  <button class="am-btn am-btn-default" type="button">搜索</button>
-                </span>
+            <form action={{url('/admin/new')}} method="get">
+              <input style="width:179px;height:36px;" name="search" type="text" class="searchval am-form-field">
+                  <span class="am-input-group-btn">
+                    <input style="height:36px;width:56px;font-size: 1.4rem;" class="am-btn search am-btn-default" type="submit" value="搜索">
+                  </span>
+            </form>
           </div>
         </div>
       </div>
@@ -49,7 +51,7 @@
           <table class="am-table am-table-striped am-table-hover table-main">
             <thead>
               <tr>
-                <th class="table-check"><input type="checkbox" /></th><th class="table-id">编号</th><th class="table-title">内容</th><th class="table-type">话题</th><th class="table-author">发布者</th><th class="table-date">发布日期</th><th class="table-set">操作</th>
+                <th class="table-check"><input type="checkbox" /></th><th class="table-id">ID</th><th class="table-title">内容</th><th class="table-type">话题</th><th class="table-author">发布者ID</th><th class="table-date">发布日期</th><th class="table-set">操作</th>
               </tr>
           </thead>
           <tbody id="task-list">
@@ -59,16 +61,15 @@
             @foreach ($tasks as $v)
               <tr id="task{{ $v->id }}">
                 <td><input type="checkbox" /></td>
-                <td>{{$v->mid}}</td>
-                <td><a href="#">{{$v->comments}}</a></td>
+                <td>{{$v->id}}</td>
+                <td><span class="my-con" title="{{$v->content}}">{{$v->content}}</span></td>
                 <td>{{$v->topic}}</td>
                 <td>{{$v->uid}}</td>
-                <td>{{$v->postedtime}}</td>
+                <td>{{$v->created_at}}</td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
-                      <button class="am-btn edit am-btn-default am-btn-xs am-text-secondary" value="{{$v->id}}"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                      <button class="am-btn am-btn-default am-btn-xs"><span class="am-icon-copy"></span> 复制</button>
+                      <button class="am-btn edit am-btn-default am-btn-xs am-text-secondary" value="{{$v->id}}"> {{ $v->status==1 ?'隐藏':'显示' }} </button>
                       <button class="am-btn am-btn-default am-btn-xs am-text-danger delete" value="{{$v->id}}"><span class="am-icon-trash-o"></span> 删除</button>
                     </div>
                   </div>
@@ -79,9 +80,12 @@
           </tbody>
         </table>
           <div class="am-cf">
-            共 15 条记录
              <nav aria-label="...">
-              {{$tasks->links('admin/news.page')}}
+               @if( !empty($keepsearch) )
+                {{$tasks->appends(['search' => $keepsearch])->links('admin/news.page')}}
+               @else
+                {{$tasks->links('admin/news.page')}}
+               @endif
             </nav>
           </div>
           <hr />
