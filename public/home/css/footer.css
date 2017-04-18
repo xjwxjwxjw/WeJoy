@@ -7,11 +7,13 @@
     display: block;
     clear: both;
     background-color: #fff;
+    text-align: center;
 }
 .WB_footer .footer_link {
     width: 1000px;
     margin: 0 auto;
     padding: 20px 0 10px 80px;
+    text-align: left;
 }
 .WB_footer .list {
     float: left;
