@@ -70,6 +70,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 	});
 });
 
+Route::get('home/weather','Home\ApiController@weather');
+
 // 前台路由
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('index','LoginHomeController@index');
