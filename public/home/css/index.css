@@ -348,22 +348,22 @@ body, legend, .W_input:focus, .S_txt1, .W_btn_b, .SW_fun .S_func1 {
     margin: 0 -6px -6px 5px;
 }
 .PCD_photolist .WB_innerwrap .big_pic {
-    width: 220px;
-    height: 220px;
+    width: 160px;
+    height: 160px;
 }
 .PCD_photolist .WB_innerwrap li {
     float: left;
-    height: 105px;
-    width: 105px;
+    height: 75px;
+    width: 75px;
     margin: 0 10px 10px 0;
 }
 .PCD_photolist .WB_innerwrap .big_pic img {
-    width: 220px;
-    height: 220px;
+    width: 160px;
+    height: 160px;
 }
 .PCD_photolist .WB_innerwrap li img {
-    width: 105px;
-    height: 105px;
+    width: 75px;
+    height: 75px;
 }
 /*第四部分  公开分组*/
 .PCD_user_a .m_wrap {
