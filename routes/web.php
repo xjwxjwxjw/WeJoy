@@ -93,7 +93,8 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
  Route::group(['prefix'=>'user'],function(){
        Route::get('index','UserController@index');
        Route::get('info','UserController@info');
-       Route::post('edit','UserController@edit');
+     Route::post('edit','UserController@edit');
+     Route::post('editIcon','UserController@editIcon');
     });
 
 });

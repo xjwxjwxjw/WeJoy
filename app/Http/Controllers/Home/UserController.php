@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use Vinkla\Hashids\Facades\Hashids;
 
 class UserController extends Controller
 {
@@ -80,7 +81,21 @@ class UserController extends Controller
             echo $error;
         });
     }
-
+    public function editIcon(Request $request){
+        $uid = Hashids::decode($request->all()['name'])[0];
+        $basename = 'image/'.date("Y/m/d",time());
+        $filename = date("Ymd-His-",time()).uniqid().$request->all()['icontype'];
+        if($request->file('icon')->move($basename,$filename)){
+//            删除原图片
+            $oldicon = DB::select('select icon from homeuserinfo where uid='.$uid)[0]->icon;
+            unlink(public_path().'/'.$oldicon);
+//            更新数据
+            DB::update('update homeuserinfo set icon="'.$basename.'/'.$filename.'" where uid='.$uid);
+            return back();
+        }else{
+            return back();
+        }
+    }
 
 
 }

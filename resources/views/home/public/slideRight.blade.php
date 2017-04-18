@@ -128,7 +128,7 @@
 				<div class="W_person_info">
 					<div class="cover" id="skin_cover_s" style="background-image:url({{url('/home/bg.jpg')}});background-size:100% 100%;">
 						<div class="headpic">
-							<a href="{{url('/home.user.index')}}" title="{{Cookie::get('UserNickname')}}">
+							<a href="{{url('/home/user/index')}}" title="{{Cookie::get('UserNickname')}}">
 								<img class="W_face_radius" src={{url('home/1.jpg')}} width="60" height="60" alt="{{Cookie::get('UserNickname')}}">
 							</a>
 						</div>
