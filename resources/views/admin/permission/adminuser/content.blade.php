@@ -62,7 +62,7 @@
                 <td>{{$user->id}}</td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td>{{$user->roles}}</td>
+                <td><span class="my-span" title="{{$user->roles}}">{{$user->roles}}</span></td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">

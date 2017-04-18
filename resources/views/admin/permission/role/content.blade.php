@@ -63,7 +63,7 @@
                 <td>{{$role->name}}</td>
                 <td>{{$role->display_name}}</td>
                 <td>{{$role->description}}</td>
-                <td>{{$role->perms}}</td>
+                <td><span class="my-span" title="{{$role->perms}}">{{$role->perms}}</span></td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">

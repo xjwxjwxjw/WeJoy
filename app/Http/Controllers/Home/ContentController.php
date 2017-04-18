@@ -115,4 +115,20 @@ class ContentController extends Controller
     }
   }
 
+  public function contentFindcollect(Request $request){
+    $uid = Cookie::get('UserId');
+    $collectdb = DB::table('user_collect');
+    $favtimesdb = DB::table('user_favtimes');
+
+    $results['collect'] = $collectdb->where('user_id','=',$uid)->pluck('collect_id');
+    $results['favtimes'] = $favtimesdb->where('user_id','=',$uid)->pluck('favtimes_id');
+
+    foreach($results as $result){
+      for ($i=0; $i < count($result); $i++) {
+        $result[$i] = Hashids::encode($result[$i]);
+      }
+    }
+    return response()->json($results);
+  }
+
 }

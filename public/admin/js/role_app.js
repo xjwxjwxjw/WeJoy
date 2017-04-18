@@ -145,9 +145,8 @@ $(document).ready(function(){
           url:url+'attach-permission/'+tid,
           success:function(data) {
             $('#MyModal').modal('show');
-            console.log(data);
             for(var i = 0; i < data.length; i++){
-              $('#froles').append("<label class='col-md-3 .col-lg-2 .col-sm-4 .col-xs-2'><input type='checkbox' name='permission_id["+data[i].id+"]' value="+data[i].id+">"+data[i].name+"</label>");
+              $('#froles').append("<label class='col-md-3 .col-lg-2 .col-sm-4 .col-xs-2'><input type='checkbox' name='permission_id["+data[i].id+"]' value="+data[i].id+"><span class='my-label' title="+data[i].name+">"+data[i].name+"</span></label>");
             }
           },
           error:function(data) {

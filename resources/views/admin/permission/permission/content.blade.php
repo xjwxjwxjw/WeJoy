@@ -62,7 +62,7 @@
                 <td>{{$permission->id}}</td>
                 <td>{{$permission->name}}</td>
                 <td>{{$permission->display_name}}</td>
-                <td>{{$permission->description}}</td>
+                <td><span class="my-span" title="{{$permission->description}}">{{$permission->description}}</span></td>
                 <td>
                   <div class="am-btn-toolbar">
                     <div class="am-btn-group am-btn-group-xs">
@@ -77,7 +77,6 @@
           </tbody>
         </table>
           <div class="am-cf">
-            共 15 条记录
              <nav aria-label="...">
                {{$permissions->links('admin/permission/permission.page')}}
             </nav>

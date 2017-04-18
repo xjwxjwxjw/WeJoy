@@ -50,6 +50,7 @@
         var sqlJson=[];
         var skip = 10;
         var conunt = 0;
+        var sqlfind=[];
         // 侧边栏到底改变css
         $(window).scroll(function(){
           if ( $(document).height() - $(document).scrollTop() <= 900 ) {
@@ -126,7 +127,21 @@
               error:function(data){
               }
             });
+            // 返回登陆用户是否收藏,点赞
+            $.ajax({
+              url:'contentFindcollect',
+              type:'get',
+              async:false,
+              success:function(data){
+                sqlfind['collect'] = data['collect'];
+                sqlfind['favtimes'] = data['favtimes'];
+                console.log(sqlfind);
+              },
+              error:function(data){
 
+              }
+
+            })
 						//加载更多数据
 						loading.data("on",false);
             toastr.success('正在加载中');
@@ -148,12 +163,22 @@
 									html += "<div class='WJ_text2 clearfix'>"+sqlJson[i].content+"</div>";
 									html += "<div class='Wj_media_wrap clearfix bg2'></div></div></div>";
 									html += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
-									html += "<li class='left'><span id='pos"+sqlJson[i].hid+"' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
+                  if( $.inArray( sqlJson[i].hid,sqlfind['collect'] ) == -1 ){
+                    html += "<li class='left'><span id='pos"+sqlJson[i].hid+"' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
+                  }else{
+                    html += "<li class='left'><span id='pos"+sqlJson[i].hid+"' class='glyphicon glyphicon-star-empty bgorigin posdie' >已收藏</span></li>";
+                  }
 									html += "<li class='left'><span class='glyphicon glyphicon-share' > "+sqlJson[i].transmits+"</span></li>";
 									html += "<li class='left'><span id='"+sqlJson[i].hid+"' class='glyphicon glyphicon-comment comshow' > "+sqlJson[i].countcom+"</span></li>";
-									html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up good' > "+sqlJson[i].favtimes+"</span></li>";
+                  if( $.inArray(sqlJson[i].hid,sqlfind['collect']) == -1 ){
+                    html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up good' > "+sqlJson[i].favtimes+"</span></li>";
+                  }else{
+                    html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up bgorigin gooddie' > "+sqlJson[i].favtimes+"</span></li>";
+                  }
 									html += "</ul></div><div class='WE_feed_publish con"+sqlJson[i].hid+" clearfix'></div></li></div></li>";
+
 								}
+
 								/*模拟ajax请求数据时延时800毫秒*/
 								var time=setTimeout(function(){
 									$(html).find('img').each(function(index){

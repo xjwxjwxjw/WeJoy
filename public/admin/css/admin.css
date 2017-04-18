@@ -244,3 +244,26 @@ gallery.html css
   width: 200px;
   margin: 0 auto;
 }
+.my-label{
+  width: 100%;
+  overflow: hidden;
+
+  display: block;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+.my-span{
+    width: 400px;
+    overflow: hidden;
+
+    display: block;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    cursor: pointer;  }

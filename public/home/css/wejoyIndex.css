@@ -11,6 +11,7 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 .bg1{color: #ff6700;}
 .bg2{background: #b4daf0;}
 .bg3{background: #ff6700;}
+.bgorigin{color:#ff6700 !important;}
 .right{float: right;}
 .left{float: left;}
 .WJ-menu-right{top:20px;}

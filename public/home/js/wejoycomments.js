@@ -13,7 +13,7 @@ $(function(){
       type:'get',
       success:function(data){
         toastr.success('收藏成功');
-        $('#pos'+posid).css('color','#ff6700');
+        $('#pos'+posid).addClass('bgorigin');
         $('#pos'+posid).text('已收藏');
         $('#pos'+posid).removeClass('pos').addClass('posdie');
       },
@@ -30,7 +30,7 @@ $(function(){
       type:'get',
       success:function(data){
         toastr.success('取消收藏');
-        $('#pos'+posid).css('color','');
+        $('#pos'+posid).removeClass('bgorigin');
         $('#pos'+posid).text('收藏');
         $('#pos'+posid).removeClass('posdie').addClass('pos');
       },
@@ -47,7 +47,7 @@ $(function(){
       type:'get',
       success:function(data){
         toastr.success('点赞成功');
-        $('#good'+goodid).css('color','#ff6700');
+        $('#good'+goodid).addClass('bgorigin');
         $text = $('#good'+goodid).text();
         $text++;
         $('#good'+goodid).text(" "+$text);
@@ -66,7 +66,7 @@ $(function(){
       type:'get',
       success:function(data){
         toastr.success('取消点赞');
-        $('#good'+goodid).css('color','');
+        $('#good'+goodid).removeClass('bgorigin');
         $text = $('#good'+goodid).text();
         $text--;
         $('#good'+goodid).text(" "+$text);
@@ -101,7 +101,6 @@ $(function(){
      $('#docomment'+comid).live('click', function () {
         data = $('#testform'+comid).serialize();
         data += '&mid='+comid;
-        console.log(data);
         $.ajax({
           url:'contentIssue',
           data: data,
@@ -109,6 +108,9 @@ $(function(){
           dataType: 'json',
           success:function(data){
             toastr.success('评论成功');
+            $text = $('#'+comid).text();
+            $text++;
+            $('#'+comid).text(" "+$text);
             var newconlist = '';
             newconlist = "<div class='list_li'> ";
             newconlist += "<!--评论头像 --> ";
