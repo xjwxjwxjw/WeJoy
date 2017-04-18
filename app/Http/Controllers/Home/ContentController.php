@@ -17,7 +17,6 @@ class ContentController extends Controller
   public function contentAdd(Request $request){
 
     if ($request->isMethod('post') ) {
-      $data['mid'] = UUID::generate();
       $data['uid'] = Cookie::get('UserId');
       $data['content'] = $_POST['content'];
       $data['created_at'] = date('Y-m-d H:i:s');

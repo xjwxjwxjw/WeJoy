@@ -468,7 +468,7 @@
         </div>
         {{--修改头像弹窗--}}
         <div style="display: none" class="out_biv"></div>
-        <div class="W_layer " style="display: none">
+        <div class="W_layer W_layer_div" style="display: none">
             <div tabindex="0"></div>
             <div class="content" style="height: 300px;">
                 <div class="W_layer_title">Wejoy微距</div>

@@ -184,11 +184,11 @@ var doEdit = function(obj){
 }
 var editIcon = function () {
     $('.out_biv').attr('style','display:inline-block');
-    $('.W_layer').attr('style','display:inline-block');
+    $('.W_layer_div').attr('style','display:inline-block');
 }
 var closeIcon = function () {
     $('.out_biv').attr('style','display:none');
-    $('.W_layer').attr('style','display:none');
+    $('.W_layer_div').attr('style','display:none');
     $($('#EditIcon_btn').children('span')).text('');
 }
 var doEditIcon = function (obj) {
