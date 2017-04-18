@@ -267,3 +267,15 @@ gallery.html css
     white-space: nowrap;
 
     cursor: pointer;  }
+
+.my-con{
+    width: 300px;
+    overflow: hidden;
+
+    display: block;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    cursor: pointer;  margin:0;}

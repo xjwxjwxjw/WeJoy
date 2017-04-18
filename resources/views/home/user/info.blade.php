@@ -49,8 +49,6 @@
             <?php
                 $user = DB::select('select * from homeuser where id='.Cookie::get('UserId'))[0];
                 $userinfo = DB::table('homeuserinfo')->where('uid',Cookie::get('UserId'))->get()[0];
-            var_dump($user);
-            var_dump($userinfo);
             ?>
             <div class="col-md-12">
                 <div id="Pl_Official_Headerv6__1" class="text-center">
@@ -60,8 +58,8 @@
                             <div class="shadow  S_shadow" layout-shell="false">
                                 <div class="pf_photo">
                                     <p class="photo_wrap">
-                                        <a href="javascript:void(0);"title="更换头像">
-                                            <img src='<?= empty($userinfo->icon)?url('/home/1.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo">{{--头像--}}
+                                        <a href="javascript:void(0);"title="更换头像" onclick="editIcon()">
+                                            <img src='<?= empty($userinfo->icon)?url('/home/1.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo" width="100" height="100">{{--头像--}}
                                         </a>
                                     </p>
                                 </div>
@@ -82,8 +80,6 @@
                                     <em class="W_ficon ficon_upload S_ficon"></em>上传封面图
                                 </a>
                             </div>
-                            {{--<div style="display: none" class="pf_use_num">超过<span class="W_Tahoma W_fb">100</span>万人正在使用</div>--}}
-                            {{--<a href="javascript:void(0)" title="模板设置" class="W_icon icon_setskin UI_top_hidden W_fixed_top"></a>--}}
                         </div>
                     </div>
                     <div class="layer_menu_list_b" style="position:absolute; top:332px; left:900px; z-index:999;display: none">
@@ -467,6 +463,38 @@
                             </span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        {{--修改头像弹窗--}}
+        <div style="display: none" class="out_biv"></div>
+        <div class="W_layer W_layer_div" style="display: none">
+            <div tabindex="0"></div>
+            <div class="content" style="height: 300px;">
+                <div class="W_layer_title">Wejoy微距</div>
+                <div class="W_layer_close">
+                    <a href="javascript:void(0);" class="W_ficon ficon_close S_ficon" onclick="closeIcon()">X</a>
+                </div>
+                <div class="W_layer_content">
+                    <form action="{{url('/home/user/editIcon')}}" enctype="multipart/form-data" method="post" id="EditIcon_form" onsubmit="return false">
+                        <div class="fans_status" style="height: 200px;">
+                            <div>
+                                <img src="<?= empty($userinfo->icon)?url('/home/1.jpg'):url($userinfo->icon) ?>" width="100" height="100">
+
+                            </div>
+                            <div style="margin: 0 auto;">
+                                {{csrf_field()}}
+                                <input type="file" name="icon" id="EditIcon_input" style="line-height: normal;float: right;">
+                                <input type="hidden" name="icontype" value="" id="iconType_input">
+                                <input type="hidden" name='name' value="{{Hashids::encode(Cookie::get('UserId'))}}">
+                            </div>
+                        </div>
+                        <div class="ficon_close_div" id="ficon_close_div">
+                            <a class="btn btn-warning ficon_close" id="EditIcon_btn" onclick="doEditIcon(this)">
+                                确定<span></span>
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

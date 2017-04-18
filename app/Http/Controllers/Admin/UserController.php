@@ -99,16 +99,30 @@ class UserController extends Controller
     //用户列表
     public function userList()
     {
-        $users = User::paginate(5);
-        foreach ($users as $user) {
-            $roles = array();
-            foreach ($user->roles as $role) {
-                $roles[] = $role->display_name;
-            }
-            $user->roles= implode(',', $roles);
+
+        if( empty($_GET['search']) ){
+          $users = User::paginate(5);
+          foreach ($users as $user) {
+              $roles = array();
+              foreach ($user->roles as $role) {
+                  $roles[] = $role->display_name;
+              }
+              $user->roles= implode(',', $roles);
+          }
+          return view('admin.index',compact('users'),['content' => '/admin/permission/adminuser/content'] );
+        } else {
+          $search = $_GET['search'];
+          $users = User::where('name','like','%'.$search.'%')->paginate(5);
+          foreach ($users as $user) {
+              $roles = array();
+              foreach ($user->roles as $role) {
+                  $roles[] = $role->display_name;
+              }
+              $user->roles= implode(',', $roles);
+          }
+          return view('admin.index',compact('users'),['keepsearch'=>$search ,'content' => '/admin/permission/adminuser/content'] );
         }
 
-        return view('admin.index',compact('users'),['content' => '/admin/permission/adminuser/content'] );
     }
     //添加用户
     public function userAdd(Request $request)
@@ -124,7 +138,7 @@ class UserController extends Controller
     public function userDelete($id)
     {
         //删除信息
-        DB::table('users')->where('id', $id)->delete();        
+        DB::table('users')->where('id', $id)->delete();
     }
 
     //分配角色

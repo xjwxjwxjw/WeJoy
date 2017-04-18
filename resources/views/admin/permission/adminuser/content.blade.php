@@ -35,10 +35,12 @@
       <div class="am-u-md-3 am-cf">
         <div class="am-fr">
           <div class="am-input-group am-input-group-sm">
-            <input type="text" class="am-form-field">
-                <span class="am-input-group-btn">
-                  <button class="am-btn am-btn-default" type="button">搜索</button>
-                </span>
+            <form action={{url('/admin/permission/adminuser')}} method="get">
+              <input style="width:179px;height:36px;" name="search" type="text" class="searchval am-form-field">
+                  <span class="am-input-group-btn">
+                    <input style="height:36px;width:56px;font-size: 1.4rem;" class="am-btn search am-btn-default" type="submit" value="搜索">
+                  </span>
+            </form>
           </div>
         </div>
       </div>
@@ -78,9 +80,12 @@
           </tbody>
         </table>
           <div class="am-cf">
-            共 15 条记录
              <nav aria-label="...">
-               {{$users->links('admin/permission/adminuser.page')}}
+               @if( !empty($keepsearch) )
+                {{$users->appends(['search' => $keepsearch])->links('admin/permission/adminuser.page')}}
+               @else
+                {{$users->links('admin/permission/adminuser.page')}}
+               @endif
             </nav>
           </div>
           <hr />
@@ -137,8 +142,12 @@
           <form action=''  method="post" id="formrole">
             {{csrf_field()}}
             <div class="form-group row" id ="froles">
-              {{$users->links('admin/permission/adminuser.page')}}
-            </div
+              @if( !empty($keepsearch) )
+               {{$users->appends(['search' => $keepsearch])->links('admin/permission/adminuser.page')}}
+              @else
+               {{$users->links('admin/permission/adminuser.page')}}
+              @endif
+            </div>
           </form>
         </div>
         <div class="modal-footer">

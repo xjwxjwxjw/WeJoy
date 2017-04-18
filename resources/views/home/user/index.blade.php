@@ -17,6 +17,7 @@
     @endsection
 
     @section('slideTop')
+
             <?php
                 $user = DB::select('select * from homeuser where id='.Cookie::get('UserId'))[0];
                 $userinfo = DB::table('homeuserinfo')->where('uid',Cookie::get('UserId'))->get()[0];
@@ -38,69 +39,89 @@
                                 <div class="pf_username">
                                     <h1 class="username">{{Cookie::get('UserNickname')}}</h1>
                                     <span class="icon_bed">
+
+    <?php
+    $user = DB::select('select * from homeuser where id='.Cookie::get('UserId'))[0];
+    $userinfo = DB::table('homeuserinfo')->where('uid',Cookie::get('UserId'))->get()[0];
+    ?>
+    <div class="col-md-12">
+        <div id="Pl_Official_Headerv6__1" class="text-center">
+            <div class="PCD_header">
+                <div class="pf_wrap" style="background-image:url({{url('/home/bg.jpg')}});background-size:100% 100%;">
+                    {{--上面url为背景图片--}}
+                    <div class="shadow  S_shadow" layout-shell="false">
+                        <div class="pf_photo">
+                            <p class="photo_wrap">
+                                <a href="javascript:void(0);"title="更换头像" onclick="editIcon()">
+                                    <img src='<?= empty($userinfo->icon)?url('/home/1.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo" width="100" height="100">{{--头像--}}
+                                </a>
+                            </p>
+                        </div>
+                        <div class="pf_username">
+                            <h1 class="username">{{Cookie::get('UserNickname')}}</h1>
+                            <span class="icon_bed">
+
                                         <a>
                                             <i class="W_icon icon_pf_male" style="background-image:url({{url('/home/icon.png')}});background-position: <?= $userinfo->sex==1?'-100px':($userinfo->sex==2?'-125px':'-350px') ?> -50px;"></i>
                                         </a>
                                     </span>
-                                </div>
-                                <div class="pf_intro" title="<?= empty($userinfo->signature)?'一句话介绍一下自己吧，让别人更了解你':$userinfo->signature ?>">
-                                    <?= empty($userinfo->signature)?'一句话介绍一下自己吧，让别人更了解你':$userinfo->signature ?>
-                                </div>
-                            </div>
-                            <div class="upcover">
-                                <a href="javascript:void(0);" class="W_btn_b" node-type="custom" style="display: none;">
-                                    <em class="W_ficon ficon_upload S_ficon"></em>上传封面图
-                                </a>
-                            </div>
-                            {{--<div style="display: none" class="pf_use_num">超过<span class="W_Tahoma W_fb">100</span>万人正在使用</div>--}}
-                            {{--<a href="javascript:void(0)" title="模板设置" class="W_icon icon_setskin UI_top_hidden W_fixed_top"></a>--}}
+                        </div>
+                        <div class="pf_intro" title="<?= empty($userinfo->signature)?'一句话介绍一下自己吧，让别人更了解你':$userinfo->signature ?>">
+                            <?= empty($userinfo->signature)?'一句话介绍一下自己吧，让别人更了解你':$userinfo->signature ?>
                         </div>
                     </div>
-                    <div class="layer_menu_list_b" style="position:absolute; top:332px; left:900px; z-index:999;display: none">
-                        <div class="list_wrap">
-                            <div class="list_content W_f14">
-                                <ul class="list_ul">
-                                    <li class="item"><a href="javascript:void(0);" class="tlink" >悄悄关注</a></li>
-                                    <li class="item"><a  href="javascript:void(0);" class="tlink">推荐给朋友</a></li>
-                                </ul>
-                                <ul class="list_ul">
-                                    <li class="item"><a href="javascript:void(0);" class="tlink">加入黑名单</a></li>
-                                    <li class="item"><a href="javascript:void(0);" class="tlink">举报他</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="Pl_Official_Nav__2" name="place" >
-                    <div class="PCD_tab S_bg2">
-                        <div class="tab_wrap" style="width:60%">
-                            <table class="tb_tab" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td class="current">
-                                        <a href="" class="tab_link">
-                                            <span class="S_txt1 t_link">我的主页</span>
-                                            <span class="ani_border"></span>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="" class="tab_link">
-                                            <span class="S_txt1 t_link">我的相册</span>
-                                            <span class="ani_border"></span>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="" class="tab_link">
-                                            <span class="S_txt1 t_link">管理中心</span>
-                                            <span class="ani_border"></span>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </table>
-                        </div>
+                    <div class="upcover">
+                        <a href="javascript:void(0);" class="W_btn_b"  style="display: none;">
+                            <em class="W_ficon ficon_upload S_ficon"></em>上传封面图
+                        </a>
                     </div>
                 </div>
             </div>
-    @endsection
+            <div class="layer_menu_list_b" style="position:absolute; top:332px; left:900px; z-index:999;display: none">
+                <div class="list_wrap">
+                    <div class="list_content W_f14">
+                        <ul class="list_ul">
+                            <li class="item"><a href="javascript:void(0);" class="tlink" >悄悄关注</a></li>
+                            <li class="item"><a  href="javascript:void(0);" class="tlink">推荐给朋友</a></li>
+                        </ul>
+                        <ul class="list_ul">
+                            <li class="item"><a href="javascript:void(0);" class="tlink">加入黑名单</a></li>
+                            <li class="item"><a href="javascript:void(0);" class="tlink">举报他</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Pl_Official_Nav__2" name="place" >
+            <div class="PCD_tab S_bg2">
+                <div class="tab_wrap" style="width:60%">
+                    <table class="tb_tab" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="current">
+                                <a href="" class="tab_link">
+                                    <span class="S_txt1 t_link">我的主页</span>
+                                    <span class="ani_border"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="" class="tab_link">
+                                    <span class="S_txt1 t_link">我的相册</span>
+                                    <span class="ani_border"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="" class="tab_link">
+                                    <span class="S_txt1 t_link">管理中心</span>
+                                    <span class="ani_border"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
 
     @section('slideLeft')
         <?php
@@ -497,6 +518,38 @@
                             </span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        {{--修改头像弹窗--}}
+        <div style="display: none" class="out_biv"></div>
+        <div class="W_layer W_layer_div" style="display: none">
+            <div tabindex="0"></div>
+            <div class="content" style="height: 300px;">
+                <div class="W_layer_title">Wejoy微距</div>
+                <div class="W_layer_close">
+                    <a href="javascript:void(0);" class="W_ficon ficon_close S_ficon" onclick="closeIcon()">X</a>
+                </div>
+                <div class="W_layer_content">
+                    <form action="{{url('/home/user/editIcon')}}" enctype="multipart/form-data" method="post" id="EditIcon_form" onsubmit="return false">
+                        <div class="fans_status" style="height: 200px;">
+                            <div>
+                                <img src="<?= empty($userinfo->icon)?url('/home/1.jpg'):url($userinfo->icon) ?>" width="100" height="100">
+
+                            </div>
+                            <div style="margin: 0 auto;">
+                                {{csrf_field()}}
+                                <input type="file" name="icon" id="EditIcon_input" style="line-height: normal;float: right;">
+                                <input type="hidden" name="icontype" value="" id="iconType_input">
+                                <input type="hidden" name='name' value="{{Hashids::encode(Cookie::get('UserId'))}}">
+                            </div>
+                        </div>
+                        <div class="ficon_close_div" id="ficon_close_div">
+                            <a class="btn btn-warning ficon_close" id="EditIcon_btn" onclick="doEditIcon(this)">
+                                确定<span></span>
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

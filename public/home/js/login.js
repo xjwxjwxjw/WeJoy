@@ -181,6 +181,31 @@ var doEdit = function(obj){
             })
         }
     }
-
-
+}
+var editIcon = function () {
+    $('.out_biv').attr('style','display:inline-block');
+    $('.W_layer_div').attr('style','display:inline-block');
+}
+var closeIcon = function () {
+    $('.out_biv').attr('style','display:none');
+    $('.W_layer_div').attr('style','display:none');
+    $($('#EditIcon_btn').children('span')).text('');
+}
+var doEditIcon = function (obj) {
+    var AllImgExt=".jpg|.jpeg|.gif|.bmp|.png|";
+    var file = document.getElementById("EditIcon_input").value
+    var extName = file.substring(file.lastIndexOf(".")).toLowerCase();//（把路径中的所有字母全部转换为小写）
+    console.log(extName);
+    if(!file){
+        $('#EditIcon_form').attr('onsubmit','return false');
+        $($('#EditIcon_btn').children('span')).text('(若取消请点击关闭)');
+    }else if (AllImgExt.indexOf(extName+"|") == -1){
+        $('#EditIcon_form').attr('onsubmit','return false');
+        $($('#EditIcon_btn').children('span')).text('(仅支持图片)');
+    }else{
+        $('#EditIcon_form').attr('onsubmit','return true');
+        $(document.getElementById("iconType_input")).val(extName);
+        $("#EditIcon_form").submit()
+        $($('#EditIcon_btn').children('span')).text('');
+    }
 }

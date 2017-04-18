@@ -17,7 +17,6 @@ class ContentController extends Controller
   public function contentAdd(Request $request){
 
     if ($request->isMethod('post') ) {
-      $data['mid'] = UUID::generate();
       $data['uid'] = Cookie::get('UserId');
       $data['content'] = $_POST['content'];
       $data['created_at'] = date('Y-m-d H:i:s');
@@ -38,9 +37,9 @@ class ContentController extends Controller
       $count = Content::count();
     }
 
-    $news = Content::skip(0)->take(5)->orderBy('id', 'desc')->get();
+    $news = Content::where('status','=','1')->skip(0)->take(5)->orderBy('id', 'desc')->get();
     foreach ($news as $new ) {
-      $new->username = DB::table('homeuser')->where('id','=','4')->value('name');
+      $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
       $new->countcom = DB::table('comment')->where('mid','=',$new->id)->count();
       $new->uid = Hashids::encode($new->uid);
       $new->hid = Hashids::encode($new->id);

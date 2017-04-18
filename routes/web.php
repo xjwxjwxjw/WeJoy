@@ -30,7 +30,7 @@ Route::group(['middleware'=>'rbac','prefix' => 'admin', 'namespace' => 'Admin'],
         Route::get('/permissionfind/{id}', 'PermissionController@permissionfind');
     });
     //  角色
-   Route::get('/role', 'RoleController@roleList');
+    Route::get('/role', 'RoleController@roleList');
     Route::group(['prefix' => 'role'], function () {
         Route::any('/role-add', 'RoleController@roleAdd');
         Route::any('/role-update/{id}', 'RoleController@roleUpdate');
@@ -55,8 +55,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 	// 信息
 	Route::get('new','NewsController@newsIndex');
 	Route::group(['prefix' => 'new'], function () {
-		Route::get('delete/{id}','NewsController@delete');
-		Route::get('edit/{id}','NewsController@edit');
+		Route::get('delete','NewsController@delete');
+    Route::get('edit','NewsController@edit');
 	});
 
 
@@ -95,8 +95,10 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
  Route::group(['prefix'=>'user'],function(){
        Route::get('index','UserController@index');
        Route::get('info','UserController@info');
-       Route::post('edit','UserController@edit');
+     Route::post('edit','UserController@edit');
+     Route::post('editIcon','UserController@editIcon');
     });
+    Route::get('user/{id}','UserController@lookIndex');
 
 });
 //后台登陆控制器
