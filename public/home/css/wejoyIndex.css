@@ -708,8 +708,8 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 .W_layer {
     position: fixed;
     z-index: 9999;
-    top: 300px;
-    left: 719px;
+    top: 30%;
+    left: 40%;
     opacity: 1;
 }
 .W_layer .content {
