@@ -9,10 +9,18 @@ use Illuminate\Support\Facades\Session;
 
 class Logincontroller extends Controller
 {
+    //登录
     public function login()
     {
         return view('admin.login');
     }
+    //退出
+    public function logout()
+    {
+        Session::flush();
+        return redirect('admin/login');
+    }
+
     //登陆验证
     public function showlogin(Request $request)
     {
@@ -41,7 +49,7 @@ class Logincontroller extends Controller
             return redirect('admin/index');
 
         }else{
-            return redirect('admin/login');
+            return redirect('admin/login')->with('message', '用户名或密码错误');
         }
 
     }

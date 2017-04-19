@@ -96,6 +96,12 @@
         </p>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+        <center>
+            <p style="color: red " >@if(!empty(Session('message')))
+                    {{Session('message')}}
+                @endif
+            </p>
+        </center>
     </form>
 
 </div> <!-- /container -->
