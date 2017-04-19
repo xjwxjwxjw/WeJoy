@@ -31,23 +31,64 @@ class ContentController extends Controller
 
   }
 
-  public function contentFind(Request $request){
+  public function contentFind(){
+    $search = $_GET['search'];
     $skip = $_GET['skip'];
-    if ( $skip == 0 ) {
-      $count = Content::count();
-    }
-
-    $news = Content::where('status','=','1')->skip(0)->take(5)->orderBy('id', 'desc')->get();
-    foreach ($news as $new ) {
-      $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
-      $new->countcom = DB::table('comment')->where('mid','=',$new->id)->count();
-      $new->uid = Hashids::encode($new->uid);
-      $new->hid = Hashids::encode($new->id);
+    switch ( $search ) {
+      case 'index':
+        $news = Content::where('status','=','1')->skip($skip)->take(5)->orderBy('id', 'desc')->get();
+        foreach ($news as $new ) {
+          $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
+          $new->countcom = DB::table('comment')->where('mid','=',$new->id)->count();
+          $new->uid = Hashids::encode($new->uid);
+          $new->hid = Hashids::encode($new->id);
+        }
+        break;
+      case 'mycollect':
+        $id = Cookie::get('UserId');
+        $results = DB::table('user_collect')->where('user_id',$id)->pluck('collect_id');
+        $news = Content::where('status','=','1')->whereIn('id', $results)->skip($skip)->take(5)->orderBy('id', 'desc')->get();
+        foreach ($news as $new ) {
+          $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
+          $new->countcom = DB::table('comment')->where('mid','=',$new->id)->count();
+          $new->uid = Hashids::encode($new->uid);
+          $new->hid = Hashids::encode($new->id);
+        }
+        break;
+        case 'myfavtimes':
+          $id = Cookie::get('UserId');
+          $results = DB::table('user_favtimes')->where('user_id',$id)->pluck('favtimes_id');
+          $news = Content::where('status','=','1')->whereIn('id', $results)->skip($skip)->take(5)->orderBy('id', 'desc')->get();
+          foreach ($news as $new ) {
+            $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
+            $new->countcom = DB::table('comment')->where('mid','=',$new->id)->count();
+            $new->uid = Hashids::encode($new->uid);
+            $new->hid = Hashids::encode($new->id);
+          }
+          break;
     }
     return response()->json($news);
   }
+// 返回news,用户收藏统计,用户点赞统计,统计数据
+  public function contentCount(){
+    $search = $_GET['search'];
+    switch ($search) {
+      case 'index':
+        $count = Content::count();
+        break;
+      case 'mycollect':
+        $id = Cookie::get('UserId');
+        $count = DB::table('user_collect')->where('user_id',$id)->pluck('collect_id')->count();
+        break;
+      case 'myfavtimes':
+        $id = Cookie::get('UserId');
+        $count = DB::table('user_favtimes')->where('user_id',$id)->pluck('favtimes_id')->count();
+        break;
+    }
+    return $count;
+  }
 
-  public function publishComments(Request $request){
+  public function publishComments(){
     $id = Hashids::decode($_GET['id'])[0];
     $pucoms = DB::table('comment')->where('mid','=',$id)->orderBy('created_at','desc')->get();
     foreach ($pucoms as $pucom){

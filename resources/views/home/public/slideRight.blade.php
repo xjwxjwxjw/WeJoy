@@ -278,9 +278,7 @@
 						<div class="WB_innerwrap">
 							<div class="m_wrap">
 								<div class="scr_iframe_wrap">
-									<iframe id="sc_37694" src="" width="186" height="250" frameborder="0" scrolling="no">
-
-									</iframe>广告
+									<div class="WB_innerwrap"><div class="m_wrap"><div class="scr_iframe_wrap"><iframe id="sc_37695" width="186" height="275" frameborder="0" scrolling="no"></iframe></div></div></div>
 								</div>
 							</div>
 						</div>

@@ -14,6 +14,7 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 .bgorigin{color:#ff6700 !important;}
 .right{float: right;}
 .left{float: left;}
+#slideleft a{text-decoration: none;color:#fff;}
 .WJ-menu-right{top:20px;}
 .Wj_cursons{cursor: pointer;}
 .masonry{height:100% !important;}

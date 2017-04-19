@@ -21,7 +21,7 @@ class LoginHomeController extends Controller
 
   // 显示首页内容
     public function index()
-    {
+    {   
         return view('home.index');
     }
 
