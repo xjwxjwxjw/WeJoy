@@ -42,6 +42,7 @@
         $.ajax({
           url:'contentCount?search='+search,
           type:'get',
+          async:false,
           success:function(data){
             count = data;
             skip = 0;
@@ -82,6 +83,7 @@
             type:'get',
             success:function(data){
               count = data;
+              skip = 0;
             },
             error:function(data){
             }
@@ -171,9 +173,9 @@
 						(function(sqlJson){
 							/*这里会根据后台返回的数据来判断是否你进行分页或者数据加载完毕这里假设大于30就不在加载数据*/
               if(itemNum>count ){
-              // if(itemNum>5){
-								loading.text('就有这么多了！');
-                toastr.success('只有这么多了!');
+								// loading.text('就有这么多了！');
+                container.append("<div id='imloading' class='well well-sm' style='width:600px; text-align:center;background:#f2dede;' >这是全部的了</div>")
+                // toastr.success('只有这么多了!');
 							}else{
 								var html="";
                 skip = skip + 5;

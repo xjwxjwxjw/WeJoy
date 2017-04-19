@@ -278,7 +278,7 @@
 						<div class="WB_innerwrap">
 							<div class="m_wrap">
 								<div class="scr_iframe_wrap">
-									<div class="WB_innerwrap"><div class="m_wrap"><div class="scr_iframe_wrap"><iframe id="sc_37695" src="http://s.alitui.weibo.com/widget2.html" width="186" height="275" frameborder="0" scrolling="no"></iframe></div></div></div>
+									<div class="WB_innerwrap"><div class="m_wrap"><div class="scr_iframe_wrap"><iframe id="sc_37695" width="186" height="275" frameborder="0" scrolling="no"></iframe></div></div></div>
 								</div>
 							</div>
 						</div>
