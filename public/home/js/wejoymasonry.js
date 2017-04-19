@@ -28,29 +28,66 @@
 
 	});
 
-	var html;
-	function reply(content){
-		html  = '<li>';
-		html += '<div class="head-face">';
-		html += '<img src="images/1.jpg" / >';
-		html += '</div>';
-		html += '<div class="reply-cont">';
-		html += '<p class="username">小小红色飞机</p>';
-		html += '<p class="comment-body">'+content+'</p>';
-		html += '<p class="comment-footer">2016年10月5日　回复　点赞54　转发12</p>';
-		html += '</div>';
-		html += '</li>';
-		return html;
-	}
-
 	$(function(){
 				/*瀑布流开始*/
 				var container = $('.box-content ul:first');
 				var loading=$('#imloading');
         var sqlJson=[];
-        var skip = 10;
-        var conunt = 0;
+        var skip = 0;
+        var count = 0;
         var sqlfind=[];
+        var search='index';
+
+        // 获取后台信息统计数据
+        $.ajax({
+          url:'contentCount?search='+search,
+          type:'get',
+          success:function(data){
+            count = data;
+            skip = 0;
+          },
+          error:function(data){
+          }
+        });
+
+        // 我的收藏
+        $('#mycollect').click(function(){
+          search='mycollect';
+          $('html, body').animate({scrollTop:50}, 'slow');
+          loading.data("on",true);
+          $('.box-content ul li:first').nextAll().remove();
+          $('#emoji_btn_1').hide();
+          $('.box-content ul li:first').replaceWith('<li class="panel panel-default boxtest" style="height:50px;padding:10px;">我的收藏</li>');
+          $.ajax({
+            url:'contentCount?search='+search,
+            type:'get',
+            success:function(data){
+              count = data;
+              skip = 0;
+            },
+            error:function(data){
+            }
+          });
+        })
+        // 我的点赞
+        $('#myfavtimes').click(function(){
+          search='myfavtimes';
+          $('html, body').animate({scrollTop:50}, 'slow');
+          loading.data("on",true);
+          $('.box-content ul li:first').nextAll().remove();
+          $('#emoji_btn_1').hide();
+          $('.box-content ul li:first').replaceWith('<li class="panel panel-default boxtest" style="height:50px;padding:10px;">我的赞</li>');
+          $.ajax({
+            url:'contentCount?search='+search,
+            type:'get',
+            success:function(data){
+              count = data;
+            },
+            error:function(data){
+            }
+          });
+        })
+
         // 侧边栏到底改变css
         $(window).scroll(function(){
           if ( $(document).height() - $(document).scrollTop() <= 900 ) {
@@ -60,16 +97,6 @@
           }
         })
 
-        // 获取后台信息数据
-        $.ajax({
-          url:'contentIndex?skip=0',
-          type:'get',
-          success:function(data){
-            sqlJson = data;
-          },
-          error:function(data){
-          }
-        });
 				// 初始化loading状态
 				loading.data("on",true);
 				/*判断瀑布流最大布局宽度，最大为1280*/
@@ -117,8 +144,9 @@
 					if(maxTop<$(window).height()+$(document).scrollTop()){
 
             $.ajax({
-              url:'contentIndex?skip='+skip,
+              url:'contentIndex?skip='+skip+'&search='+search,
               type:'get',
+              async:false,
               success:function(data){
                 sqlJson = data;
               },
@@ -135,23 +163,21 @@
                 sqlfind['favtimes'] = data['favtimes'];
               },
               error:function(data){
-
               }
-
             })
 						//加载更多数据
 						loading.data("on",false);
             toastr.success('正在加载中');
 						(function(sqlJson){
 							/*这里会根据后台返回的数据来判断是否你进行分页或者数据加载完毕这里假设大于30就不在加载数据*/
-              // if(itemNum>sqlJson.length){
-              if(itemNum>5){
+              if(itemNum>count ){
+              // if(itemNum>5){
 								loading.text('就有这么多了！');
                 toastr.success('只有这么多了!');
 							}else{
 								var html="";
                 skip = skip + 5;
-								for(var i = 0; i < 5 ; i++){
+								for(var i = 0; i < sqlJson.length ; i++){
 									html += "<li class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/"+sqlJson[i].uid+"'><div class='Wejoy_face bg2'></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
 									html += "<span class='left'><a href='/home/user/"+sqlJson[i].uid+"'>"+sqlJson[i].username+"</a></span>";
 									html += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";
@@ -167,7 +193,7 @@
                   }
 									html += "<li class='left'><span class='glyphicon glyphicon-share' > "+sqlJson[i].transmits+"</span></li>";
 									html += "<li class='left'><span id='"+sqlJson[i].hid+"' class='glyphicon glyphicon-comment comshow' > "+sqlJson[i].countcom+"</span></li>";
-                  if( $.inArray(sqlJson[i].hid,sqlfind['collect']) == -1 ){
+                  if( $.inArray(sqlJson[i].hid,sqlfind['favtimes'] ) == -1 ){
                     html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up good' > "+sqlJson[i].favtimes+"</span></li>";
                   }else{
                     html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up bgorigin gooddie' > "+sqlJson[i].favtimes+"</span></li>";

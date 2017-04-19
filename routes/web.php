@@ -105,6 +105,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('contentPos','ContentController@contentPos');
   Route::get('contentGood','ContentController@contentGood');
   Route::get('contentFindcollect','ContentController@contentFindcollect');
+  Route::get('contentCount','ContentController@contentCount');
 
  //	用户路由
  Route::group(['prefix'=>'user'],function(){
