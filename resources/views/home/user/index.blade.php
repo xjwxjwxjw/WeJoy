@@ -18,8 +18,8 @@
 
     @section('slideTop')
     <?php
-    $user = DB::select('select * from homeuser where id='.Cookie::get('UserId'))[0];
-    $userinfo = DB::table('homeuserinfo')->where('uid',Cookie::get('UserId'))->get()[0];
+        $user = DB::select('select * from homeuser where id='.Cookie::get('UserId'))[0];
+        $userinfo = DB::table('homeuserinfo')->where('uid',Cookie::get('UserId'))->get()[0];
     ?>
     <div class="col-md-12">
         <div id="Pl_Official_Headerv6__1" class="text-center">
@@ -74,13 +74,13 @@
                     <table class="tb_tab" cellpadding="0" cellspacing="0">
                         <tr>
                             <td class="current">
-                                <a href="" class="tab_link">
+                                <a href="{{url('/home/user/index')}}" class="tab_link">
                                     <span class="S_txt1 t_link">我的主页</span>
                                     <span class="ani_border"></span>
                                 </a>
                             </td>
                             <td>
-                                <a href="" class="tab_link">
+                                <a href="{{url('/home/user/photo')}}" class="tab_link">
                                     <span class="S_txt1 t_link">我的相册</span>
                                     <span class="ani_border"></span>
                                 </a>
@@ -145,25 +145,39 @@
                         <div class="WB_cardwrap S_bg2">
                             <!-- v6 card 通用标题 -->
                             <div class="PCD_person_info">
-                                <div class="verify_area W_tog_hover S_line2">
-                                    <p class="verify clearfix">
-                                        <span class="icon_bed W_fl">
-                                            <a class="apply_link W_fl S_txt1" href="">申请认证</a>
-                                        </span>
-                                        <span class="icon_group S_line1 W_fl">
-                                            <a class="W_icon_level icon_level_c2" title="微博等级4 升级有好礼" href="" target="_black">
-                                                <span>Lv.4</span>
-                                            </a>&nbsp;
-                                        </span>
-                                    </p>
-                                    <p class="info"><span></span></p>
-                                </div>
                                 <div class="WB_innerwrap">
                                     <div class="m_wrap">
                                         <div class="bars_box">
-                                            <p class="bar_title">个人资料完成度<span class="num">45%</span></p>
+                                            <?php
+                                                $isFull = 0;
+                                                $number = 0;
+                                                foreach ($user as $k=>$v){
+                                                    if ( $k != 'password'&& $k !='name' && $k != 'phone' && $k != 'email'){
+                                                        continue;
+                                                    }
+                                                    if ($v == '' || $v == null ){
+                                                        $number++;
+                                                        continue;
+                                                    }
+                                                    $number++;
+                                                    $isFull++;
+                                                }
+                                                foreach ($userinfo as $k=>$v){
+                                                    if($k =='id' || $k == 'uid' || $k == 'update_time'){
+                                                        continue;
+                                                    }
+                                                    if ($v == '' || $v == null ){
+                                                        $number++;
+                                                        continue;
+                                                    }
+                                                    $number++;
+                                                    $isFull++;
+                                                }
+                                                $length = round($isFull / $number,4)*100;
+                                            ?>
+                                            <p class="bar_title">个人资料完成度<span class="num"><?= $length ?>%</span></p>
                                             <div class="bar_box S_bg1">
-                                                <div class="bar" style="width:45%"></div>
+                                                <div class="bar" style="width:<?= $length ?>%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -190,13 +204,16 @@
                             <div class="WB_cardtitle_b S_line2">
                                 <h4 class="obj_name">
                                     <span class="main_title W_fb W_f14">
-                                        <a href="" target="_blank" class="S_txt1">相册</a>
+                                        <a href="{{url('/home/user/photo')}}" target="_blank" class="S_txt1">相册</a>
                                     </span>
                                 </h4>
                             </div>
                             <div class="WB_innerwrap">
                                 <div class="m_wrap">
                                     <ul class="clearfix">
+                                        <?php
+//                                            $img = Photoes::;
+                                        ?>
                                         <li class="big_pic">
                                             <a href="" target="_blank">
                                                 <img src="">
@@ -230,7 +247,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <a href="" class="WB_cardmore S_txt1 S_line1 clearfix">
+                            <a href="{{url('/home/user/photo')}}" class="WB_cardmore S_txt1 S_line1 clearfix">
                                 <span class="more_txt">
                                     查看更多<em class="W_ficon ficon_arrow_right S_ficon">></em>
                                 </span>
@@ -351,65 +368,47 @@
                 <div id="Pl_Core_PicText__13"></div>
                 <div id="Pl_Core_Ut1UserList__14"></div>
                 <div id="Pl_Official_LikeMerge__15">
-                    <div class="WB_cardwrap S_bg2">
-                        <div class="PCD_pictext_f">
-                            <div class="WB_cardtitle_b S_line2">
-                                <div class="obj_name"><h2 class="main_title W_fb W_f14">赞</h2></div>
-                            </div>
-                            <div class="WB_innerwrap">
-                                <div class="m_wrap">
-                                    <div class="pic_list_B">
-                                        <ul class="pt_ul clearfix">
-                                            <li class="pt_li pt_li_a">
-                                                <div class="pic_txt clearfix">
-                                                    <div class="pic_box">
-                                                        <a target="_blank" href="">
-                                                            <img src={{url('home/1.jpg')}} class="pic">
-                                                        </a>
-                                                    </div>
-                                                    <div class="info_box S_bg1">
-                                                        <div class="text_box">
-                                                            <div class="title W_autocut">
-                                                                <a target="_blank" href="" class="S_txt1">微博名字</a>
-                                                            </div>
-                                                            <div class="subtitle W_autocut">
-                                                                <a class="S_txt1" target="_blank" href="">假装这里面有一段很长很长的内容，所以你怕不怕，继续凑字数​​​​</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <a bpfilter="page" href="" class="WB_cardmore S_txt1 S_line1 clearfix">
-                                <span class="more_txt">
-                                    查看更多&nbsp;<em class="W_ficon ficon_arrow_right S_ficon">></em>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
+                    {{--<div class="WB_cardwrap S_bg2">--}}
+                        {{--<div class="PCD_pictext_f">--}}
+                            {{--<div class="WB_cardtitle_b S_line2">--}}
+                                {{--<div class="obj_name"><h2 class="main_title W_fb W_f14">赞</h2></div>--}}
+                            {{--</div>--}}
+                            {{--<div class="WB_innerwrap">--}}
+                                {{--<div class="m_wrap">--}}
+                                    {{--<div class="pic_list_B">--}}
+                                        {{--<ul class="pt_ul clearfix">--}}
+                                            {{--<li class="pt_li pt_li_a">--}}
+                                                {{--<div class="pic_txt clearfix">--}}
+                                                    {{--<div class="pic_box">--}}
+                                                        {{--<a target="_blank" href="">--}}
+                                                            {{--<img src={{url('home/1.jpg')}} class="pic">--}}
+                                                        {{--</a>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="info_box S_bg1">--}}
+                                                        {{--<div class="text_box">--}}
+                                                            {{--<div class="title W_autocut">--}}
+                                                                {{--<a target="_blank" href="" class="S_txt1">微博名字</a>--}}
+                                                            {{--</div>--}}
+                                                            {{--<div class="subtitle W_autocut">--}}
+                                                                {{--<a class="S_txt1" target="_blank" href="">假装这里面有一段很长很长的内容，所以你怕不怕，继续凑字数​​​​</a>--}}
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</li>--}}
+                                        {{--</ul>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<a bpfilter="page" href="" class="WB_cardmore S_txt1 S_line1 clearfix">--}}
+                                {{--<span class="more_txt">--}}
+                                    {{--查看更多&nbsp;<em class="W_ficon ficon_arrow_right S_ficon">></em>--}}
+                                {{--</span>--}}
+                            {{--</a>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
                 </div>
-                <div id="Pl_Official_MyPopularity__16">
-                    <div class="WB_cardwrap S_bg2">
-                        <div class="PCD_mydata">
-                            <div class="WB_cardtitle_b S_line2">
-                                <div class="obj_name">
-                                    <h2 class="main_title W_fb W_f14">我的微博人气</h2>
-                                </div>
-                            </div>
-                            <div class="WB_empty">
-                                <div class="WB_innerwrap">
-                                    <div class="empty_con clearfix">
-                                        <p class="icon_bed"><i class="W_icon icon_warnB" style="background-image:url({{url('/home/icon.png')}});"></i></p>
-                                        <p class="text">您的数据暂时无法算出，明天再来吧 。</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="Pl_Official_MyPopularity__16"></div>
                 <div id="Pl_Guide_Bigday__17"></div>
                 <div id="Pl_Official_SeoInfo__18"></div>
                 <div id="Pl_Core_RecommendFeed__19"></div>
@@ -501,7 +500,7 @@
         <div style="display: none" class="out_biv"></div>
         <div class="W_layer W_layer_div" style="display: none">
             <div tabindex="0"></div>
-            <div class="content" style="height: 300px;">
+            <div class="content">
                 <div class="W_layer_title">Wejoy微距</div>
                 <div class="W_layer_close">
                     <a href="javascript:void(0);" class="W_ficon ficon_close S_ficon" onclick="closeIcon()">X</a>

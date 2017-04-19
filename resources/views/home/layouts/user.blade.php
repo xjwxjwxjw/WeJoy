@@ -17,7 +17,7 @@
     @show
   </div>
   <div class="row" style="margin:0 auto;width:950px;">
-    <div class="col-md-8col-md-offset-2 clearfix">
+    <div class="clearfix">
       @yield('slideTop')
       @yield('slideLeft')
       @yield('slideRight')

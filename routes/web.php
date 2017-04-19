@@ -91,11 +91,17 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
 
  //	用户路由
  Route::group(['prefix'=>'user'],function(){
-       Route::get('index','UserController@index');
-       Route::get('info','UserController@info');
-     Route::post('edit','UserController@edit');
-     Route::post('editIcon','UserController@editIcon');
-    });
+     Route::get('index','UserController@index');//个人主页
+     Route::get('info','UserController@info');//个人信息
+     Route::post('edit','UserController@edit');//修改
+     Route::post('editIcon','UserController@editIcon');//修改头像
+     Route::get('photo/{id?}','AlbumController@photo');//相册 有id为他人，没id为自己
+     Route::get('editDescription','AlbumController@editDescription');//修改相册描述
+     Route::get('editName','AlbumController@editName');//修改相册名字
+     Route::get('delAlbum','AlbumController@delAlbum');//删除相册
+     Route::post('addAlbum','AlbumController@addAlbum');//添加相册
+     Route::get('photo/{id}/{Aid}','InAlbumController@photo');//相册内图片 有id为他人，没id为自己
+ });
     Route::get('user/{id}','UserController@lookIndex');
 
 });

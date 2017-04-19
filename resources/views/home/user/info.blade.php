@@ -103,13 +103,13 @@
                             <table class="tb_tab" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td class="current">
-                                        <a href="" class="tab_link">
+                                        <a href="{{url('/home/user/index')}}" class="tab_link">
                                             <span class="S_txt1 t_link">我的主页</span>
                                             <span class="ani_border"></span>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="" class="tab_link">
+                                        <a href="{{url('/home/user/photo')}}" class="tab_link">
                                             <span class="S_txt1 t_link">我的相册</span>
                                             <span class="ani_border"></span>
                                         </a>
@@ -180,7 +180,7 @@
                             <div class="WB_cardtitle_b S_line2">
                                 <h4 class="obj_name">
                                     <span class="main_title W_fb W_f14">
-                                        <a href="" target="_blank" class="S_txt1">相册</a>
+                                        <a href="{{url('/home/user/photo')}}" target="_blank" class="S_txt1">相册</a>
                                     </span>
                                 </h4>
                             </div>
@@ -220,7 +220,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <a href="" class="WB_cardmore S_txt1 S_line1 clearfix">
+                            <a href="{{url('/home/user/photo')}}" class="WB_cardmore S_txt1 S_line1 clearfix">
                                 <span class="more_txt">
                                     查看更多<em class="W_ficon ficon_arrow_right S_ficon">></em>
                                 </span>
@@ -470,7 +470,7 @@
         <div style="display: none" class="out_biv"></div>
         <div class="W_layer W_layer_div" style="display: none">
             <div tabindex="0"></div>
-            <div class="content" style="height: 300px;">
+            <div class="content">
                 <div class="W_layer_title">Wejoy微距</div>
                 <div class="W_layer_close">
                     <a href="javascript:void(0);" class="W_ficon ficon_close S_ficon" onclick="closeIcon()">X</a>
