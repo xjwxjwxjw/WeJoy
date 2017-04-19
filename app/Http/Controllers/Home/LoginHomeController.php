@@ -109,6 +109,7 @@ class LoginHomeController extends Controller
           }
           DB::table('homeuser')->insert(array_merge($arr,$data));
           $user = DB::table('homeuser')->orderBy('id','desc')->limit(1)->get()[0];
+          DB::table('homeuserinfo')->insert(['uid'=>$user->id]);
           $view = 'home.emailConfirmed';
           $subject = '请验证邮箱';
           $this->sendEmail($user,$view, $subject, $data);
