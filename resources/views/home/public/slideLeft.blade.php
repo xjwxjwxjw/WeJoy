@@ -1,8 +1,8 @@
 <div>
  <ul id='slideleft' class="slideleft MJ_slideleft">
    <li>首页<span class="glyphicon glyphicon-repeat bg1 right"></span></li>
-   <a href={{url('home/index?search=mycollect')}}><li>我的收藏</li></a>
-   <li>我的赞</li>
+   <li id='mycollect'>我的收藏</li>
+   <li id='myfavtimes'>我的赞</li>
     <fieldset></fieldset>
    <li><span class="glyphicon glyphicon-fire"></span> 热门微博<span class="glyphicon glyphicon-repeat bg1 right"></li>
     <fieldset></fieldset>
