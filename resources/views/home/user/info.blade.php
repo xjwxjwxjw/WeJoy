@@ -55,11 +55,11 @@
                     <div class="PCD_header">
                         <div class="pf_wrap" style="background-image:url({{url('/home/bg.jpg')}});background-size:100% 100%;">
                                 {{--上面url为背景图片--}}
-                            <div class="shadow  S_shadow" layout-shell="false">
+                            <div class="shadow  S_shadow">
                                 <div class="pf_photo">
                                     <p class="photo_wrap">
                                         <a href="javascript:void(0);"title="更换头像" onclick="editIcon()">
-                                            <img src='<?= empty($userinfo->icon)?url('/home/1.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo" width="100" height="100">{{--头像--}}
+                                            <img src='<?= empty($userinfo->icon)?url('/image/default.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo" width="100" height="100">{{--头像--}}
                                         </a>
                                     </p>
                                 </div>

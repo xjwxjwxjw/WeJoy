@@ -17,9 +17,10 @@ class UserController extends Controller
     {
         return view('home.user.index');
     }
-    public function lookIndex()
+    public function lookIndex($id)
     {
-        return view('home.user.index');
+        $id = Hashids::decode($id);
+        return view('home.user.user',compact('id'));
     }
     public function addFans(Request $request)
     {
