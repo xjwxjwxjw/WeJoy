@@ -80,6 +80,10 @@ class AlbumController extends Controller
     }
     public function delAlbum(Request $request){
         $album = Album::find($request->all()['id']);
+        $photoes = DB::table('photoes')->where('Aid',$request->all()['id'])->get();
+        foreach ($photoes as $v){
+            unlink(public_path().'/'.$v->PhotosUrl);
+        }
         if($album->delete()){
             echo 1;
         }else{
