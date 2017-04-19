@@ -52,9 +52,9 @@ class ContentController extends Controller
     $pucoms = DB::table('comment')->where('mid','=',$id)->orderBy('created_at','desc')->get();
     foreach ($pucoms as $pucom){
       $pucom->uname = DB::table('homeuser')->where('id','=',$pucom->uid)->value('name');
-      $pucom->hid = Hashids::encode($pucom->id);
+        $pucom->hid = Hashids::encode($pucom->id);
+        $pucom->uid = Hashids::encode($pucom->uid);
     }
-
     return response()->json($pucoms);
   }
 
@@ -68,8 +68,6 @@ class ContentController extends Controller
     $newid = DB::table('comment')->insertGetId($data);
     $result = DB::table('comment')->where('id','=',$newid)->get();
     $result[0]->uuid = Hashids::encode($result[0]->uid);
-//    $result = $request[0];
-//    dd($result);
     return response()->json($result);
   }
 

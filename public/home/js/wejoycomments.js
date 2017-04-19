@@ -110,6 +110,7 @@ $(function(){
             toastr.success('评论成功');
             $text = $('#'+comid).text();
             $text++;
+            console.log('|'+data)
             $('#'+comid).text(" "+$text);
             var newconlist = '';
             newconlist = "<div class='list_li'> ";
@@ -120,7 +121,7 @@ $(function(){
             newconlist += "<!-- 评论内容 --> ";
             newconlist += "<div class='list-con'> ";
             newconlist += "<div class='WE_text'> ";
-            newconlist += "<a>"+$('.name').attr('title')+"</a>  <span>"+data[0].description;
+            newconlist += "<a href='/home/user/"+data[0].uuid+"'>"+$('.name').attr('title')+"</a>  <span>"+data[0].description;
             newconlist += "</span></div> ";
             newconlist += "<div class='WE_func clearfix'> ";
             newconlist += "<div class='WE_time'>";
@@ -239,7 +240,8 @@ $(function(){
       url:'contentComment?id='+comid,
       type:'get',
       success:function(data){
-        // 遍历评论列表数据
+          // 遍历评论列表数据
+          console.log(data)
           for(var i = 0; i < data.length; i++){
             conlist += "<div class='list_li'> ";
             conlist += "<!--评论头像 --> ";
@@ -249,7 +251,7 @@ $(function(){
             conlist += "<!-- 评论内容 --> ";
             conlist += "<div class='list-con'> ";
             conlist += "<div class='WE_text'> ";
-            conlist += "<a>"+data[i].uname+"</a>  <span>"+data[i].description;
+            conlist += "<a href='/home/user/"+data[i].uid+"'>"+data[i].uname+"</a>  <span>"+data[i].description;
             conlist += "</span></div> ";
             conlist += "<div class='WE_func clearfix'> ";
             conlist += "<div class='WE_time'>";
