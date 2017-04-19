@@ -32,17 +32,32 @@ class ContentController extends Controller
   }
 
   public function contentFind(Request $request){
-    $skip = $_GET['skip'];
-    if ( $skip == 0 ) {
-      $count = Content::count();
-    }
+    if (empty($_GET['search'])) {
+      $skip = $_GET['skip'];
+      if ( $skip == 0 ) {
+        $count = Content::count();
+      }
 
-    $news = Content::where('status','=','1')->skip(0)->take(5)->orderBy('id', 'desc')->get();
-    foreach ($news as $new ) {
-      $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
-      $new->countcom = DB::table('comment')->where('mid','=',$new->id)->count();
-      $new->uid = Hashids::encode($new->uid);
-      $new->hid = Hashids::encode($new->id);
+      $news = Content::where('status','=','1')->skip(0)->take(5)->orderBy('id', 'desc')->get();
+      foreach ($news as $new ) {
+        $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
+        $new->countcom = DB::table('comment')->where('mid','=',$new->id)->count();
+        $new->uid = Hashids::encode($new->uid);
+        $new->hid = Hashids::encode($new->id);
+      }
+    }else{
+      $skip = $_GET['skip'];
+      if ( $skip == 0 ) {
+        $count = Content::count();
+      }
+
+      $news = Content::where('status','=','1')->skip(0)->take(5)->orderBy('id', 'desc')->get();
+      foreach ($news as $new ) {
+        $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
+        $new->countcom = DB::table('comment')->where('mid','=',$new->id)->count();
+        $new->uid = Hashids::encode($new->uid);
+        $new->hid = Hashids::encode($new->id);
+      }
     }
     return response()->json($news);
   }
