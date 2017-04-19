@@ -17,7 +17,11 @@ class UserController extends Controller
     {
         return view('home.user.index');
     }
-
+    public function lookIndex($id)
+    {
+        $id = Hashids::decode($id);
+        return view('home.user.user',compact('id'));
+    }
     public function addFans(Request $request)
     {
         $user_ed = DB::table('homeuser')->where('name',$request->name)->get()[0]->id;

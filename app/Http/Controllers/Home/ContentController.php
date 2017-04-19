@@ -67,6 +67,9 @@ class ContentController extends Controller
     $data['updated_at'] = date('Y-m-d H:i:s');
     $newid = DB::table('comment')->insertGetId($data);
     $result = DB::table('comment')->where('id','=',$newid)->get();
+    $result[0]->uuid = Hashids::encode($result[0]->uid);
+//    $result = $request[0];
+//    dd($result);
     return response()->json($result);
   }
 
