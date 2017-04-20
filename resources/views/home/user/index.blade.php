@@ -18,28 +18,6 @@
 
     @section('slideTop')
 
-            <?php
-                $user = DB::select('select * from homeuser where id='.Cookie::get('UserId'))[0];
-                $userinfo = DB::table('homeuserinfo')->where('uid',Cookie::get('UserId'))->get()[0];
-
-            ?>
-            <div class="col-md-12">
-                <div id="Pl_Official_Headerv6__1" class="text-center">
-                    <div class="PCD_header">
-                        <div class="pf_wrap" style="background-image:url({{url('/home/bg.jpg')}});background-size:100% 100%;">
-                                {{--上面url为背景图片--}}
-                            <div class="shadow  S_shadow" layout-shell="false">
-                                <div class="pf_photo">
-                                    <p class="photo_wrap">
-                                        <a href="javascript:void(0);"title="更换头像">
-                                            <img src='<?= empty($userinfo->icon)?url('/home/1.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo">{{--头像--}}
-                                        </a>
-                                    </p>
-                                </div>
-                                <div class="pf_username">
-                                    <h1 class="username">{{Cookie::get('UserNickname')}}</h1>
-                                    <span class="icon_bed">
-
     <?php
     $user = DB::select('select * from homeuser where id='.Cookie::get('UserId'))[0];
     $userinfo = DB::table('homeuserinfo')->where('uid',Cookie::get('UserId'))->get()[0];

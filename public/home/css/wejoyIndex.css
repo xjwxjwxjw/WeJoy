@@ -1,5 +1,10 @@
 body{padding-top: 50px;background-repeat: repeat-x;background-color: #b4daf0;}
 fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-top-width: 1px;border-top-style: solid;border-color: rgba(255,255,255,0.2);    border-style: solid;    border-width: 1px 0 0 0;}
+div{ word-wrap: break-word; word-break: normal;}
+a{ text-decoration:none; }
+a:link{ text-decoration:none; }
+a:visited{ text-decoration:none; }
+a:hover{ text-decoration:none; }
 .boxtest{width: 602px;}
 .box-content{margin-left: 150px;}
 .bgsmred{opacity:0.8;background-color:#FFC09F !important;cursor: default !important; }
@@ -13,14 +18,30 @@ fieldset{padding: 0;height: 11px;margin-top: 11px;padding: 0 0 0 120px;border-to
 .bg3{background: #ff6700;}
 .bgorigin{color:#ff6700 !important;}
 .right{float: right;}
+.issue_user{color:#333;text-decoration: none;}
+.WE_time a{cursor: pointer;}
+.Wj_media_wrap img{width: 100%;}
 .left{float: left;}
+.glyphicon{cursor: pointer;}
+.WE_time span:hover{color:#ff6700;}
+.Wejoy_face img{width: 100%;height: 100%;}
 #slideleft a{text-decoration: none;color:#fff;}
 .WJ-menu-right{top:20px;}
 .Wj_cursons{cursor: pointer;}
 .masonry{height:100% !important;}
+.emoji_content{z-index: 999;}
+.emoji_container{z-index: 999;}
 .WJ_text{color: #808080;height: 20px;margin-bottom: 2px;}
-.WJ_text2{margin-bottom: 2px;}
-.Wj_media_wrap{height: 200px;width: 100%;}
+.WJ_text2{margin-bottom: 2px;width:500px;}
+.img-icon{margin-left:50px !important;}
+.Wj_media_wrap{width: 100%;}
+.usercom_list_box{margin: 0 0 -1px;padding: 5px 0 7px;}
+.mCustomScrollBox{z-index: 999;}
+.mCSB_container{z-index: 999;}
+.usercom{margin-right: 10px;}
+.S_bg1{background-color: #eaeaec !important; }
+.twolist_li{margin: 0 0 -1px;padding: 5px 0 7px;}
+.usercom_list{margin-top: 8px;margin-bottom: 10px;padding: 0 12px;background-color: #fff;float: right;width: 530px;}
 .WJ_row_line{border-top-width: 1px;border-top-style: solid;height: 38px;border-color: #f2f2f5;margin:0;}
 .WJ_row_line li{padding: 0;height: 38px;text-align: center;width: 25%;}
 .WJ_row_line li span{text-align: center;height: 22px;margin: 7px 0;border-left-width: 1px;border-left-style: solid;height: 22px;color:#808080;line-height: 22px;width: 100%;border-color: #f2f2f5;cursor: pointer;}

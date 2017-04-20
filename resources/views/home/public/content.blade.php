@@ -10,14 +10,15 @@
               <textarea  id="textarea" oninput="" onpropertychange="" class="text" placeholder="请输入..."></textarea
           </div>
 	        <div class="tools-box" style="border:0px solid red;position:relative;">
-	          <div class="operator-box-btn"><span class="face-icon self_commit"  > </div>
-	          <div class="submit-btn"><input id="issue" type="button" class="bgsmred" value="发布">
+	          <div class="operator-box-btn">
+							<span id="img-icon" class="img-icon">▧</span>
+							<div id="zyupload" style="display:none;" class="zyupload"></div>
+						</div>
+	          <div class="submit-btn"><input id="issue" disabled=true type="button" class="bgsmred" value="发布">
 	          </div>
 	        </div>
           </form>
-	        <!-- <div id="info-show">
-				<ul></ul>
-	    	</div> -->
+
 	    </li>
 	  </ul>
 	</div>

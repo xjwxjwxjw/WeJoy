@@ -89,6 +89,7 @@ class UserController extends Controller
         $uid = Hashids::decode($request->all()['name'])[0];
         $basename = 'image/'.date("Y/m/d",time());
         $filename = date("Ymd-His-",time()).uniqid().$request->all()['icontype'];
+        // dd($request->file('icon'));
         if($request->file('icon')->move($basename,$filename)){
 //            删除原图片
             $oldicon = DB::select('select icon from homeuserinfo where uid='.$uid)[0]->icon;

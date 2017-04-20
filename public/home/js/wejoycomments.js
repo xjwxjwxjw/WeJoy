@@ -5,6 +5,175 @@ $(function(){
            dataType: 'json',
         }
     });
+
+    $('.twocom').live('click',function(){
+      var twocom ='';
+      var newicon = $('.W_face_radius').attr('src');
+      var comid = $(this).attr('id').replace(/twocom/, "");
+      $(document).live('propertychange input', function () {
+          if ( $('#twocomments'+comid).val() == '' ) {
+            $('#dotwocomment'+comid).attr("disabled",true).addClass('bgsmred').removeClass('bgred');
+          }else{
+            $('#dotwocomment'+comid).attr("disabled",false).addClass('bgred').removeClass('bgsmred');
+          }
+       })
+      // 二级评论
+      twocom = "<div class='usercom_list'> ";
+      twocom += "<div class='usercom_list_box'> ";
+      twocom += "<div class='WE_feed_comments'> ";
+      twocom += "<div class='WE_publish_face'> ";
+      twocom += "<img src='"+newicon+"' alt='' > ";
+      twocom += "</div> ";
+      twocom += "<div class='WE_publish clearfix'> ";
+      twocom += "<form id='twoform"+comid+"' action=' method='post'>";
+      twocom += "<div class='WE_feed_publish_comments' id='cont-box2'> ";
+      twocom += "<input type='text' name='description' id='twocomments"+comid+"' value='' /> ";
+      twocom += "</div> ";
+      twocom += "<div class='tools-box' style='border:0px solid red;'> ";
+      twocom += "<div class='operator-box-btn'>";
+      twocom += "</div> ";
+      twocom += "<div class='submit-btn'>";
+      twocom += "<input id='dotwocomment"+comid+"' type='button'  disabled=true class='bgsmred' value='评论' /> ";
+      twocom += "</div> ";
+      twocom += "</div> ";
+      twocom += "</form> ";
+      twocom += "</div> ";
+      twocom += "</div> ";
+      twocom += "</div> ";
+      $(this).removeClass('twocom').addClass('twocomdie');
+      $(this).parent().after(twocom);
+
+      // 二级评论提交
+      //  添加一级评论
+       $('#dotwocomment'+comid).live('click', function () {
+          data = $('#twoform'+comid).serialize();
+          data += '&cid='+comid;
+          $.ajax({
+            url:'twocontentIssue',
+            data: data,
+            type: 'post',
+            dataType: 'json',
+            success:function(data){
+              toastr.success('评论成功');
+              // $text = $('#'+comid).text();
+              // $text++;
+              // $('#'+comid).text(" "+$text);
+              // var newicon = $('.W_face_radius').attr('src');
+              // var newconlist = '';
+              // newconlist += "<div id='listli"+data[0].hid+"' class='list_li'> ";
+              // newconlist += "<!--评论头像 --> ";
+              // newconlist += "<div class='WE_face'> ";
+              // newconlist += "<img src='"+newicon+"' alt='' /> ";
+              // newconlist += "</div> ";
+              // newconlist += "<!-- 评论内容 --> ";
+              // newconlist += "<div class='list-con'> ";
+              // newconlist += "<div class='WE_text'> ";
+              // newconlist += "<a href='/home/user/"+data[0].nuid+"'>"+$('.name').attr('title')+"</a>  <span>"+data[0].description;
+              // newconlist += "</span></div> ";
+              // newconlist += "<div class='WE_func clearfix'> ";
+              // newconlist += "<div class='WE_time'>";
+              // newconlist += data[0].created_at;
+              // newconlist += "<span id='onegly"+data[0].hid+"' class='glyphicon glyphicon-remove one-glyphicon-remove right'></span> ";
+              // newconlist += "<span id='twocom"+data[i].hid+"' class='glyphicon glyphicon-comment twocom right'></span></div> ";
+              // newconlist += "</div> ";
+              // newconlist += "</div> ";
+              // newconlist += "</div> ";
+              // $('.list_box'+comid).prepend(newconlist);
+              // $('#publishcomments'+comid).val('');
+              // // 解析表情
+              // $(".WE_text").emojiParse({
+              //   icons: [{
+              //       path: "/home/image/tieba/",
+              //       file: ".jpg",
+              //       placeholder: ":{alias}:",
+              //       alias: {
+              //           1: "hehe",
+              //           2: "haha",
+              //           3: "tushe",
+              //           4: "a",
+              //           5: "ku",
+              //           6: "lu",
+              //           7: "kaixin",
+              //           8: "han",
+              //           9: "lei",
+              //           10: "heixian",
+              //           11: "bishi",
+              //           12: "bugaoxing",
+              //           13: "zhenbang",
+              //           14: "qian",
+              //           15: "yiwen",
+              //           16: "yinxian",
+              //           17: "tu",
+              //           18: "yi",
+              //           19: "weiqu",
+              //           20: "huaxin",
+              //           21: "hu",
+              //           22: "xiaonian",
+              //           23: "neng",
+              //           24: "taikaixin",
+              //           25: "huaji",
+              //           26: "mianqiang",
+              //           27: "kuanghan",
+              //           28: "guai",
+              //           29: "shuijiao",
+              //           30: "jinku",
+              //           31: "shengqi",
+              //           32: "jinya",
+              //           33: "pen",
+              //           34: "aixin",
+              //           35: "xinsui",
+              //           36: "meigui",
+              //           37: "liwu",
+              //           38: "caihong",
+              //           39: "xxyl",
+              //           40: "taiyang",
+              //           41: "qianbi",
+              //           42: "dnegpao",
+              //           43: "chabei",
+              //           44: "dangao",
+              //           45: "yinyue",
+              //           46: "haha2",
+              //           47: "shenli",
+              //           48: "damuzhi",
+              //           49: "ruo",
+              //           50: "OK"
+              //       }
+                // }, {
+                //     path: "/home/image/qq/",
+                //     file: ".gif",
+                //     placeholder: "#qq_{alias}#"
+                // }]
+            // });
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+              toastr.error('评论失败,联系管理员吧');
+            }
+          })
+       })
+
+
+    });
+    $('.twocomdie').live('click',function(){
+      $(this).parent().next().remove();
+      $(this).removeClass('twocomdie').addClass('twocom');
+    })
+
+    // 一级评论删除
+    $('.one-glyphicon-remove').live('click',function(){
+      var posid = $(this).attr('id').replace(/onegly/, "");
+      $.ajax({
+        url:'contentOnegly?onegly='+posid,
+        type:'get',
+        success:function(data){
+          toastr.success('评论已删除');
+          $('#listli'+posid).remove();
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+          toastr.error(jqXHR.responseText);
+        }
+      })
+    })
+
 // 收藏
   $('.pos').live('click',function(){
     var posid = $(this).attr('id').replace(/pos/, "");
@@ -39,6 +208,23 @@ $(function(){
       }
     })
   })
+  // 删除微博
+  $('.commentdel').live('click',function(){
+    var comdelid = $(this).attr('id').replace(/comdel/, "");
+    console.log(1);
+    $.ajax({
+      url:'commentdel?mid='+comdelid,
+      type:'get',
+      success:function(data){
+        toastr.success('删除成功');
+        $('#li'+comdelid).remove();
+        $('.emoji_btn').hide();
+        $('#emoji_btn_1').show();
+      },
+      error:function(data){
+      }
+    })
+  })
 // 点赞
   $('.good').live('click',function(){
     var goodid = $(this).attr('id').replace(/good/, "");
@@ -54,7 +240,7 @@ $(function(){
         $('#good'+goodid).removeClass('good').addClass('gooddie');
       },
       error:function(jqXHR, textStatus, errorThrown){
-        toastr.error(jqXHR.responseText);
+        toastr.error('我被你玩坏了');
       }
     })
   })
@@ -73,7 +259,7 @@ $(function(){
         $('#good'+goodid).removeClass('gooddie').addClass('good');
       },
       error:function(jqXHR, textStatus, errorThrown){
-        toastr.error(jqXHR.responseText);
+        toastr.error('我被你玩坏了');
       }
     })
   })
@@ -84,6 +270,7 @@ $(function(){
     $(this).removeClass('comnone').addClass('comshow');
     $('.con'+comid).empty();
     $('.emoji_btn').hide();
+    $('#emoji_btn_1').show();
   })
   $('.comshow').live('click',function(){
     $(this).removeClass('comshow').addClass('comnone');
@@ -110,25 +297,24 @@ $(function(){
             toastr.success('评论成功');
             $text = $('#'+comid).text();
             $text++;
-            console.log('|'+data)
             $('#'+comid).text(" "+$text);
+            var newicon = $('.W_face_radius').attr('src');
             var newconlist = '';
-            newconlist = "<div class='list_li'> ";
+            newconlist += "<div id='listli"+data[0].hid+"' class='list_li'> ";
             newconlist += "<!--评论头像 --> ";
             newconlist += "<div class='WE_face'> ";
-            newconlist += "<img src='/home/1.jpg' alt='' /> ";
+            newconlist += "<img src='"+newicon+"' alt='' /> ";
             newconlist += "</div> ";
             newconlist += "<!-- 评论内容 --> ";
             newconlist += "<div class='list-con'> ";
             newconlist += "<div class='WE_text'> ";
-            newconlist += "<a href='/home/user/"+data[0].uuid+"'>"+$('.name').attr('title')+"</a>  <span>"+data[0].description;
+            newconlist += "<a href='/home/user/"+data[0].nuid+"'>"+$('.name').attr('title')+"</a>  <span>"+data[0].description;
             newconlist += "</span></div> ";
             newconlist += "<div class='WE_func clearfix'> ";
             newconlist += "<div class='WE_time'>";
             newconlist += data[0].created_at;
-            newconlist += "</div> ";
-            newconlist += "<div class=''> ";
-            newconlist += "</div> ";
+            newconlist += "<span id='onegly"+data[0].hid+"' class='glyphicon glyphicon-remove one-glyphicon-remove right'></span> ";
+            newconlist += "<span id='twocom"+data[i].hid+"' class='glyphicon glyphicon-comment twocom right'></span></div> ";
             newconlist += "</div> ";
             newconlist += "</div> ";
             newconlist += "</div> ";
@@ -207,11 +393,12 @@ $(function(){
 
     // 评论列表html片段
     var conlist = '';
+    var newicon = $('.W_face_radius').attr('src');
     conlist = "<div class='WE_repeat clearfix'> ";
     conlist += "<!-- 发布评论 --> ";
     conlist += "<div class='WE_feed_comments'> ";
     conlist += "<div class='WE_publish_face'> ";
-    conlist += "<img src='/home/1.jpg' alt='' > ";
+    conlist += "<img src='"+newicon+"' alt='' > ";
     conlist += "</div> ";
     conlist += "<div class='WE_publish clearfix'> ";
     conlist += "<form id='testform"+comid+"' action=' method='post'>";
@@ -222,7 +409,7 @@ $(function(){
     conlist += "<div class='operator-box-btn'>";
     conlist += "</div> ";
     conlist += "<div class='submit-btn'>";
-    conlist += "<input id='docomment"+comid+"' type='button' class='bgsmred' value='评论' /> ";
+    conlist += "<input id='docomment"+comid+"' type='button'  disabled=true class='bgsmred' value='评论' /> ";
     conlist += "</div> ";
     conlist += "</div> ";
     conlist += "</form> ";
@@ -241,29 +428,41 @@ $(function(){
       type:'get',
       success:function(data){
           // 遍历评论列表数据
-          console.log(data)
           for(var i = 0; i < data.length; i++){
-            conlist += "<div class='list_li'> ";
+            conlist += "<div id='listli"+data[i].hid+"' class='list_li'> ";
             conlist += "<!--评论头像 --> ";
             conlist += "<div class='WE_face'> ";
-            conlist += "<img src='/home/1.jpg' alt='' /> ";
+            conlist += "<img src='/"+data[i].usericon+"'> ";
             conlist += "</div> ";
             conlist += "<!-- 评论内容 --> ";
             conlist += "<div class='list-con'> ";
             conlist += "<div class='WE_text'> ";
-            conlist += "<a href='/home/user/"+data[i].uid+"'>"+data[i].uname+"</a>  <span>"+data[i].description;
+            conlist += "<a href='/home/user/"+data[i].nuid+"'>"+data[i].uname+"</a>  <span>"+data[i].description;
             conlist += "</span></div> ";
             conlist += "<div class='WE_func clearfix'> ";
             conlist += "<div class='WE_time'>";
             conlist += data[i].created_at;
+            if( data[i].del == 1 ){
+              conlist += "<span id='onegly"+data[i].hid+"' class='glyphicon glyphicon-remove one-glyphicon-remove right'></span>";
+            }
+            conlist += "<span id='twocom"+data[i].hid+"' class='glyphicon glyphicon-comment twocom right'></span></div> ";
+            // 二级评论
+            for(var a = 0; a < data[i].two.length; a++){
+              conlist += "<div class='usercom_list S_bg1'><div class='twolist_ul'>";
+              conlist += "<div class='twolist_li'><div class='list_con2' ><div class='twolist_text'>";
+              conlist += "<a href='/home/user/"+data[i].two[a].nuid+"'>"+data[i].two[a].uname+"</a>: "+data[i].two[a].description;
+              conlist += "</div>";
+              conlist += "<div>";
+              conlist += "<div class='left'>"+data[i].two[a].created_at+"</div>";
+              conlist += "<div class='right'>回复 | 赞</div>";
+              conlist += "</div>";
+              conlist += "</div></div> </div></div>";
+            }
             conlist += "</div> ";
-            conlist += "<div class=''> ";
             conlist += "</div> ";
             conlist += "</div> ";
-            conlist += "</div> ";
-            conlist += "</div> ";
+
           }
-        conlist += "</div> ";
         conlist += "</div> ";
         conlist += "</div>";
         conlist += "</div>";

@@ -1,6 +1,6 @@
 <div>
  <ul id='slideleft' class="slideleft MJ_slideleft">
-   <li>首页<span class="glyphicon glyphicon-repeat bg1 right"></span></li>
+   <a href={{url('home/index')}}><li>首页<span class="glyphicon glyphicon-repeat bg1 right"></span></li></a>
    <li id='mycollect'>我的收藏</li>
    <li id='myfavtimes'>我的赞</li>
     <fieldset></fieldset>

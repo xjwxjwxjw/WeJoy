@@ -1,50 +1,48 @@
-(function($) {
-    $.fn.extend({
-        insertContent: function(myValue, t) {
-            var $t = $(this)[0];
-            if (document.selection) { //ie
-                this.focus();
-                var sel = document.selection.createRange();
-                sel.text = myValue;
-                this.focus();
-                sel.moveStart('character', -l);
-                var wee = sel.text.length;
-                if (arguments.length == 2) {
-                    var l = $t.value.length;
-                    sel.moveEnd("character", wee + t);
-                    t <= 0 ? sel.moveStart("character", wee - 2 * t - myValue.length) : sel.moveStart("character", wee - t - myValue.length);
-
-                    sel.select();
-                }
-            } else if ($t.selectionStart || $t.selectionStart == '0') {
-                var startPos = $t.selectionStart;
-                var endPos = $t.selectionEnd;
-                var scrollTop = $t.scrollTop;
-                $t.value = $t.value.substring(0, startPos) + myValue + $t.value.substring(endPos, $t.value.length);
-                this.focus();
-                $t.selectionStart = startPos + myValue.length;
-                $t.selectionEnd = startPos + myValue.length;
-                $t.scrollTop = scrollTop;
-                if (arguments.length == 2) {
-                    $t.setSelectionRange(startPos - t, $t.selectionEnd + t);
-                    this.focus();
-                }
-            }
-            else {
-                this.value += myValue;
-                this.focus();
-            }
-        }
-    })
-})(jQuery);
-
 $(document).ready(function(){
-  	$(".img-icon").live('click',function(){
-		$(".cont-box .text").insertContent('<img src="请在这里输入图片地址" alt=""/>', -10);
-	});
+  $('#img-icon').bind('click',function(){
+      $('#issue').toggle();
+      $('.zyupload').toggle();
+  })
+  $('#img-icon').one('click',function(){
+      // 初始化插件
+      $("#zyupload").one().zyUpload({
+      	width            :   "600px",                 // 宽度
+      	height           :   "400px",                 // 宽度
+      	itemWidth        :   "140px",                 // 文件项的宽度
+      	itemHeight       :   "115px",                 // 文件项的高度
+      	url              :   "http://wejoy.cn/home/commentimg",              // 上传文件的路径
+      	fileType         :   ["jpg","png"],           // 上传文件的类型
+      	fileSize         :   51200000,                // 上传文件的大小
+      	multiple         :   true,                    // 是否可以多个文件上传
+      	dragDrop         :   true,                    // 是否可以拖动上传文件
+      	tailor           :   true,                    // 是否可以裁剪图片
+      	del              :   true,                    // 是否可以删除文件
+      	finishDel        :   true,  				  // 是否在上传文件完成后删除预览
+      	/* 外部获得的回调接口 */
+      	onSelect: function(selectFiles, allFiles){    // 选择文件的回调方法  selectFile:当前选中的文件  allFiles:还没上传的全部文件
+
+      	},
+      	onDelete: function(file, files){              // 删除一个文件的回调方法 file:当前删除的文件  files:删除之后的文件
+
+      	},
+      	onSuccess: function(file, response){          // 文件上传成功的回调方法
+          // console.info(file.name);
+      	},
+      	onFailure: function(file, response){          // 文件上传失败的回调方法
+
+      	},
+      	onComplete: function(response){           	  // 上传完成的回调方法
+          $('#issue').click();
+          $('.zyupload').toggle();
+          $('#issue').toggle();
+          $('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
+      	}
+      });
+
+    });
   $('#issue').live('click',function(){
     var contents = {
-      _token : $('#testform').children('input').val(),
+      // _token : $('#testform').children('input').val(),
       content : $('#textarea').val()
     }
     $.ajax({
@@ -53,14 +51,15 @@ $(document).ready(function(){
       url:'content',
       success:function(data){
         $('#textarea').val('');
+        $('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
         var newcontent = '';
-        newcontent += "<li class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><div class='Wejoy_face bg2'></div><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
+        newcontent += "<li id='li"+data.hid+"' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><div class='Wejoy_face bg2'><img src='/"+data.usericon+"' alt=''></div><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
         newcontent += "<span class='left'>"+$('.name').attr('title')+"</span>";
         newcontent += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";
-        newcontent += "<li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
+        newcontent += "<li id='comdel"+data.hid+"' class='commentdel'><a href='#'>删除</a></li><li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
         newcontent += "<div class='WJ_text clearfix'>"+data.created_at+" 来自 微博 weibo.com</div>";
         newcontent += "<div class='WJ_text2 clearfix'>"+data.content+"</div>";
-        newcontent += "<div class='Wj_media_wrap clearfix bg2'></div></div></div>";
+        newcontent += "<div class='Wj_media_wrap clearfix'><img src='/"+data.images[0]+"' alt=''></div></div></div>";
         newcontent += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
         newcontent += "<li class='left'><span id='pos"+data.hid+"' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
         newcontent += "<li class='left'><span class='glyphicon glyphicon-share' > "+data.transmits+"</span></li>";
@@ -135,7 +134,6 @@ $(document).ready(function(){
         toastr.success('发布微博成功');
       },
       error:function(data){
-        console.log(data);
         toastr.error('发布微博失败');
       }
     });
