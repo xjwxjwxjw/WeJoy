@@ -411,14 +411,14 @@
 										<ul class="group_list">
 											<li class="S_line1">
 												<div class="pic">
-													<a target="_blank" href="">
+													<a target="_blank" href="{{url('/home/user/'.Hashids::encode($user[$j]->id))}}">
 														<img src={{url(empty($userInfo[$j]->icon)?'/home/image/default.jpg':$userInfo[$j]->icon)}} width="30" height="30" alt="">
 													</a>
 												</div>
 												<div class="con">
 													<p class="name">
-														<a target="_blank" href="" class="W_name"><?= $user[$j]->name ?></a>
-														<a target="_blank" href="">
+														<a target="_blank" href="{{url('/home/user/'.Hashids::encode($user[$j]->id))}}" class="W_name"><?= $user[$j]->name ?></a>
+														<a target="_blank" href="{{url('/home/user/'.Hashids::encode($user[$j]->id))}}">
 															<i title="微博个人认证 " class="W_icon icon_approve"></i>
 														</a>
 													</p>
