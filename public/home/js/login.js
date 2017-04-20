@@ -190,6 +190,9 @@ var closeIcon = function () {
     $('.out_biv').attr('style','display:none');
     $('.W_layer_div').attr('style','display:none');
     $('.addAlbum_div').attr('style','display:none');
+    $($('#Album_face').children('span')).text('');
+    $('.addPhoto_div').attr('style','display:none');
+    $($('#Photos_img').children('span')).text('');
     $($('#EditIcon_btn').children('span')).text('');
 }
 var doEditIcon = function (obj) {

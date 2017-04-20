@@ -13,20 +13,31 @@ use Vinkla\Hashids\Facades\Hashids;
 class AlbumController extends Controller
 {
     public function photo($id = 'my'){
-        if($id == 'my'){
+        if($id == 'my' || Hashids::decode($id)[0] == Cookie::get('UserId') ){
 //            访问自己的
             $album = Album::all()->where('uid',Cookie::get('UserId'))->toArray();
             return view('home.user.selfphoto',compact('album'));
         }else{
 //            访问别人的
             $id = Hashids::decode($id)[0];
+//            判断查看权限
+            if (empty(Cookie::get('UserId'))){
+                $album = Album::all()->where('uid',$id)->where('AlbumPermissions',1)->toArray();
+            }else{
+                $fansuser = DB::table('userfans')->where('uid',$id)->where('uid_ed',Cookie::get('UserId'))->where('status',1)->get();
+                if (count($fansuser)){
+                    var_dump(1);
+                    $album = DB::table('photomanage')->where('uid',$id)->where('AlbumPermissions',1)->orWhere('AlbumPermissions',2)->get();
+                }else{
+                    $album = Album::all()->where('uid',$id)->where('AlbumPermissions',1)->toArray();
+                }
+            }
             $album = Album::all()->where('uid',$id)->toArray();
             return view('home.user.photo',compact('id','album'));
         }
     }
     public function addAlbum(Request $request){
         $arr = array();
-        var_dump($request->all());
 //        如果有图片就上传  添加
         if(array_key_exists('face',$request->all())){
             $basename = 'image/album/'.Cookie::get('UserId');

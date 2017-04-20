@@ -1,6 +1,4 @@
 <?php
-    var_dump($id);
-    var_dump($album);
     $user = DB::table('homeuser')->where('id',$id)->get();
     $userinfo = DB::table('homeuserinfo')->where('uid',$id)->get();
 ?>
@@ -88,8 +86,8 @@
     @endsection
     @section('slideLeft')
         <?php
-        $fansed = count(\App\UserFans::where('uid_ed',$user->id)->where('status',1)->get());
-        $fans = count(\App\UserFans::where('uid',$user->id)->where('status',1)->get());
+            $fansed = count(\App\UserFans::where('uid_ed',$user->id)->where('status',1)->get());
+            $fans = count(\App\UserFans::where('uid',$user->id)->where('status',1)->get());
         ?>
         <div class="col-md-4">
             <div id="Pl_Core_T8CustomTriColumn__3">
@@ -256,7 +254,7 @@
                     <div class="photo_full_box">
                         @foreach($album as $k=>$v)
                             <div class="photo sample3 ablum_div" id=<?= 'ablum_'.$v['id'] ?>>
-                                <a href="{{url('/home/user/photo/'.Hashids::encode($id).'/'.$v['id'])}}" title="创建日期：{{date('Y年m月d日',$v['CreateTime'])}}">
+                                <a href="{{url('/home/user/photo/'.Hashids::encode($id).'/'.$v['id'])}}" title="创建日期：{{date('Y年m月d日H:i:s',$v['CreateTime'])}}">
                                     <span style="background: url({{url('/home/paper-clip.png')}}) no-repeat;"></span>
                                     <?php
                                     if(!empty($v['FaceUrl'])) {

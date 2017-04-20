@@ -116,9 +116,14 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
      Route::get('photo/{id?}','AlbumController@photo');//相册 有id为他人，没id为自己
      Route::get('editDescription','AlbumController@editDescription');//修改相册描述
      Route::get('editName','AlbumController@editName');//修改相册名字
-     Route::get('delAlbum','AlbumController@delAlbum');//删除相册
+     Route::post('editPhotoes','InAlbumController@editPhotoes');//修改图片
+     Route::get('setFace','InAlbumController@setFace');//修改为封面
      Route::post('addAlbum','AlbumController@addAlbum');//添加相册
+     Route::post('addPhoto/{Aid}','InAlbumController@addPhoto');//添加图片
+     Route::get('delAlbum','AlbumController@delAlbum');//删除相册
+     Route::get('delPhoto','InAlbumController@delPhoto');//删除图片
      Route::get('photo/{id}/{Aid}','InAlbumController@photo');//相册内图片 有id为他人，没id为自己
+     Route::get('photo/my/{Aid}/manage','InAlbumController@manage');//修改自己的相册内图片信息
  });
     Route::get('user/{id}','UserController@lookIndex');
 
