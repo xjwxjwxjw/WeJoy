@@ -757,7 +757,7 @@ a:hover{ text-decoration:none; }
 }
 .W_layer .W_layer_content {
     width: 450px;
-    height: 200px;
+    padding-bottom: 10px;
 }
 .W_layer .W_layer_content  .fans_status{
     text-align: center;
