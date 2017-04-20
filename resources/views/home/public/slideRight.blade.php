@@ -393,7 +393,6 @@
 							<span class="main_title W_fb W_f14">推荐距友</span>
 						</h4>
 					</div>
-
 					<?php
 						$user = DB::select('SELECT * FROM homeuser  ORDER BY  RAND() LIMIT 4');
 						for ($i = 0;$i < 4;$i++){
@@ -440,6 +439,7 @@
 						</div>
 						@endif
 					@endfor
+
 					<div style="display:none;">
 					</div>
 					<a href="" class="WB_cardmore S_txt1 S_line1 clearfix">

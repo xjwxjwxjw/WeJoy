@@ -14,7 +14,7 @@
          // 小于制定的字数，就可以提交
          if(in_len >=0){
             $("#result").html('可输入'+in_len+'字');
-              $('#issue').attr("disabled",false).addClass('bgred').removeClass('bgsmred');
+            $('#issue').attr("disabled",false).addClass('bgred').removeClass('bgsmred');
             // 可以继续执行其他操作
          }else{
             $("#result").html('可输入'+in_len+'字');
@@ -23,8 +23,8 @@
          }
         //  console.log( $('#textarea').val() );
          if ( $('#textarea').val() == '' ) {
-         	 $('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
-         };
+           $('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
+          };
 
 	});
 
@@ -34,7 +34,7 @@
 				var loading=$('#imloading');
         var sqlJson=[];
         var skip = 0;
-        var count = 0;
+        var count = 5;
         var sqlfind=[];
         var search='index';
 
@@ -42,7 +42,7 @@
         $.ajax({
           url:'contentCount?search='+search,
           type:'get',
-          async:false,
+          // async:false,
           success:function(data){
             count = data;
             skip = 0;
@@ -148,7 +148,7 @@
             $.ajax({
               url:'contentIndex?skip='+skip+'&search='+search,
               type:'get',
-              async:false,
+              // async:false,
               success:function(data){
                 sqlJson = data;
               },
@@ -159,7 +159,7 @@
             $.ajax({
               url:'contentFindcollect',
               type:'get',
-              async:false,
+              // async:false,
               success:function(data){
                 sqlfind['collect'] = data['collect'];
                 sqlfind['favtimes'] = data['favtimes'];
@@ -173,20 +173,29 @@
 						(function(sqlJson){
 							/*这里会根据后台返回的数据来判断是否你进行分页或者数据加载完毕这里假设大于30就不在加载数据*/
               if(itemNum>count ){
+              // if(itemNum>5 ){
 								// loading.text('就有这么多了！');
                 container.append("<div id='imloading' class='well well-sm' style='width:600px; text-align:center;background:#f2dede;' >这是全部的了</div>")
                 // toastr.success('只有这么多了!');
 							}else{
 								var html="";
-                skip = skip + 5;
+                skip = skip + 10;
 								for(var i = 0; i < sqlJson.length ; i++){
-									html += "<li class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/"+sqlJson[i].uid+"'><div class='Wejoy_face bg2'></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
+									html += "<li id='li"+sqlJson[i].hid+"' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/"+sqlJson[i].uid+"'><div class='Wejoy_face'><img src='/"+sqlJson[i].usericon+"' alt=''></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
 									html += "<span class='left'><a href='/home/user/"+sqlJson[i].uid+"'>"+sqlJson[i].username+"</a></span>";
 									html += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";
-									html += "<li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
+                  if( sqlJson[i].uid == sqlJson[i].bid ){
+									  html += "<li id='comdel"+sqlJson[i].hid+"' class='commentdel'><a href='#' >删除</a></li><li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
+                  } else {
+                    html += "<li><a href=''>帮上头条</a></li><li><a href=''>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
+                  }
 									html += "<div class='WJ_text clearfix'>"+sqlJson[i].created_at+" 来自 微博 weibo.com</div>";
 									html += "<div class='WJ_text2 clearfix'>"+sqlJson[i].content+"</div>";
-									html += "<div class='Wj_media_wrap clearfix bg2'></div></div></div>";
+                  if( sqlJson[i].images[0] == undefined ){
+                    html += "<div class='Wj_media_wrap clearfix'></div></div></div>";
+                  }else{
+                    html += "<div class='Wj_media_wrap clearfix'><img src='/"+sqlJson[i].images[0]+"' alt=''></div></div></div>";
+                  }
 									html += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
                   if( $.inArray( sqlJson[i].hid,sqlfind['collect'] ) == -1 ){
                     html += "<li class='left'><span id='pos"+sqlJson[i].hid+"' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
@@ -299,12 +308,12 @@
 				  };
 				  // loadImage('./images/one.jpeg',test());
 				 /*item hover效果*/
-				 var rbgB=['#71D3F5','#F0C179','#F28386','#8BD38B'];
-				 $('#box-content').on('mouseover','boxtest',function(){
-				 	var random=Math.floor(Math.random() * 4);
-				 	$(this).stop(true).animate({'backgroundColor':rbgB[random]},1000);
-				 });
-				 $('#box-content').on('mouseout','boxtest',function(){
-				 	$(this).stop(true).animate({'backgroundColor':'#fff'},1000);
-				 });
+				//  var rbgB=['#71D3F5','#F0C179','#F28386','#8BD38B'];
+				//  $('#box-content').on('mouseover','boxtest',function(){
+				//  	var random=Math.floor(Math.random() * 4);
+				//  	$(this).stop(true).animate({'backgroundColor':rbgB[random]},1000);
+				//  });
+				//  $('#box-content').on('mouseout','boxtest',function(){
+				//  	$(this).stop(true).animate({'backgroundColor':'#fff'},1000);
+				//  });
 		})

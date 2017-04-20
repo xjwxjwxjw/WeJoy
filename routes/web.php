@@ -102,11 +102,14 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('contentIndex','ContentController@contentFind');
   Route::get('contentComment','ContentController@publishComments');
   Route::post('contentIssue','ContentController@publishIssue');
+  Route::post('twocontentIssue','ContentController@twopublishIssue');
   Route::get('contentPos','ContentController@contentPos');
   Route::get('contentGood','ContentController@contentGood');
   Route::get('contentFindcollect','ContentController@contentFindcollect');
   Route::get('contentCount','ContentController@contentCount');
-
+  Route::get('commentdel','ContentController@contentDel');
+  Route::post('commentimg','ContentController@contentImg');
+  Route::get('contentOnegly','ContentController@oneglyDel');
  //	用户路由
  Route::group(['prefix'=>'user'],function(){
      Route::get('index','UserController@index');//个人主页
