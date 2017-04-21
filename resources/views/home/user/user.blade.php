@@ -30,7 +30,7 @@
                         <div class="shadow  S_shadow">
                             <div class="pf_photo">
                                 <p class="photo_wrap">
-                                    <img src='<?= empty($userinfo->icon)?url('/image/default.jpg'):url($userinfo->icon) ?>' alt={{$user->name}} class="photo" width="100" height="100">{{--头像--}}
+                                    <img src='<?= empty($userinfo->icon)?url('/home/image/default.jpg'):url($userinfo->icon) ?>' alt={{$user->name}} class="photo" width="100" height="100">{{--头像--}}
                                 </p>
                             </div>
                             <div class="pf_username">
@@ -45,16 +45,35 @@
                                 <?= empty($userinfo->signature)?'主人很懒，还没有写个性签名呐':$userinfo->signature ?>
                             </div>
                         </div>
+                        @if($user->id != Cookie::get('UserId'))
                         <div class="fb_box">
                             <div class="list_wrap">
                                 <div class="fb_div">
                                     <ul class="list_ul">
-                                        <li class="item"><a href="javascript:void(0);" class="tlink">加入关注</a></li>
-                                        <li class="item"><a href="javascript:void(0);" class="tlink">加入黑名单</a></li>
+                                        <li style="display: none">{{Hashids::encode(Cookie::get('UserId'))}}</li>
+                                        @if(count(\App\UserFans::where('uid',$id)->where('uid_ed',Cookie::get('UserId'))->where('status',1)->get()))
+                                            <li class="item">
+                                                <a href="javascript:void(0);" class="tlink cancel" onclick="doFans(this)">取消关注</a>
+                                            </li>
+                                        @else
+                                            <li class="item">
+                                                <a href="javascript:void(0);" class="tlink addtofans" onclick="doFans(this)">加入关注</a>
+                                            </li>
+                                        @endif
+                                        @if(count(\App\UserFans::where('uid',$id)->where('uid_ed',Cookie::get('UserId'))->where('status',2)->get()))
+                                            <li class="item">
+                                                <a href="javascript:void(0);" class="tlink cancel" onclick="doFans(this)">移出黑名单</a>
+                                            </li>
+                                        @else
+                                            <li class="item">
+                                                <a href="javascript:void(0);" class="tlink addtofans" onclick="doFans(this)">加入黑名单</a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
 
@@ -65,13 +84,13 @@
                         <table class="tb_tab" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td class="current">
-                                    <a href="" class="tab_link">
+                                    <a href="{{url('/home/user/'.Hashids::encode($id))}}" class="tab_link">
                                         <span class="S_txt1 t_link">Ta的主页</span>
                                         <span class="ani_border"></span>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="" class="tab_link">
+                                    <a href="{{url('/home/user/photo/'.Hashids::encode($id))}}" class="tab_link">
                                         <span class="S_txt1 t_link">Ta的相册</span>
                                         <span class="ani_border"></span>
                                     </a>

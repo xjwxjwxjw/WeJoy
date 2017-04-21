@@ -29,6 +29,7 @@ var doAddAlbum = function (obj) {
 var doAddPhoto = function (obj) {
     var AllImgExt=".jpg|.jpeg|.gif|.bmp|.png|";
     var file = document.getElementById("PhotosUrl_input").value;
+    var size = document.getElementById("PhotosUrl_input").files[0].size;
     var extName = file.substring(file.lastIndexOf(".")).toLowerCase();//（把路径中的所有字母全部转换为小写）
     if (file == '' || file == null){
         $($('#Photos_img').children('span')).text('必须上传照片');
@@ -38,6 +39,12 @@ var doAddPhoto = function (obj) {
     }
     if (AllImgExt.indexOf(extName+"|") == -1){
         $($('#Photos_img').children('span')).text('仅支持图片');
+        return;
+    }else{
+        $($('#Photos_img').children('span')).text('');
+    }
+    if (size >= 2048*1024){
+        $($('#Photos_img').children('span')).text('图片大小不能超过2M');
         return;
     }else{
         $($('#Photos_img').children('span')).text('');
@@ -118,7 +125,6 @@ var changePhoto = function () {
             }
         },
         error:function () {
-            alert('修改失败，请刷新重试');
             location.reload();
         }
     })
@@ -133,12 +139,12 @@ var delablum = function (obj) {
                 if (error){
                     location.reload();
                 }else{
-                    alert('修改失败，请刷新重试');
+                    alert('删除失败，请刷新重试');
                     location.reload();
                 }
             },
             error:function () {
-                alert('修改失败，请刷新重试');
+                alert('删除失败，请刷新重试');
                 location.reload();
             }
         })
@@ -156,12 +162,12 @@ var delPhoto = function (obj) {
                 if (error){
                     location.reload();
                 }else{
-                    alert('修改失败，请刷新重试');
+                    alert('删除失败，请刷新重试');
                     location.reload();
                 }
             },
             error:function () {
-                alert('修改失败，请刷新重试');
+                alert('删除失败，请刷新重试');
                 location.reload();
             }
         })

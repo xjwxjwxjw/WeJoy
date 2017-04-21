@@ -481,61 +481,6 @@
 		</span>
 	</div>
 </div>
-{{--模态框--}}
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Wejoy用户注册</h4>
-			</div>
-			<div class="modal-body">
-				<form  action="{{url('home/index/doRegister')}}" method="post" {{--autocomplete="off"--}} id="registform">
-					{{csrf_field()}}
-					<div class="form-group">
-						<label>用户名：
-							<span style="color:red" class="name_prompt"></span>
-						</label>
-						<input class="form-control" name="nickname"  type="text" placeholder='用户名即您的昵称，可做登陆使用' >
-					</div>
-					<div class="form-group">
-						<label>邮箱地址：
-							<span style="color:red" class="email_prompt"></span>
-						</label>
-						<input class="form-control" name="email"  type="email" placeholder='注意：注册需要验证邮箱激活才可登陆'>
-
-					</div>
-					<div class="form-group">
-						<label>登陆密码：
-							<span style="color:red" class="pwd_prompt"></span>
-						</label>
-						<input class="form-control" name="password"  type="password">
-
-					</div>
-					<div class="form-group">
-						<label>重复密码:
-							<span style="color:red" class="repwd_prompt"></span>
-						</label>
-						<input class="form-control" name="password_confirmation"  type="password">
-					</div>
-					@if(count($errors))
-						<div class="form-group">
-							<label>
-								<span style="color:red" class="repwd_prompt">{{$errors}}</span>
-							</label>
-						</div>
-					@endif
-					<div class="modal-footer btn-box">
-						<a href="javascript:void(0)" type="button" class="btn btn-primary btn1" onclick="registbtn(this)">验证数据</a>
-						{{--<button type="submit" class="btn btn-primary btn1" style="display: none;">注册</button>--}}
-						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
 
 {{--关注成功弹窗--}}
 <div style="display: none" class="out_biv"></div>

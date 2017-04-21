@@ -59,10 +59,10 @@
                             <div class="pf_username">
                                 <h1 class="username">{{Cookie::get('UserNickname')}}</h1>
                                 <span class="icon_bed">
-                                            <a>
-                                                <i class="W_icon icon_pf_male" style="background-image:url({{url('/home/icon.png')}});background-position: <?= $userinfo->sex==1?'-100px':($userinfo->sex==2?'-125px':'-350px') ?> -50px;"></i>
-                                            </a>
-                                        </span>
+                                    <a>
+                                        <i class="W_icon icon_pf_male" style="background-image:url({{url('/home/icon.png')}});background-position: <?= $userinfo->sex==1?'-100px':($userinfo->sex==2?'-125px':'-350px') ?> -50px;"></i>
+                                    </a>
+                                </span>
                             </div>
                             <div class="pf_intro" title="<?= empty($userinfo->signature)?'一句话介绍一下自己吧，让别人更了解你':$userinfo->signature ?>">
                                 <?= empty($userinfo->signature)?'一句话介绍一下自己吧，让别人更了解你':$userinfo->signature ?>

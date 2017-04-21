@@ -32,7 +32,6 @@ class AlbumController extends Controller
                     $album = Album::all()->where('uid',$id)->where('AlbumPermissions',1)->toArray();
                 }
             }
-            $album = Album::all()->where('uid',$id)->toArray();
             return view('home.user.photo',compact('id','album'));
         }
     }

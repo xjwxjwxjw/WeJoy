@@ -50,8 +50,25 @@
                             <div class="list_wrap">
                                 <div class="fb_div">
                                     <ul class="list_ul">
-                                        <li class="item"><a href="javascript:void(0);" class="tlink">加入关注</a></li>
-                                        <li class="item"><a href="javascript:void(0);" class="tlink">加入黑名单</a></li>
+                                        <li style="display: none">{{Hashids::encode(Cookie::get('UserId'))}}</li>
+                                        @if(count(\App\UserFans::where('uid',$id)->where('uid_ed',Cookie::get('UserId'))->where('status',1)->get()))
+                                            <li class="item">
+                                                <a href="javascript:void(0);" class="tlink cancel" onclick="doFans(this)">取消关注</a>
+                                            </li>
+                                        @else
+                                            <li class="item">
+                                                <a href="javascript:void(0);" class="tlink addtofans" onclick="doFans(this)">加入关注</a>
+                                            </li>
+                                        @endif
+                                        @if(count(\App\UserFans::where('uid',$id)->where('uid_ed',Cookie::get('UserId'))->where('status',2)->get()))
+                                            <li class="item">
+                                                <a href="javascript:void(0);" class="tlink cancel" onclick="doFans(this)">移出黑名单</a>
+                                            </li>
+                                        @else
+                                            <li class="item">
+                                                <a href="javascript:void(0);" class="tlink addtofans" onclick="doFans(this)">加入黑名单</a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
@@ -65,14 +82,14 @@
                     <div class="tab_wrap" style="width:60%">
                         <table class="tb_tab" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td class="current">
-                                    <a href="" class="tab_link">
+                                <td>
+                                    <a href="{{url('/home/user/'.Hashids::encode($id))}}" class="tab_link">
                                         <span class="S_txt1 t_link">Ta的主页</span>
                                         <span class="ani_border"></span>
                                     </a>
                                 </td>
-                                <td>
-                                    <a href="" class="tab_link">
+                                <td class="current">
+                                    <a href="{{url('/home/user/photo/'.Hashids::encode($id))}}" class="tab_link">
                                         <span class="S_txt1 t_link">Ta的相册</span>
                                         <span class="ani_border"></span>
                                     </a>
@@ -134,51 +151,55 @@
                     <div class="PCD_photolist">
                         <div class="WB_cardtitle_b S_line2">
                             <h4 class="obj_name">
-                                    <span class="main_title W_fb W_f14">
-                                        <a href="" target="_blank" class="S_txt1">相册</a>
-                                    </span>
+                                <span class="main_title W_fb W_f14">
+                                    <a href="" target="_blank" class="S_txt1">相册</a>
+                                </span>
                             </h4>
                         </div>
+                    <?php
+                        $album_random = \App\Album::where('uid',$id)->where('AlbumPermissions',1)->first();
+                    ?>
+                    @if (empty($album_random))
+                        <div class="WB_innerwrap">
+                            <div class="m_wrap">
+                                <br>
+                                主人没有上传照片。
+                            </div>
+                        </div>
+                    @else
+                        <?php
+                            $Aid_random = $album_random->toArray()['id'];
+                            $photoes = \App\Photoes::all()->where('Aid',$Aid_random)->toArray();
+                            $first_photo = array_shift($photoes);
+                        ?>
                         <div class="WB_innerwrap">
                             <div class="m_wrap">
                                 <ul class="clearfix">
                                     <li class="big_pic">
-                                        <a href="" target="_blank">
-                                            <img src="">
-                                        </a>
+                                        <img src="{{url($first_photo['PhotosUrl'])}}">
                                     </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="" width="72" height="72">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="" width="72" height="72">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="" width="72" height="72">
-                                        </a>
-                                    </li>
+                                    @if(count($photoes) <= 5)
+                                        @foreach($photoes as $v)
+                                            <li class="">
+                                                <img src="{{url($v['PhotosUrl'])}}">
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <?php array_slice($photoes,0,5) ?>
+                                            @foreach($photoes as $value)
+                                                <li class="">
+                                                    <img src="{{url($value['PhotosUrl'])}}">
+                                                </li>
+                                            @endforeach
+                                    @endif
                                 </ul>
                             </div>
                         </div>
+                    @endif
                         <a href="" class="WB_cardmore S_txt1 S_line1 clearfix">
-                                <span class="more_txt">
-                                    查看更多<em class="W_ficon ficon_arrow_right S_ficon">></em>
-                                </span>
+                            <span class="more_txt">
+                                查看更多<em class="W_ficon ficon_arrow_right S_ficon">></em>
+                            </span>
                         </a>
                     </div>
                     <!--/个人图片-->
@@ -254,7 +275,7 @@
                     <div class="photo_full_box">
                         @foreach($album as $k=>$v)
                             <div class="photo sample3 ablum_div" id=<?= 'ablum_'.$v['id'] ?>>
-                                <a href="{{url('/home/user/photo/'.Hashids::encode($id).'/'.$v['id'])}}" title="创建日期：{{date('Y年m月d日H:i:s',$v['CreateTime'])}}">
+                                <a href="{{url('/home/user/photos/'.Hashids::encode($id).'/'.Hashids::encode($v['id']))}}">
                                     <span style="background: url({{url('/home/paper-clip.png')}}) no-repeat;"></span>
                                     <?php
                                     if(!empty($v['FaceUrl'])) {
@@ -268,12 +289,12 @@
                                         }
                                     }
                                     ?>
-                                    <img src={{url($faceUrl)}} alt="image">
+                                    <img src={{url($faceUrl->PhotosUrl)}} alt="image">
                                 </a>
-                                <a href="{{url('/home/user/photo/'.Hashids::encode($id).'/'.$v['id'])}}" class="album_a">
+                                <a href="{{url('/home/user/photos/'.Hashids::encode($id).'/'.Hashids::encode($v['id']))}}" class="album_a">
                                     <div class="photo_name_box" title="{{$v['AlbumName']}}">{{$v['AlbumName']}}</div>
                                 </a>
-                                <a href="{{url('/home/user/photo/'.Hashids::encode($id).'/'.$v['id'])}}" class="album_a">
+                                <a href="{{url('/home/user/photos/'.Hashids::encode($id).'/'.Hashids::encode($v['id']))}}" class="album_a">
                                     <div class="photo_description_box" title="{{$v['AlbumDescription']}}">{{$v['AlbumDescription']}}</div>
                                 </a>
                             </div>
@@ -297,8 +318,8 @@
                         <span class="fold_icon W_fl" style="background: url({{url('/home/webim_icon.png')}}) 0 -20px no-repeat;"></span>
                         <em class="fold_font W_fl W_f14" >私信聊天</em>
                         <span class="wchat_btn W_fr">
-                                <em class="wchat_icon" style="background: url({{url('/home/webchat_icon.png')}}) 0 -30px no-repeat;"></em>
-                            </span>
+                            <em class="wchat_icon" style="background: url({{url('/home/webchat_icon.png')}}) 0 -30px no-repeat;"></em>
+                        </span>
                     </p>
                 </div>
                 <div class="webim_hb" style="top:-10px; left:200px;display:none;background: url({{url('/home/webim_hb_small.gif')}}) 0 0 no-repeat;"></div>

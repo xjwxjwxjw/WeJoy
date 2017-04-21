@@ -93,6 +93,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::post('index/doLogin','LoginHomeController@doLogin');
     Route::get('user','UserController@index');
     Route::get('addFans','UserController@addFans');
+    Route::get('doFans','UserController@doFans');
   Route::get('index/doLogout', 'LoginHomeController@doLogout');
   Route::get('registersuccess', function (){return view('home.registersuccess');});
   Route::get('register', function (){return view('home.register');});
@@ -125,7 +126,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
      Route::post('addPhoto/{Aid}','InAlbumController@addPhoto');//添加图片
      Route::get('delAlbum','AlbumController@delAlbum');//删除相册
      Route::get('delPhoto','InAlbumController@delPhoto');//删除图片
-     Route::get('photo/{id}/{Aid}','InAlbumController@photo');//相册内图片 有id为他人，没id为自己
+     Route::get('photos/{uid}/{Aid}','InAlbumController@photo');//相册内图片 有id为他人，没id为自己
      Route::get('photo/my/{Aid}/manage','InAlbumController@manage');//修改自己的相册内图片信息
  });
     Route::get('user/{id}','UserController@lookIndex');

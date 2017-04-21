@@ -143,6 +143,44 @@ var addFans = function (obj) {
         })
     }
 }
+var doFans = function (obj) {
+    //判断是否登陆
+    if ($(obj).parents('.list_ul').children().first().text() == ''){
+        window.location.href = '/home/index';
+    }else{
+        var uid_ed = $(obj).parents('.list_ul').children().first().text();
+        var uid = location.pathname.substr(11);
+        switch ($(obj).text()){
+            case '加入关注':
+                var doWork = 'addFans';
+                break;
+            case '取消关注':
+                var doWork = 'cancelFans';
+                break;
+            case '加入黑名单':
+                var doWork = 'addBlack';
+                break;
+            case '移出黑名单':
+                var doWork = 'cancelBlack';
+                break;
+        }
+        $.ajax({
+            type:'get',
+            url:'/home/doFans',
+            data: 'uid='+uid+'&uid_ed='+uid_ed+'&doWork='+doWork,
+            success:function(error){
+                if (error != 1){
+                    alert('关注失败，刷新重试');
+                }
+                location.reload();
+            },
+            error:function (error) {
+                alert('关注失败，刷新重试');
+                location.reload();
+            }
+        })
+    }
+}
 var closediv = function () {
     $('.out_biv').attr('style','display:none');
     $('.W_layer').attr('style','display:none');

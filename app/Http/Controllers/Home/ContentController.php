@@ -251,7 +251,7 @@ class ContentController extends Controller
       $uid = Cookie::get('UserId');
       $aid = DB::table('photomanage')->where('uid',$uid)->where('AlbumName','默认')->value('id');
       $url = $basename . $filename;
-      $CreateTime = date("Y-m-d H:i:s-",time());
+      $CreateTime = time();
       $id = DB::table('photoes')->insertGetId(
           ['Aid'=>$aid,'PhotosName'=>$filename,'PhotosUrl'=>$url,'CreateTime'=>$CreateTime]
       );
