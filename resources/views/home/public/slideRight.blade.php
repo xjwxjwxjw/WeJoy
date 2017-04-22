@@ -152,14 +152,14 @@
 						</div>
 						<ul class="user_atten clearfix W_f18">
 							<li class="S_line1">
-								<a href="" class="S_txt1">
-									<strong><?= $fans ?></strong>
+								<a href="{{url('/home/user/fans/'.Hashids::encode(Cookie::get('UserId')))}}" class="S_txt1">
+									<strong><?= $fansed ?></strong>
 									<span class="S_txt2">关注</span>
 								</a>
 							</li>
 							<li class="S_line1">
-								<a href="" class="S_txt1">
-									<strong><?= $fansed ?></strong>
+								<a href="{{url('/home/user/fansed/'.Hashids::encode(Cookie::get('UserId')))}}" class="S_txt1">
+									<strong><?= $fans ?></strong>
 									<span class="S_txt2">粉丝</span>
 								</a>
 							</li>
