@@ -26,8 +26,7 @@ class AlbumController extends Controller
             }else{
                 $fansuser = DB::table('userfans')->where('uid',$id)->where('uid_ed',Cookie::get('UserId'))->where('status',1)->get();
                 if (count($fansuser)){
-                    var_dump(1);
-                    $album = DB::table('photomanage')->where('uid',$id)->where('AlbumPermissions',1)->orWhere('AlbumPermissions',2)->get();
+                    $album = Album::all()->where('uid',$id)->where('AlbumPermissions','<>',3)->toArray();
                 }else{
                     $album = Album::all()->where('uid',$id)->where('AlbumPermissions',1)->toArray();
                 }

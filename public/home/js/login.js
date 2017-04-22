@@ -27,7 +27,6 @@ var npclick = function(obj){
             data[$(input[j]).prop('name')] =  $(input[j]).val() ;
         }
     }
-    // data = data.substring(0,data.length-1);
     var tourl = location.href
 //   传送数据  即添加数据
     $.ajax({
@@ -148,8 +147,8 @@ var doFans = function (obj) {
     if ($(obj).parents('.list_ul').children().first().text() == ''){
         window.location.href = '/home/index';
     }else{
-        var uid_ed = $(obj).parents('.list_ul').children().first().text();
-        var uid = location.pathname.substr(11);
+        var uid_ed = $(obj).parents('.list_ul').children('#ByName').first().text();
+        var uid = $(obj).parents('.list_ul').children('#BaName').first().text();
         switch ($(obj).text()){
             case '加入关注':
                 var doWork = 'addFans';

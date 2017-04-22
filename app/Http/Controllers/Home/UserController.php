@@ -146,5 +146,50 @@ class UserController extends Controller
             return back();
         }
     }
+    //    关注
+    public function fans($id){
+        $id = Hashids::decode($id)[0];
+        $fansinfo = DB::table('userfans')->where('userfans.uid_ed',$id)->where('status',1)
+            ->join('homeuser','userfans.uid','=','homeuser.id')
+            ->join('homeuserinfo','userfans.uid','=','homeuserinfo.uid')
+            ->select('homeuser.name as nickname','homeuserinfo.*')->paginate(8);
+        return view('home.user.fansed',compact('fansinfo'));
+    }
+    //    粉丝
+    public function fansed($id){
+        $id = Hashids::decode($id)[0];
+        $fansinfo = DB::table('userfans')->where('userfans.uid',$id)->where('status',1)
+            ->join('homeuser','userfans.uid_ed','=','homeuser.id')
+            ->join('homeuserinfo','userfans.uid_ed','=','homeuserinfo.uid')
+            ->select('homeuser.name as nickname','homeuserinfo.*')->paginate(8);
+        return view('home.user.fans',compact('fansinfo'));
+    }
+    //    黑名单
+    public function black($id){
+        $id = Hashids::decode($id)[0];
+        $fansinfo = DB::table('userfans')->where('userfans.uid_ed',$id)->where('status',2)
+            ->join('homeuser','userfans.uid','=','homeuser.id')
+            ->join('homeuserinfo','userfans.uid','=','homeuserinfo.uid')
+            ->select('homeuser.name as nickname','homeuserinfo.*')->paginate(8);
+        return view('home.user.black',compact('fansinfo'));
+    }
+    //    Ta的关注
+    public function fan($id){
+        $id = Hashids::decode($id)[0];
+        $fansinfo = DB::table('userfans')->where('userfans.uid_ed',$id)->where('status',1)
+            ->join('homeuser','userfans.uid','=','homeuser.id')
+            ->join('homeuserinfo','userfans.uid','=','homeuserinfo.uid')
+            ->select('homeuser.name as nickname','homeuserinfo.*')->paginate(8);
+        return view('home.user.otherfansed',compact('fansinfo','id'));
+    }
+    //    Ta的粉丝
+    public function faned($id){
+        $id = Hashids::decode($id)[0];
+        $fansinfo = DB::table('userfans')->where('userfans.uid',$id)->where('status',1)
+            ->join('homeuser','userfans.uid_ed','=','homeuser.id')
+            ->join('homeuserinfo','userfans.uid_ed','=','homeuserinfo.uid')
+            ->select('homeuser.name as nickname','homeuserinfo.*')->paginate(8);
+        return view('home.user.otherfans',compact('fansinfo','id'));
+    }
 
 }

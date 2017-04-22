@@ -1,3 +1,4 @@
+{{--自己--}}
 @if(!Cookie::has('UserId'))
     <script>window.location.href = '/home/index'</script>
     {{--用中间件判断--}}
@@ -114,12 +115,6 @@
                                             <span class="ani_border"></span>
                                         </a>
                                     </td>
-                                    <td>
-                                        <a href="" class="tab_link">
-                                            <span class="S_txt1 t_link">管理中心</span>
-                                            <span class="ani_border"></span>
-                                        </a>
-                                    </td>
                                 </tr>
                                 </table>
                         </div>
@@ -142,14 +137,14 @@
                                     <tbody>
                                     <tr>
                                         <td class="S_line1">
-                                            <a class="t_link S_txt1" href="">
-                                                <strong class="W_f18">{{$fans}}</strong>
+                                            <a class="t_link S_txt1" href="{{url('/home/user/fans/'.Hashids::encode(Cookie::get('UserId')))}}">
+                                                <strong class="W_f18">{{$fansed}}</strong>
                                                 <span class="S_txt2">关注</span>
                                             </a>
                                         </td>
                                         <td class="S_line1">
-                                            <a class="t_link S_txt1" href="">
-                                                <strong class="W_f18">{{$fansed}}</strong>
+                                            <a class="t_link S_txt1" href="{{url('/home/user/fansed/'.Hashids::encode(Cookie::get('UserId')))}}">
+                                                <strong class="W_f18">{{$fans}}</strong>
                                                 <span class="S_txt2">粉丝</span>
                                             </a>
                                         </td>
@@ -184,42 +179,46 @@
                                     </span>
                                 </h4>
                             </div>
-                            <div class="WB_innerwrap">
-                                <div class="m_wrap">
-                                    <ul class="clearfix">
-                                        <li class=" big_pic">
-                                            <a href="" target="_blank">
-                                                <img src="">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="" target="_blank">
-                                                <img src="">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="" target="_blank">
-                                                <img src="">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="" target="_blank">
-                                                <img src="" width="72" height="72">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="" target="_blank">
-                                                <img src="" width="72" height="72">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="" target="_blank">
-                                                <img src="" width="72" height="72">
-                                            </a>
-                                        </li>
-                                    </ul>
+                            <?php
+                                $album_random = \App\Album::where('uid',Cookie::get('UserId'))->where('AlbumPermissions',1)->first();
+                            ?>
+                            @if (empty($album_random))
+                                <div class="WB_innerwrap">
+                                    <div class="m_wrap">
+                                        <br>
+                                        你还没有丰富自己的相册哦！
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <?php
+                                $Aid_random = $album_random->toArray()['id'];
+                                $photoes = \App\Photoes::all()->where('Aid',$Aid_random)->toArray();
+                                $first_photo = array_shift($photoes);
+                                ?>
+                                <div class="WB_innerwrap">
+                                    <div class="m_wrap">
+                                        <ul class="clearfix">
+                                            <li class="big_pic">
+                                                <img src="{{url($first_photo['PhotosUrl'])}}">
+                                            </li>
+                                        @if(count($photoes) <= 5)
+                                            @foreach($photoes as $v)
+                                                <li class="">
+                                                    <img src="{{url($v['PhotosUrl'])}}">
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            <?php $photoes = array_slice($photoes,0,5) ?>
+                                            @foreach($photoes as $value)
+                                                <li class="">
+                                                    <img src="{{url($value['PhotosUrl'])}}">
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
                             <a href="{{url('/home/user/photo')}}" class="WB_cardmore S_txt1 S_line1 clearfix">
                                 <span class="more_txt">
                                     查看更多<em class="W_ficon ficon_arrow_right S_ficon">></em>
