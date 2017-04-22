@@ -614,3 +614,38 @@ body, legend, .W_input:focus, .S_txt1, .W_btn_b, .SW_fun .S_func1 {
 }
 .box-content{margin-left: 0;}
 .row{margin-top: 15px !important;}
+
+
+/*粉丝详情右侧样式*/
+.page_fans_box{
+    background-color: #fff;
+}
+.page_fans_box .one_fans_box{
+    margin: 20px 0 40px;
+}
+.page_fans_box .one_fans_box .one_fans_left img{
+    max-width: 80px;
+}
+.page_fans_box .one_fans_box .one_fans_left{
+    border-right: 1px solid #ccc;
+}
+.page_fans_box .one_fans_box .one_fans_name_sex{
+    font-size: 22px;
+}
+.page_fans_box .one_fans_box .one_fans_signature{
+    color: #999;
+}
+.page_fans_box .one_fans_box .one_fans_right ul li{
+    margin: 3px 0 5px ;
+}
+.page_fans_box .one_fans_box .one_fans_right ul li a{
+    text-decoration: none;
+}
+.page_fans_box .one_fans_box .one_fans_name{
+    padding-right: 10px;
+}
+.page_fans_box .one_fans_box .one_fans_sex{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+}

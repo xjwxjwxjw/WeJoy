@@ -1,3 +1,4 @@
+{{--别人--}}
 <?php
 $user = DB::table('homeuser')->where('id',$id)->get();
 $userinfo = DB::table('homeuserinfo')->where('uid',$id)->get();
@@ -55,7 +56,8 @@ $userinfo = DB::table('homeuserinfo')->where('uid',$id)->get();
                         <div class="list_wrap">
                             <div class="fb_div">
                                 <ul class="list_ul">
-                                    <li style="display: none">{{Hashids::encode(Cookie::get('UserId'))}}</li>
+                                    <li style="display: none" id="ByName">{{Hashids::encode(Cookie::get('UserId'))}}</li>
+                                    <li style="display: none" id="BaName">{{Hashids::encode($id)}}</li>
                                     @if(count(\App\UserFans::where('uid',$id)->where('uid_ed',Cookie::get('UserId'))->where('status',1)->get()))
                                         <li class="item">
                                             <a href="javascript:void(0);" class="tlink cancel" onclick="doFans(this)">取消关注</a>

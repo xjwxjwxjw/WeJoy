@@ -1,3 +1,4 @@
+{{--自己--}}
 @if(!Cookie::has('UserId'))
     <script>window.location.href = '/home/index'</script>
     {{--用中间件判断--}}
@@ -109,12 +110,6 @@
                             <td class="current">
                                 <a href="{{url('/home/user/photo')}}" class="tab_link">
                                     <span class="S_txt1 t_link">我的相册</span>
-                                    <span class="ani_border"></span>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="" class="tab_link">
-                                    <span class="S_txt1 t_link">管理中心</span>
                                     <span class="ani_border"></span>
                                 </a>
                             </td>

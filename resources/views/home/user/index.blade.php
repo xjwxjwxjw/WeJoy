@@ -1,3 +1,4 @@
+{{--自己--}}
 @if(!Cookie::has('UserId'))
     <script>window.location.href = '/home/index'</script>
     {{--用中间件判断--}}
@@ -38,11 +39,10 @@
                         <div class="pf_username">
                             <h1 class="username">{{Cookie::get('UserNickname')}}</h1>
                             <span class="icon_bed">
-
-                                        <a>
-                                            <i class="W_icon icon_pf_male" style="background-image:url({{url('/home/icon.png')}});background-position: <?= $userinfo->sex==1?'-100px':($userinfo->sex==2?'-125px':'-350px') ?> -50px;"></i>
-                                        </a>
-                                    </span>
+                                <a>
+                                    <i class="W_icon icon_pf_male" style="background-image:url({{url('/home/icon.png')}});background-position: <?= $userinfo->sex==1?'-100px':($userinfo->sex==2?'-125px':'-350px') ?> -50px;"></i>
+                                </a>
+                            </span>
                         </div>
                         <div class="pf_intro" title="<?= empty($userinfo->signature)?'一句话介绍一下自己吧，让别人更了解你':$userinfo->signature ?>">
                             <?= empty($userinfo->signature)?'一句话介绍一下自己吧，让别人更了解你':$userinfo->signature ?>
@@ -87,12 +87,6 @@
                                     <span class="ani_border"></span>
                                 </a>
                             </td>
-                            <td>
-                                <a href="" class="tab_link">
-                                    <span class="S_txt1 t_link">管理中心</span>
-                                    <span class="ani_border"></span>
-                                </a>
-                            </td>
                         </tr>
                     </table>
                 </div>
@@ -115,14 +109,14 @@
                                     <tbody>
                                     <tr>
                                         <td class="S_line1">
-                                            <a class="t_link S_txt1" href="">
-                                                <strong class="W_f18">{{$fans}}</strong>
+                                            <a class="t_link S_txt1" href="{{url('/home/user/fans/'.Hashids::encode(Cookie::get('UserId')))}}">
+                                                <strong class="W_f18">{{$fansed}}</strong>
                                                 <span class="S_txt2">关注</span>
                                             </a>
                                         </td>
                                         <td class="S_line1">
-                                            <a class="t_link S_txt1" href="">
-                                                <strong class="W_f18">{{$fansed}}</strong>
+                                            <a class="t_link S_txt1" href="{{url('/home/user/fansed/'.Hashids::encode(Cookie::get('UserId')))}}">
+                                                <strong class="W_f18">{{$fans}}</strong>
                                                 <span class="S_txt2">粉丝</span>
                                             </a>
                                         </td>
@@ -210,45 +204,46 @@
                                     </span>
                                 </h4>
                             </div>
-                            <div class="WB_innerwrap">
-                                <div class="m_wrap">
-                                    <ul class="clearfix">
-                                        <?php
-//                                            $img = Photoes::;
-                                        ?>
-                                        <li class="big_pic">
-                                            <a href="" target="_blank">
-                                                <img src="">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="" target="_blank">
-                                                <img src="">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="" target="_blank">
-                                                <img src="">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="" target="_blank">
-                                                <img src="" width="72" height="72">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="" target="_blank">
-                                                <img src="" width="72" height="72">
-                                            </a>
-                                        </li>
-                                        <li class="">
-                                            <a href="" target="_blank">
-                                                <img src="" width="72" height="72">
-                                            </a>
-                                        </li>
-                                    </ul>
+                            <?php
+                            $album_random = \App\Album::where('uid',Cookie::get('UserId'))->where('AlbumPermissions',1)->first();
+                            ?>
+                            @if (empty($album_random))
+                                <div class="WB_innerwrap">
+                                    <div class="m_wrap">
+                                        <br>
+                                        你还没有丰富自己的相册哦！
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <?php
+                                $Aid_random = $album_random->toArray()['id'];
+                                $photoes = \App\Photoes::all()->where('Aid',$Aid_random)->toArray();
+                                $first_photo = array_shift($photoes);
+                                ?>
+                                <div class="WB_innerwrap">
+                                    <div class="m_wrap">
+                                        <ul class="clearfix">
+                                            <li class="big_pic">
+                                                <img src="{{url($first_photo['PhotosUrl'])}}">
+                                            </li>
+                                            @if(count($photoes) <= 5)
+                                                @foreach($photoes as $v)
+                                                    <li class="">
+                                                        <img src="{{url($v['PhotosUrl'])}}">
+                                                    </li>
+                                                @endforeach
+                                            @else
+                                                <?php $photoes = array_slice($photoes,0,5) ?>
+                                                @foreach($photoes as $value)
+                                                    <li class="">
+                                                        <img src="{{url($value['PhotosUrl'])}}">
+                                                    </li>
+                                                @endforeach
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endif
                             <a href="{{url('/home/user/photo')}}" class="WB_cardmore S_txt1 S_line1 clearfix">
                                 <span class="more_txt">
                                     查看更多<em class="W_ficon ficon_arrow_right S_ficon">></em>
@@ -369,47 +364,7 @@
                 </div>
                 <div id="Pl_Core_PicText__13"></div>
                 <div id="Pl_Core_Ut1UserList__14"></div>
-                <div id="Pl_Official_LikeMerge__15">
-                    {{--<div class="WB_cardwrap S_bg2">--}}
-                        {{--<div class="PCD_pictext_f">--}}
-                            {{--<div class="WB_cardtitle_b S_line2">--}}
-                                {{--<div class="obj_name"><h2 class="main_title W_fb W_f14">赞</h2></div>--}}
-                            {{--</div>--}}
-                            {{--<div class="WB_innerwrap">--}}
-                                {{--<div class="m_wrap">--}}
-                                    {{--<div class="pic_list_B">--}}
-                                        {{--<ul class="pt_ul clearfix">--}}
-                                            {{--<li class="pt_li pt_li_a">--}}
-                                                {{--<div class="pic_txt clearfix">--}}
-                                                    {{--<div class="pic_box">--}}
-                                                        {{--<a target="_blank" href="">--}}
-                                                            {{--<img src={{url('home/1.jpg')}} class="pic">--}}
-                                                        {{--</a>--}}
-                                                    {{--</div>--}}
-                                                    {{--<div class="info_box S_bg1">--}}
-                                                        {{--<div class="text_box">--}}
-                                                            {{--<div class="title W_autocut">--}}
-                                                                {{--<a target="_blank" href="" class="S_txt1">微博名字</a>--}}
-                                                            {{--</div>--}}
-                                                            {{--<div class="subtitle W_autocut">--}}
-                                                                {{--<a class="S_txt1" target="_blank" href="">假装这里面有一段很长很长的内容，所以你怕不怕，继续凑字数​​​​</a>--}}
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
-                                            {{--</li>--}}
-                                        {{--</ul>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<a bpfilter="page" href="" class="WB_cardmore S_txt1 S_line1 clearfix">--}}
-                                {{--<span class="more_txt">--}}
-                                    {{--查看更多&nbsp;<em class="W_ficon ficon_arrow_right S_ficon">></em>--}}
-                                {{--</span>--}}
-                            {{--</a>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                </div>
+                <div id="Pl_Official_LikeMerge__15"></div>
                 <div id="Pl_Official_MyPopularity__16"></div>
                 <div id="Pl_Guide_Bigday__17"></div>
                 <div id="Pl_Official_SeoInfo__18"></div>
