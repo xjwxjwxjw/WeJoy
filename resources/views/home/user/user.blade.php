@@ -157,42 +157,46 @@
                                 </span>
                             </h4>
                         </div>
-                        <div class="WB_innerwrap">
-                            <div class="m_wrap">
-                                <ul class="clearfix">
-                                    <li class="big_pic">
-                                        <a href="" target="_blank">
-                                            <img src="">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="" width="72" height="72">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="" width="72" height="72">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="" width="72" height="72">
-                                        </a>
-                                    </li>
-                                </ul>
+                        <?php
+                        $album_random = \App\Album::where('uid',$id)->where('AlbumPermissions',1)->first();
+                        ?>
+                        @if (empty($album_random))
+                            <div class="WB_innerwrap">
+                                <div class="m_wrap">
+                                    <br>
+                                    主人没有上传照片。
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <?php
+                            $Aid_random = $album_random->toArray()['id'];
+                            $photoes = \App\Photoes::all()->where('Aid',$Aid_random)->toArray();
+                            $first_photo = array_shift($photoes);
+                            ?>
+                            <div class="WB_innerwrap">
+                                <div class="m_wrap">
+                                    <ul class="clearfix">
+                                        <li class="big_pic">
+                                            <img src="{{url($first_photo['PhotosUrl'])}}">
+                                        </li>
+                                        @if(count($photoes) <= 5)
+                                            @foreach($photoes as $v)
+                                                <li class="">
+                                                    <img src="{{url($v['PhotosUrl'])}}">
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            <?php $photoes = array_slice($photoes,0,5) ?>
+                                            @foreach($photoes as $value)
+                                                <li class="">
+                                                    <img src="{{url($value['PhotosUrl'])}}">
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
                         <a href="" class="WB_cardmore S_txt1 S_line1 clearfix">
                             <span class="more_txt">
                                 查看更多<em class="W_ficon ficon_arrow_right S_ficon">></em>

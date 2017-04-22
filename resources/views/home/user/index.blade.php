@@ -31,7 +31,7 @@
                         <div class="pf_photo">
                             <p class="photo_wrap">
                                 <a href="javascript:void(0);"title="更换头像" onclick="editIcon()">
-                                    <img src='<?= empty($userinfo->icon)?url('/home/1.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo" width="100" height="100">{{--头像--}}
+                                    <img src='<?= empty($userinfo->icon)?url('/home/image/default.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo" width="100" height="100">{{--头像--}}
                                 </a>
                             </p>
                         </div>

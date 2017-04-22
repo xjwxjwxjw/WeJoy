@@ -15,6 +15,11 @@ $userinfo = DB::table('homeuserinfo')->where('uid',$id)->get();
     <link rel="stylesheet" href="{{url('/home/css/user/user.css')}}">
     <script src={{url('/home/js/usermasonry.js')}}></script>
     <link rel="stylesheet" href="{{url('/home/css/user/photo.css')}}">
+    {{--相册图片轮播图 开始--}}
+    <link rel="stylesheet" href="{{url('/home/css/user/imageflow.css')}}">
+    <script src={{url('/home/js/imageflow.js')}}></script>
+    <script src={{url('/home/js/jquery.js')}}></script>
+    {{--相册图片轮播图 结束--}}
     <style type="text/css">
         body{background-image:url( {{ url('home/image/body_bg.jpg') }} );}
     </style>

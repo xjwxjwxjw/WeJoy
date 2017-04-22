@@ -185,7 +185,7 @@
                                             </li>
                                         @endforeach
                                     @else
-                                        <?php array_slice($photoes,0,5) ?>
+                                        <?php $photoes = array_slice($photoes,0,5) ?>
                                             @foreach($photoes as $value)
                                                 <li class="">
                                                     <img src="{{url($value['PhotosUrl'])}}">
