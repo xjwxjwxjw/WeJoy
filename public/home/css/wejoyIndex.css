@@ -14,13 +14,16 @@ a:hover{ text-decoration:none; }
 .Wejoy_face{position: absolute;height: 50px;width: 50px;}
 .WJ_info{margin-bottom: 7px;padding-top: 5px;width: 100%;}
 .bg1{color: #ff6700;}
+.Wejoy_detail{font-size: 14px;}
 .bg2{background: #b4daf0;}
 .bg3{background: #ff6700;}
+.Wj_media_wrap_ul{width: 380px;}
 .bgorigin{color:#ff6700 !important;}
 .right{float: right;}
 .issue_user{color:#333;text-decoration: none;}
 .WE_time a{cursor: pointer;}
-.Wj_media_wrap img{width: 100%;}
+.Wj_media_wrap img{margin: 4px 0 0 4px;float: left;}
+.Wj_media_wrap img:hover{cursor: pointer;}
 .left{float: left;}
 .glyphicon{cursor: pointer;}
 .WE_time span:hover{color:#ff6700;}
@@ -40,7 +43,8 @@ a:hover{ text-decoration:none; }
 .mCSB_container{z-index: 999;}
 .usercom{margin-right: 10px;}
 .S_bg1{background-color: #eaeaec !important; }
-.twolist_li{margin: 0 0 -1px;padding: 5px 0 7px;}
+.twolist_li{margin: 0 0 -1px;padding: 5px 0 7px;border-bottom-width: 1px;border-bottom-style: solid;    border-color: #d9d9d9;}
+.twolist_ul:last-child{border-bottom-width: 0;}
 .usercom_list{margin-top: 8px;margin-bottom: 10px;padding: 0 12px;background-color: #fff;float: right;width: 530px;}
 .WJ_row_line{border-top-width: 1px;border-top-style: solid;height: 38px;border-color: #f2f2f5;margin:0;}
 .WJ_row_line li{padding: 0;height: 38px;text-align: center;width: 25%;}

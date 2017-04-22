@@ -193,8 +193,16 @@
 									html += "<div class='WJ_text2 clearfix'>"+sqlJson[i].content+"</div>";
                   if( sqlJson[i].images[0] == undefined ){
                     html += "<div class='Wj_media_wrap clearfix'></div></div></div>";
+                  } else if( sqlJson[i].images.length > 1 ){
+                    html += "<div class='Wj_media_wrap clearfix'><div class='Wj_media_wrap_ul clearfix'>";
+                    for(var a =0; a< sqlJson[i].images.length;a++ ){
+                      var imgurl = sqlJson[i].images[a].replace(/(.{17})/,'$1110_')
+                      html += "<img src='/"+imgurl+"' alt=''>";
+                    }
+                    html += "</div></div></div></div>"
                   }else{
-                    html += "<div class='Wj_media_wrap clearfix'><img src='/"+sqlJson[i].images[0]+"' alt=''></div></div></div>";
+                    var imgurl = sqlJson[i].images[0].replace(/(.{17})/,'$1167_')
+                    html += "<div class='Wj_media_wrap clearfix'><div class='Wj_media_wrap_ul clearfix'><img src='/"+imgurl+"' alt=''></div></div></div></div>";
                   }
 									html += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
                   if( $.inArray( sqlJson[i].hid,sqlfind['collect'] ) == -1 ){

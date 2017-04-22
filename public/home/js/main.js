@@ -3,6 +3,11 @@ $(document).ready(function(){
       $('#issue').toggle();
       $('.zyupload').toggle();
   })
+
+  $('.glyphicon-share').live('click',function(){
+    $('#myModal').attr('style','display:inline-block');
+  })
+
   $('#img-icon').one('click',function(){
       // 初始化插件
       $("#zyupload").one().zyUpload({
@@ -59,7 +64,19 @@ $(document).ready(function(){
         newcontent += "<li id='comdel"+data.hid+"' class='commentdel'><a href='#'>删除</a></li><li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
         newcontent += "<div class='WJ_text clearfix'>"+data.created_at+" 来自 微博 weibo.com</div>";
         newcontent += "<div class='WJ_text2 clearfix'>"+data.content+"</div>";
-        newcontent += "<div class='Wj_media_wrap clearfix'><img src='/"+data.images[0]+"' alt=''></div></div></div>";
+        if( data.images[0] == undefined ){
+          newcontent += "<div class='Wj_media_wrap clearfix'></div></div></div>";
+        } else if( data.images.length > 1 ){
+          newcontent += "<div class='Wj_media_wrap clearfix'><div class='Wj_media_wrap_ul clearfix'>";
+          for(var a = 0; a< data.images.length;a++ ){
+            var imgurl = data.images[a].replace(/(.{17})/,'$1110_')
+            newcontent += "<img src='/"+imgurl+"' alt=''>";
+          }
+          newcontent += "</div></div></div></div>"
+        }else{
+          var imgurl = data.images[0].replace(/(.{17})/,'$1167_')
+          newcontent += "<div class='Wj_media_wrap clearfix'><div class='Wj_media_wrap_ul clearfix'><img src='/"+imgurl+"' alt=''></div></div></div></div>";
+        }
         newcontent += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
         newcontent += "<li class='left'><span id='pos"+data.hid+"' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
         newcontent += "<li class='left'><span class='glyphicon glyphicon-share' > "+data.transmits+"</span></li>";

@@ -10,4 +10,3 @@
 <!--<![endif]-->
 <script src={{url("/js/app.js")}}></script>
 <script src={{url("/admin/js/toastr.min.js")}}></script>
-

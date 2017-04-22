@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
+use Intervention\Image\Facades\Image;
 
 
 class ContentController extends Controller
@@ -17,7 +18,7 @@ class ContentController extends Controller
   public function contentAdd(Request $request){
     if ($request->isMethod('post') ) {
       $data['uid'] = Cookie::get('UserId');
-      $data['content'] = $_POST['content'];
+      $data['content'] = htmlentities($_POST['content']);
       $data['created_at'] = date('Y-m-d H:i:s');
       $data['updated_at'] = date('Y-m-d H:i:s');
       $ids = Content::insertGetId( $data );
@@ -111,7 +112,7 @@ class ContentController extends Controller
 
   public function publishComments(){
     $id = Hashids::decode($_GET['id'])[0];
-    $pucoms = DB::table('comment')->where('mid','=',$id)->orderBy('created_at','desc')->get();
+    $pucoms = DB::table('comment')->where('mid','=',$id)->orderBy('created_at','desc')->skip(0)->take(5)->get();
     foreach ($pucoms as $pucom){
         $pucom->uname = DB::table('homeuser')->where('id','=',$pucom->uid)->value('name');
         $pucom->usericon = DB::table('homeuserinfo')->where('uid','=',$pucom->uid)->value('icon');
@@ -125,7 +126,7 @@ class ContentController extends Controller
           $pucom->del = 0;
         }
 
-        $pucom->two = DB::table('comments')->where('cid',$pucom->id)->get();
+        $pucom->two = DB::table('comments')->where('cid',$pucom->id)->orderBy('created_at','desc')->skip(0)->take(5)->get();
         foreach($pucom->two as $v ){
           $v->uname = DB::table('homeuser')->where('id','=',$v->uid)->value('name');
           $v->hid = Hashids::encode($v->id);
@@ -138,6 +139,7 @@ class ContentController extends Controller
   public function publishIssue(Request $request){
     $id = Cookie::get('UserId');
     $data = $request->all();
+    $data['description'] = htmlentities($data['description']);
     $data['uid'] = $id;
     $data['mid'] = Hashids::decode($data['mid'])[0];
     $data['created_at'] = date('Y-m-d H:i:s');
@@ -152,6 +154,7 @@ class ContentController extends Controller
   public function twopublishIssue(Request $request){
     $id = Cookie::get('UserId');
     $data = $request->all();
+    $data['description'] = htmlentities($data['description']);
     $data['uid'] = $id;
     $data['cid'] = Hashids::decode($data['cid'])[0];
     $data['created_at'] = date('Y-m-d H:i:s');
@@ -248,10 +251,12 @@ class ContentController extends Controller
       mkdir($basename);
     }
     if( move_uploaded_file($_FILES['file']['tmp_name'], $basename . $filename) ){
+      Image::make($basename.$filename)->fit(110)->save($basename.'110_'.$filename);
+      Image::make($basename.$filename)->fit(167)->save($basename.'167_'.$filename);
       $uid = Cookie::get('UserId');
       $aid = DB::table('photomanage')->where('uid',$uid)->where('AlbumName','默认')->value('id');
       $url = $basename . $filename;
-      $CreateTime = date("Y-m-d H:i:s-",time());
+      $CreateTime = time();
       $id = DB::table('photoes')->insertGetId(
           ['Aid'=>$aid,'PhotosName'=>$filename,'PhotosUrl'=>$url,'CreateTime'=>$CreateTime]
       );

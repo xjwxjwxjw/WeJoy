@@ -5,7 +5,8 @@ $(function(){
            dataType: 'json',
         }
     });
-
+    var ix = 1;
+    // 二级评论
     $('.twocom').live('click',function(){
       var twocom ='';
       var newicon = $('.W_face_radius').attr('src');
@@ -17,7 +18,7 @@ $(function(){
             $('#dotwocomment'+comid).attr("disabled",false).addClass('bgred').removeClass('bgsmred');
           }
        })
-      // 二级评论
+
       twocom = "<div class='usercom_list'> ";
       twocom += "<div class='usercom_list_box'> ";
       twocom += "<div class='WE_feed_comments'> ";
@@ -48,6 +49,7 @@ $(function(){
        $('#dotwocomment'+comid).live('click', function () {
           data = $('#twoform'+comid).serialize();
           data += '&cid='+comid;
+          var This = $(this);
           $.ajax({
             url:'twocontentIssue',
             data: data,
@@ -55,95 +57,18 @@ $(function(){
             dataType: 'json',
             success:function(data){
               toastr.success('评论成功');
-              // $text = $('#'+comid).text();
-              // $text++;
-              // $('#'+comid).text(" "+$text);
-              // var newicon = $('.W_face_radius').attr('src');
-              // var newconlist = '';
-              // newconlist += "<div id='listli"+data[0].hid+"' class='list_li'> ";
-              // newconlist += "<!--评论头像 --> ";
-              // newconlist += "<div class='WE_face'> ";
-              // newconlist += "<img src='"+newicon+"' alt='' /> ";
-              // newconlist += "</div> ";
-              // newconlist += "<!-- 评论内容 --> ";
-              // newconlist += "<div class='list-con'> ";
-              // newconlist += "<div class='WE_text'> ";
-              // newconlist += "<a href='/home/user/"+data[0].nuid+"'>"+$('.name').attr('title')+"</a>  <span>"+data[0].description;
-              // newconlist += "</span></div> ";
-              // newconlist += "<div class='WE_func clearfix'> ";
-              // newconlist += "<div class='WE_time'>";
-              // newconlist += data[0].created_at;
-              // newconlist += "<span id='onegly"+data[0].hid+"' class='glyphicon glyphicon-remove one-glyphicon-remove right'></span> ";
-              // newconlist += "<span id='twocom"+data[i].hid+"' class='glyphicon glyphicon-comment twocom right'></span></div> ";
-              // newconlist += "</div> ";
-              // newconlist += "</div> ";
-              // newconlist += "</div> ";
-              // $('.list_box'+comid).prepend(newconlist);
-              // $('#publishcomments'+comid).val('');
-              // // 解析表情
-              // $(".WE_text").emojiParse({
-              //   icons: [{
-              //       path: "/home/image/tieba/",
-              //       file: ".jpg",
-              //       placeholder: ":{alias}:",
-              //       alias: {
-              //           1: "hehe",
-              //           2: "haha",
-              //           3: "tushe",
-              //           4: "a",
-              //           5: "ku",
-              //           6: "lu",
-              //           7: "kaixin",
-              //           8: "han",
-              //           9: "lei",
-              //           10: "heixian",
-              //           11: "bishi",
-              //           12: "bugaoxing",
-              //           13: "zhenbang",
-              //           14: "qian",
-              //           15: "yiwen",
-              //           16: "yinxian",
-              //           17: "tu",
-              //           18: "yi",
-              //           19: "weiqu",
-              //           20: "huaxin",
-              //           21: "hu",
-              //           22: "xiaonian",
-              //           23: "neng",
-              //           24: "taikaixin",
-              //           25: "huaji",
-              //           26: "mianqiang",
-              //           27: "kuanghan",
-              //           28: "guai",
-              //           29: "shuijiao",
-              //           30: "jinku",
-              //           31: "shengqi",
-              //           32: "jinya",
-              //           33: "pen",
-              //           34: "aixin",
-              //           35: "xinsui",
-              //           36: "meigui",
-              //           37: "liwu",
-              //           38: "caihong",
-              //           39: "xxyl",
-              //           40: "taiyang",
-              //           41: "qianbi",
-              //           42: "dnegpao",
-              //           43: "chabei",
-              //           44: "dangao",
-              //           45: "yinyue",
-              //           46: "haha2",
-              //           47: "shenli",
-              //           48: "damuzhi",
-              //           49: "ruo",
-              //           50: "OK"
-              //       }
-                // }, {
-                //     path: "/home/image/qq/",
-                //     file: ".gif",
-                //     placeholder: "#qq_{alias}#"
-                // }]
-            // });
+              $('#twocomments'+comid).val(' ');
+              var conlist = '';
+              var name = $('.name').attr('title');
+              conlist += "<div class='twolist_li'><div class='list_con2' ><div class='twolist_text'>";
+              conlist += "<a href='/home/user/"+data[0].uuid+"'>"+name+"</a> "+data[0].description;
+              conlist += "</div>";
+              conlist += "<div class='clearfix'>";
+              conlist += "<div class='left'>"+data[0].created_at+"</div>";
+              conlist += "<div class='right'>回复 | 赞</div>";
+              conlist += "</div>";
+              conlist += "</div></div> ";
+              This.parents('.usercom_list').next().children('.twolist_ul').prepend(conlist);
             },
             error:function(jqXHR, textStatus, errorThrown){
               toastr.error('评论失败,联系管理员吧');
@@ -211,7 +136,6 @@ $(function(){
   // 删除微博
   $('.commentdel').live('click',function(){
     var comdelid = $(this).attr('id').replace(/comdel/, "");
-    console.log(1);
     $.ajax({
       url:'commentdel?mid='+comdelid,
       type:'get',
@@ -267,14 +191,16 @@ $(function(){
 
   $('.comnone').live('click',function(){
     var comid = $(this).attr('id');
+    var emojibi = $(this).attr('name');
     $(this).removeClass('comnone').addClass('comshow');
     $('.con'+comid).empty();
-    $('.emoji_btn').hide();
-    $('#emoji_btn_1').show();
+    $('#'+emojibi).remove();
   })
   $('.comshow').live('click',function(){
+    ix++;
     $(this).removeClass('comshow').addClass('comnone');
     var comid = $(this).attr('id');
+    $(this).attr({ name:'emoji_btn_'+ix });
     // 评论按钮的禁用和解除
     $(document).live('propertychange input', function () {
         if ( $('#publishcomments'+comid).val() == '' ) {
@@ -314,7 +240,10 @@ $(function(){
             newconlist += "<div class='WE_time'>";
             newconlist += data[0].created_at;
             newconlist += "<span id='onegly"+data[0].hid+"' class='glyphicon glyphicon-remove one-glyphicon-remove right'></span> ";
-            newconlist += "<span id='twocom"+data[i].hid+"' class='glyphicon glyphicon-comment twocom right'></span></div> ";
+            newconlist += "<span id='twocom"+data[0].hid+"' class='glyphicon glyphicon-comment twocom right'></span></div> ";
+            newconlist += "<div class='usercom_list S_bg1'><div class='twolist_ul'>";
+            newconlist += "</div> ";
+            newconlist += "</div> ";
             newconlist += "</div> ";
             newconlist += "</div> ";
             newconlist += "</div> ";
@@ -447,17 +376,18 @@ $(function(){
             }
             conlist += "<span id='twocom"+data[i].hid+"' class='glyphicon glyphicon-comment twocom right'></span></div> ";
             // 二级评论
+            conlist += "<div class='usercom_list S_bg1'><div class='twolist_ul'>";
             for(var a = 0; a < data[i].two.length; a++){
-              conlist += "<div class='usercom_list S_bg1'><div class='twolist_ul'>";
               conlist += "<div class='twolist_li'><div class='list_con2' ><div class='twolist_text'>";
-              conlist += "<a href='/home/user/"+data[i].two[a].nuid+"'>"+data[i].two[a].uname+"</a>: "+data[i].two[a].description;
+              conlist += "<a href='/home/user/"+data[i].two[a].nuid+"'>"+data[i].two[a].uname+"</a> "+data[i].two[a].description;
               conlist += "</div>";
-              conlist += "<div>";
+              conlist += "<div class='clearfix'>";
               conlist += "<div class='left'>"+data[i].two[a].created_at+"</div>";
               conlist += "<div class='right'>回复 | 赞</div>";
               conlist += "</div>";
-              conlist += "</div></div> </div></div>";
+              conlist += "</div></div> ";
             }
+            conlist += "</div></div> ";
             conlist += "</div> ";
             conlist += "</div> ";
             conlist += "</div> ";

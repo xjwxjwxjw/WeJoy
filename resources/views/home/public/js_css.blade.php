@@ -1,6 +1,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <link rel="icon" type="image/png" href={{url("/admin/assets/i/favicon.png")}}>
-<link rel="stylesheet" href={{url("/css/app.css")}}>
+<link rel="stylesheet" href={{url("css/app.css")}}>
 <link rel="stylesheet" href={{url("/css/bootstrap.css")}}>
 <link  rel="stylesheet" href={{url("/home/css/main.css")}} >
 <link rel="stylesheet" type="text/css" href={{url("/home/css/wejoyIndex.css")}}>
