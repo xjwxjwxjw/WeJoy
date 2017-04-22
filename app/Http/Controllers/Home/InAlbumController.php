@@ -19,11 +19,11 @@ class InAlbumController extends Controller
             $photoes = Photoes::all()->where('Aid',Hashids::decode($Aid)[0])->toArray();
             return view('home.user.selfInAlbum',compact('photoes','Aid'));
         }else{
-            dd(2);
 //            访问别人的
             $id = Hashids::decode($id)[0];
-            $album = Album::all()->where('uid',$id)->toArray();
-            return view('home.user.photo',compact('id','album'));
+            $Aid = Hashids::decode($Aid)[0];
+            $album = Photoes::all()->where('Aid',$Aid)->toArray();
+            return view('home.user.InAlbum',compact('id','album'));
         }
     }
     public function addPhoto(Request $request,$Aid){
@@ -60,7 +60,9 @@ class InAlbumController extends Controller
         if (!count($hasAlbum)){
             return view('home.index');
         }
-        $byUser = $hasAlbum[0]['uid'];
+        foreach ($hasAlbum as $v){
+            $byUser = $v['uid'];
+        }
 //        判断是否对应自己的相册
         if ($byUser != Cookie::get('UserId')){
             return view('home.index');

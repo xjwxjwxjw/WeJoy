@@ -19,7 +19,7 @@ class UserController extends Controller
     }
     public function lookIndex($id)
     {
-        $id = Hashids::decode($id);
+        $id = Hashids::decode($id)[0];
         return view('home.user.user',compact('id'));
     }
     public function addFans(Request $request)
@@ -30,6 +30,49 @@ class UserController extends Controller
             $fansstatu = '1';
         }else{
             $fansstatu = '0';
+        }
+        echo $fansstatu;
+    }
+    public function doFans(Request $request)
+    {
+        $fansstatu = '0';
+        $uid = Hashids::decode($request->all()['uid'])[0];
+        $uid_ed = Hashids::decode($request->all()['uid_ed'])[0];
+        switch ($request->all()['doWork']){
+            case 'addFans':
+//                查找是否已拉黑
+                $status = UserFans::all()->where('uid',$uid)->where('uid_ed',$uid_ed)->toArray();
+//              统计数据  有则表示已拉黑  更新数据即可  否则未关注未拉黑 则添加数据
+                if (count($status)){
+                    UserFans::where('uid',$uid)->where('uid_ed',$uid_ed)->update(['status'=>1]);
+                    $fansstatu = '1';
+                }else{
+                    UserFans::create(['uid'=>$uid,'uid_ed'=>$uid_ed,'status'=> 1]);
+                    $fansstatu = '1';
+                }
+                break;
+            case 'cancelFans':
+                if(UserFans::where('uid',$uid)->where('uid_ed',$uid_ed)->where('status',1)->delete()){
+                    $fansstatu = '1';
+                }
+                break;
+            case 'addBlack':
+//                查找是否已粉
+                $status = UserFans::all()->where('uid',$uid)->where('uid_ed',$uid_ed)->toArray();
+//              统计数据  有则表示已粉  更新数据即可  否则未关注未拉黑 则添加数据
+                if (count($status)){
+                    UserFans::where('uid',$uid)->where('uid_ed',$uid_ed)->update(['status'=>2]);
+                    $fansstatu = '1';
+                }else{
+                    UserFans::create(['uid'=>$uid,'uid_ed'=>$uid_ed,'status'=> 2]);
+                    $fansstatu = '1';
+                }
+                break;
+            case 'cancelBlack':
+                if(UserFans::where('uid',$uid)->where('uid_ed',$uid_ed)->where('status',2)->delete()){
+                    $fansstatu = '1';
+                }
+                break;
         }
         echo $fansstatu;
     }
