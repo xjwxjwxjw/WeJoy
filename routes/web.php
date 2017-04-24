@@ -82,6 +82,7 @@ Route::group(['middleware'=>'check.login'],function() {
             Route::get('doDel/{id}', 'HomeUserController@del');
             Route::get('doFind/{id}', 'HomeUserController@find');
             Route::post('doEdit/{id}', 'HomeUserController@edit');
+            Route::get('changeStatus', 'HomeUserController@changeStatus');
         });
     });
 });

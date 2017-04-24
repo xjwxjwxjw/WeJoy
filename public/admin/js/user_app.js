@@ -70,7 +70,7 @@ $(document).ready(function () {
                 eval('var data = '+data);
                 console.log(data);
                 $('#exampleInputName').val(data[0][0].name);
-                $('#exampleInputSex'+data[1][0].sex).attr('checked',true);
+                $('#exampleInputSex'+data[1][0].sex).prop('checked',true);
                 $('#exampleInputTruename').val(data[1][0].name);
                 $('#exampleInputQQ').val(data[1][0].qq);
                 $('#exampleInputPhone').val(data[0][0].phone);
@@ -129,5 +129,46 @@ $(document).ready(function () {
         }
         //无错 则开启提交模式
         $('#task').attr('onsubmit','');
+    })
+    //后台对前台用户激活禁用
+    $('.changeStatus_btn').click(function () {
+        var $_this = $(this);
+        switch ($(this).text()){
+            case '已激活':
+                var id = $(this).parents('tr').children().first().text();
+                var status = '1';
+                $.ajax({
+                    url:'/admin/user/changeStatus',
+                    data:'id='+id+'&status='+status,
+                    type:'get',
+                    success:function () {
+                        $_this.attr('class',"changeStatus_btn btn btn-danger");
+                        $_this.text('已禁用');
+                    },
+                    error:function () {
+                       location.reload()
+                    }
+                })
+                break;
+            case '已禁用':
+                var id = $(this).parents('tr').children().first().text();
+                var status = '0';
+                $.ajax({
+                    url:'/admin/user/changeStatus',
+                    data:'id='+id+'&status='+status,
+                    type:'get',
+                    success:function () {
+                        $_this.attr('class',"changeStatus_btn btn btn-success");
+                        $_this.text('已激活');
+                    },
+                    error:function () {
+                        location.reload()
+                    }
+                })
+                break;
+            default:
+                location.reload();
+                break;
+        }
     })
 });
