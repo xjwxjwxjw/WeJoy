@@ -60,7 +60,11 @@
                   <li class="edit"><a href={{url('admin/permission/adminuser')}}>管理员管理 </a></li>
               </ul>
           </li>
-
+          <li><a href="#"><i class="fa fa-cog"></i>用户管理 </a>
+              <ul class="submenu">
+                  <li><a href={{url('admin/user')}}>查看用户 </a></li>
+              </ul>
+          </li>
       </ul>
 
       <div class="jquery-accordion-menu-footer">

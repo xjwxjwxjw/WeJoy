@@ -10,16 +10,21 @@ use Illuminate\Support\Facades\Validator;
 class HomeUserController extends Controller
 {
     public function index() {
-        $returnuser = [];
-        $i = 0;
-        $result = DB::select('select * from homeuser');
-        foreach ($result as $user){
-            $userinfo = DB::table('homeuserinfo')->where('uid',$user->id)->get();
-            $returnuser[$i][0] = $user;
-            $returnuser[$i][1] = $userinfo[0];
-            $i++;
+        if( empty($_GET['search']) ){
+            $returnuser = DB::table('homeuser')->select('*','homeuser.name as nickname','homeuserinfo.name as truename')
+                ->join('homeuserinfo','homeuser.id','=','homeuserinfo.uid')->paginate(5);
+            return view('admin.index',['tasks'=>$returnuser , 'content' => '/admin/user/index']);
+        } else {
+            $search = $_GET['search'];
+            $returnuser = DB::table('homeuser')->select('*','homeuser.name as nickname','homeuserinfo.name as truename')
+                ->join('homeuserinfo','homeuser.id','=','homeuserinfo.uid')
+                ->Where('homeuser.name','like','%'.$search.'%')
+                ->orWhere('homeuserinfo.name','like','%'.$search.'%')
+                ->orWhere('homeuser.phone','like','%'.$search.'%')
+                ->orWhere('homeuser.email','like','%'.$search.'%')
+                ->paginate(5);
+            return view('admin.index',['tasks'=>$returnuser ,'keepsearch'=>$search , 'content' => '/admin/user/index']);
         }
-        return view('admin.user.index', compact('returnuser'));
     }
     //    添加用户
     public function add(Request $request)
@@ -132,5 +137,14 @@ class HomeUserController extends Controller
         }else{
             return back()->withErrors('更新失败');
         }
+    }
+//    修改状态
+    public function changeStatus(Request $request){
+        if ($request->all()['status'] == 1){
+            DB::table('homeuser')->where('id',$request->all()['id'])->update(['is_confirmed'=>0]);
+        }else{
+            DB::table('homeuser')->where('id',$request->all()['id'])->update(['is_confirmed'=>1]);
+        }
+        echo 1;
     }
 }
