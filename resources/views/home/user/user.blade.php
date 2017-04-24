@@ -1,3 +1,4 @@
+{{--别人--}}
 <?php
     $user = DB::table('homeuser')->where('id',$id)->get();
     $userinfo = DB::table('homeuserinfo')->where('uid',$id)->get();
@@ -50,7 +51,8 @@
                             <div class="list_wrap">
                                 <div class="fb_div">
                                     <ul class="list_ul">
-                                        <li style="display: none">{{Hashids::encode(Cookie::get('UserId'))}}</li>
+                                        <li style="display: none" id="ByName">{{Hashids::encode(Cookie::get('UserId'))}}</li>
+                                        <li style="display: none" id="BaName">{{Hashids::encode($id)}}</li>
                                         @if(count(\App\UserFans::where('uid',$id)->where('uid_ed',Cookie::get('UserId'))->where('status',1)->get()))
                                             <li class="item">
                                                 <a href="javascript:void(0);" class="tlink cancel" onclick="doFans(this)">取消关注</a>
@@ -116,14 +118,14 @@
                                 <tbody>
                                 <tr>
                                     <td class="S_line1">
-                                        <a class="t_link S_txt1" href="">
-                                            <strong class="W_f18">{{$fans}}</strong>
+                                        <a class="t_link S_txt1" href="{{url('/home/user/fan/'.Hashids::encode($id))}}">
+                                            <strong class="W_f18">{{$fansed}}</strong>
                                             <span class="S_txt2">关注</span>
                                         </a>
                                     </td>
                                     <td class="S_line1">
-                                        <a class="t_link S_txt1" href="">
-                                            <strong class="W_f18">{{$fansed}}</strong>
+                                        <a class="t_link S_txt1" href="{{url('/home/user/faned/'.Hashids::encode($id))}}">
+                                            <strong class="W_f18">{{$fans}}</strong>
                                             <span class="S_txt2">粉丝</span>
                                         </a>
                                     </td>
@@ -157,42 +159,46 @@
                                 </span>
                             </h4>
                         </div>
-                        <div class="WB_innerwrap">
-                            <div class="m_wrap">
-                                <ul class="clearfix">
-                                    <li class="big_pic">
-                                        <a href="" target="_blank">
-                                            <img src="">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="" width="72" height="72">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="" width="72" height="72">
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="" target="_blank">
-                                            <img src="" width="72" height="72">
-                                        </a>
-                                    </li>
-                                </ul>
+                        <?php
+                        $album_random = \App\Album::where('uid',$id)->where('AlbumPermissions',1)->first();
+                        ?>
+                        @if (empty($album_random))
+                            <div class="WB_innerwrap">
+                                <div class="m_wrap">
+                                    <br>
+                                    主人没有上传照片。
+                                </div>
                             </div>
-                        </div>
+                        @else
+                            <?php
+                                $Aid_random = $album_random->toArray()['id'];
+                                $photoes = \App\Photoes::all()->where('Aid',$Aid_random)->toArray();
+                                $first_photo = array_shift($photoes);
+                            ?>
+                            <div class="WB_innerwrap">
+                                <div class="m_wrap">
+                                    <ul class="clearfix">
+                                        <li class="big_pic">
+                                            <img src="{{url($first_photo['PhotosUrl'])}}">
+                                        </li>
+                                        @if(count($photoes) <= 5)
+                                            @foreach($photoes as $v)
+                                                <li class="">
+                                                    <img src="{{url($v['PhotosUrl'])}}">
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            <?php $photoes = array_slice($photoes,0,5) ?>
+                                            @foreach($photoes as $value)
+                                                <li class="">
+                                                    <img src="{{url($value['PhotosUrl'])}}">
+                                                </li>
+                                            @endforeach
+                                        @endif
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
                         <a href="" class="WB_cardmore S_txt1 S_line1 clearfix">
                             <span class="more_txt">
                                 查看更多<em class="W_ficon ficon_arrow_right S_ficon">></em>
@@ -203,55 +209,7 @@
                 </div>
             </div>
             <div id="Pl_Core_Pt6Rank__11"></div>
-            <div id="Pl_Core_UserGrid__12">
-                <div class="WB_cardwrap S_bg2">
-                    <div class="PCD_user_a PCD_user_a1">
-                        <!-- v6 card 通用标题 -->
-                        <div class="WB_cardtitle_b S_line2">
-                            <!-- 标题 -->
-                            <div class="obj_name">
-                                <h2 class="main_title W_fb W_f14">微关系</h2>
-                            </div>
-                            <!-- 标题栏控件 -->
-                        </div>
-                        <div class="WB_innerwrap">
-                            <!-- 标题栏筛选项 -->
-                            <div class="m_wrap clearfix">
-                                <div class="m_box S_line2">
-                                    <div class="WB_cardtitle_c">
-                                        <div class="obj_name">
-                                            <h2 class="main_title W_fb W_f14">
-                                                <a class="S_txt1" target="_blank" href="">微关系</a>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                    <ul class="picitems_ul clearfix">
-                                        <li class="picitems">
-                                            <div class="midbox">
-                                                <p class="pic_wrap">
-                                                            <span class="pic_box">
-                                                                <a target="_blank" href="">
-                                                                    <img class="pic" src="" width="50" height="50" alt="这是共同关注" title="这是共同关注">
-                                                                </a>
-                                                            </span>
-                                                </p>
-                                                <p class="name W_tc">
-                                                    <a target="_blank" href="" class="S_txt1" title="这是共同关注">这是共同关注</a>
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="WB_cardmore S_txt1 S_line1 clearfix" href="">
-                            <span class="more_txt">查看更多&nbsp;
-                                <em class="W_ficon ficon_arrow_right S_ficon">></em>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <div id="Pl_Core_UserGrid__12"></div>
             <div id="Pl_Core_PicText__13"></div>
             <div id="Pl_Core_Ut1UserList__14"></div>
             <div id="Pl_Official_LikeMerge__15"></div>

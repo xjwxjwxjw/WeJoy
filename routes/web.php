@@ -128,6 +128,11 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
      Route::get('delPhoto','InAlbumController@delPhoto');//删除图片
      Route::get('photos/{uid}/{Aid}','InAlbumController@photo');//相册内图片 有id为他人，没id为自己
      Route::get('photo/my/{Aid}/manage','InAlbumController@manage');//修改自己的相册内图片信息
+     Route::get('fans/{id}','UserController@fans');//查看关注(我关注的列表)
+     Route::get('fansed/{id}','UserController@fansed');//查看粉丝（关注我的粉丝列表）
+     Route::get('black/{id}','UserController@black');//查看黑名单（被我拉黑的人）
+     Route::get('fan/{id}','UserController@fan');//查看关注(ta关注的列表)
+     Route::get('faned/{id}','UserController@faned');//查看粉丝（关注ta的粉丝列表）
  });
     Route::get('user/{id}','UserController@lookIndex');
 

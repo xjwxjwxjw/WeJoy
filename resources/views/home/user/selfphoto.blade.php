@@ -1,3 +1,4 @@
+{{--自己--}}
 @if(!Cookie::has('UserId'))
     <script>window.location.href = '/home/index'</script>
     {{--用中间件判断--}}
@@ -52,7 +53,7 @@
                             <div class="pf_photo">
                                 <p class="photo_wrap">
                                     <a href="javascript:void(0);"title="更换头像" onclick="editIcon()">
-                                        <img src='<?= empty($userinfo->icon)?url('/image/default.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo" width="100" height="100">{{--头像--}}
+                                        <img src='<?= empty($userinfo->icon)?url('/home/image/default.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo" width="100" height="100">{{--头像--}}
                                     </a>
                                 </p>
                             </div>
@@ -107,12 +108,6 @@
                                         <span class="ani_border"></span>
                                     </a>
                                 </td>
-                                <td>
-                                    <a href="" class="tab_link">
-                                        <span class="S_txt1 t_link">管理中心</span>
-                                        <span class="ani_border"></span>
-                                    </a>
-                                </td>
                             </tr>
                         </table>
                     </div>
@@ -135,14 +130,14 @@
                                 <tbody>
                                 <tr>
                                     <td class="S_line1">
-                                        <a class="t_link S_txt1" href="">
-                                            <strong class="W_f18">{{$fans}}</strong>
+                                        <a class="t_link S_txt1" href="{{url('/home/user/fans/'.Hashids::encode(Cookie::get('UserId')))}}">
+                                            <strong class="W_f18">{{$fansed}}</strong>
                                             <span class="S_txt2">关注</span>
                                         </a>
                                     </td>
                                     <td class="S_line1">
-                                        <a class="t_link S_txt1" href="">
-                                            <strong class="W_f18">{{$fansed}}</strong>
+                                        <a class="t_link S_txt1" href="{{url('/home/user/fansed/'.Hashids::encode(Cookie::get('UserId')))}}">
+                                            <strong class="W_f18">{{$fans}}</strong>
                                             <span class="S_txt2">粉丝</span>
                                         </a>
                                     </td>

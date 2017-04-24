@@ -1,3 +1,4 @@
+{{--别人--}}
 <?php
 $user = DB::table('homeuser')->where('id',$id)->get();
 $userinfo = DB::table('homeuserinfo')->where('uid',$id)->get();
@@ -15,6 +16,11 @@ $userinfo = DB::table('homeuserinfo')->where('uid',$id)->get();
     <link rel="stylesheet" href="{{url('/home/css/user/user.css')}}">
     <script src={{url('/home/js/usermasonry.js')}}></script>
     <link rel="stylesheet" href="{{url('/home/css/user/photo.css')}}">
+    {{--相册图片轮播图 开始--}}
+    <link rel="stylesheet" href="{{url('/home/css/user/imageflow.css')}}">
+    <script src={{url('/home/js/imageflow.js')}}></script>
+    <script src={{url('/home/js/jquery.js')}}></script>
+    {{--相册图片轮播图 结束--}}
     <style type="text/css">
         body{background-image:url( {{ url('home/image/body_bg.jpg') }} );}
     </style>
@@ -50,7 +56,8 @@ $userinfo = DB::table('homeuserinfo')->where('uid',$id)->get();
                         <div class="list_wrap">
                             <div class="fb_div">
                                 <ul class="list_ul">
-                                    <li style="display: none">{{Hashids::encode(Cookie::get('UserId'))}}</li>
+                                    <li style="display: none" id="ByName">{{Hashids::encode(Cookie::get('UserId'))}}</li>
+                                    <li style="display: none" id="BaName">{{Hashids::encode($id)}}</li>
                                     @if(count(\App\UserFans::where('uid',$id)->where('uid_ed',Cookie::get('UserId'))->where('status',1)->get()))
                                         <li class="item">
                                             <a href="javascript:void(0);" class="tlink cancel" onclick="doFans(this)">取消关注</a>
