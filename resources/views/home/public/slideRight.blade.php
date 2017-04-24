@@ -123,6 +123,7 @@
         $fansed = count(\App\UserFans::where('uid_ed',Cookie::get('UserId'))->where('status',1)->get());
         $fans = count(\App\UserFans::where('uid',Cookie::get('UserId'))->where('status',1)->get());
         $loginUser = DB::table('homeuserinfo')->where('uid',Cookie::get('UserId'))->get()[0];
+        $level = DB::table('level')->where('uid',Cookie::get('UserId'))->get()[0];
 	?>
 		<div id="v6_pl_rightmod_myinfo">
 			<div class="WB_cardwrap S_bg2">
@@ -141,13 +142,23 @@
 								<i class="W_icon icon_member_dis" style="background-image:url({{url('/home/icon.png')}})"></i>
 							</a>
 							<a target="_blank" href="">
-								<span class="W_icon_level icon_level_c2">
-									<span class="txt_out">
-										<span class="txt_in">
-											<span title="微博等级4 升级有好礼">Lv.4</span>
+								@if($level->level > 0)
+									<span class="W_icon_level icon_level_c2">
+										<span class="txt_out">
+											<span class="txt_in">
+												<span title="微博等级{{$level->level}} 升级有好礼">Lv.{{$level->level}}</span>
+											</span>
 										</span>
 									</span>
-								</span>
+								@else
+									<span class="W_icon_level" style="width: 55px;">
+										<span class="txt_out">
+											<span class="txt_in">
+												<span title="全名公敌">全名公敌</span>
+											</span>
+										</span>
+									</span>
+								@endif
 							</a>
 						</div>
 						<ul class="user_atten clearfix W_f18">
@@ -393,29 +404,27 @@
 							<span class="main_title W_fb W_f14">推荐距友</span>
 						</h4>
 					</div>
-
-
 					<?php
-						$user = DB::select('SELECT * FROM homeuser  ORDER BY  RAND() LIMIT 4');
-						for ($i = 0;$i < 4;$i++){
-							$userInfo[$i] = DB::select('SELECT * FROM homeuserinfo WHERE uid='.$user[$i]->id)[0];
-					                   }
+					$user = DB::select('SELECT * FROM homeuser  ORDER BY  RAND() LIMIT 4');
+					for ($i = 0;$i < 4;$i++){
+						$userInfo[$i] = DB::select('SELECT * FROM homeuserinfo WHERE uid='.$user[$i]->id)[0];
+							}
 					?>
-					@for($j = 0;$j < 4;$j++)
-						@if($user[$j]->name != Cookie::get('UserNickname'))
-						<div>
-							{{--<div class="WB_cardtitle_d">--}}
-								{{--一起走进设计师的世界      </div>--}}
-							<div class="WB_innerwrap S_bg1">
-								<div class="m_wrap clearfix">
-									<div class="friends_dynamic">
-										<ul class="group_list">
-											<li class="S_line1">
-												<div class="pic">
-													<a target="_blank" href="{{url('/home/user/'.Hashids::encode($user[$j]->id))}}">
-														<img src={{url(empty($userInfo[$j]->icon)?'/home/image/default.jpg':$userInfo[$j]->icon)}} width="30" height="30" alt="">
-													</a>
-												</div>
+				@for($j = 0;$j < 4;$j++)
+					@if($user[$j]->name != Cookie::get('UserNickname'))
+					<div>
+						{{--<div class="WB_cardtitle_d">--}}
+							{{--一起走进设计师的世界      </div>--}}
+						<div class="WB_innerwrap S_bg1">
+							<div class="m_wrap clearfix">
+								<div class="friends_dynamic">
+									<ul class="group_list">
+										<li class="S_line1">
+											<div class="pic">
+												<a target="_blank" href="{{url('/home/user/'.Hashids::encode($user[$j]->id))}}">
+													<img src={{url(empty($userInfo[$j]->icon)?'/home/image/default.jpg':$userInfo[$j]->icon)}} width="30" height="30" alt="">
+												</a>
+											</div>
 												<div class="con">
 													<p class="name">
 														<a target="_blank" href="{{url('/home/user/'.Hashids::encode($user[$j]->id))}}" class="W_name"><?= $user[$j]->name ?></a>

@@ -37,6 +37,16 @@ class ContentController extends Controller
         $newcontent->usericon = DB::table('homeuserinfo')->where('id','=',$data['uid'])->value('icon');
         $newcontent->images = DB::table('photoes')->where('mid',$ids)->orderBy('id')->pluck('PhotosUrl');
         $newcontent->hid = Hashids::encode($newcontent->id);
+          //    将数据添加到等级表开始
+          $exp = DB::table('level')->where('uid',Cookie::get('UserId'))->get()[0];
+          if (empty($exp)){
+              DB::table('level')->insert(['uid'=>Cookie::get('UserId'),'exp'=>mt_rand(1,10),'level'=>1]);
+          }else{
+              $changeexp = $exp->exp + mt_rand(1,10);
+              $level = ceil($changeexp/50);
+              DB::table('level')->where('uid',Cookie::get('UserId'))->update(['exp'=>$changeexp,'level'=>$level]);
+          }
+//          添加等级结束
         return response()->json($newcontent);
       }else{
         return false;

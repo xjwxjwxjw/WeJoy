@@ -71,6 +71,15 @@
                                                 <a href="javascript:void(0);" class="tlink addtofans" onclick="doFans(this)">加入黑名单</a>
                                             </li>
                                         @endif
+                                        @if(count(DB::table('report')->where('uid',$id)->where('re_uid',Cookie::get('UserId'))->get()) > 0)
+                                            <li class="item">
+                                                <a href="javascript:void(0);" class="tlink cancel" onclick="report(this)">取消举报</a>
+                                            </li>
+                                        @else
+                                            <li class="item">
+                                                <a href="javascript:void(0);" class="tlink addtofans" onclick="report(this)">举报Ta</a>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
@@ -177,9 +186,13 @@
                         <div class="WB_innerwrap">
                             <div class="m_wrap">
                                 <ul class="clearfix">
-                                    <li class="big_pic">
-                                        <img src="{{url($first_photo['PhotosUrl'])}}">
-                                    </li>
+                                    @if(count($first_photo) > 0)
+                                        <li class="big_pic">
+                                            <img src="{{url($first_photo['PhotosUrl'])}}">
+                                        </li>
+                                    @else
+                                        <li style="width: 100%;font-weight: bold;line-height: 75px;margin-left: 40%;">主人还没添加相册哦</li>
+                                    @endif
                                     @if(count($photoes) <= 5)
                                         @foreach($photoes as $v)
                                             <li class="">

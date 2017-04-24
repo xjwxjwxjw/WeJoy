@@ -73,6 +73,35 @@ class UserController extends Controller
                     $fansstatu = '1';
                 }
                 break;
+            case 'addReport':
+                DB::table('report')->insert(['uid'=>$uid,'re_uid'=>$uid_ed]);
+//                修改等级开始
+                $exp = DB::table('level')->where('uid',$uid)->get()[0];
+                if (empty($exp)){
+                    DB::table('level')->insert(['uid'=>Cookie::get('UserId'),'exp'=>-5,'level'=>1]);
+                }else{
+                    $changeexp = $exp->exp - 5;
+                    $level = ceil($changeexp/50);
+                    DB::table('level')->where('uid',$uid)->update(['exp'=>$changeexp,'level'=>$level]);
+                }
+//                修改等级结束
+                $fansstatu = 1;
+                break;
+            case 'cancelReport':
+                if(DB::table('report')->where('uid',$uid)->where('re_uid',$uid_ed)->delete()){
+//                修改等级开始
+                    $exp = DB::table('level')->where('uid',$uid)->get()[0];
+                    if (empty($exp)){
+                        DB::table('level')->insert(['uid'=>Cookie::get('UserId'),'exp'=>5,'level'=>1]);
+                    }else{
+                        $changeexp = $exp->exp + 5;
+                        $level = ceil($changeexp/50);
+                        DB::table('level')->where('uid',$uid)->update(['exp'=>$changeexp,'level'=>$level]);
+                    }
+//                修改等级结束
+                    $fansstatu = '1';
+                }
+                break;
         }
         echo $fansstatu;
     }

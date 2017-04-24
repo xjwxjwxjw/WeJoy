@@ -99,13 +99,8 @@ class LoginHomeController extends Controller
          echo false;
          exit;
       }
-//        $fans = count(UserFans::where('uid',$loginUser[0]->id)->where('status',1)->get());
-//        $fansed = count(UserFans::where('uid_ed',$loginUser[0]->id)->where('status',1)->get());
-//    $hei = count(UserFans::where('uid',$loginUser[0]->id)->where('status',2)->get());
         Cookie::queue('UserId',$loginUser[0]->id,0);
         Cookie::queue('UserNickname', $loginUser[0]->name,0);
-//        Cookie::queue('fans', $fans,0);
-//        Cookie::queue('fansed', $fansed,0);
       $loginUser = json_encode($loginUser);
       echo $loginUser;
   }
@@ -158,6 +153,7 @@ class LoginHomeController extends Controller
           DB::table('homeuser')->insert(array_merge($arr,$data));
           $user = DB::table('homeuser')->orderBy('id','desc')->limit(1)->get()[0];
           DB::table('homeuserinfo')->insert(['uid'=>$user->id]);
+          DB::table('level')->insert(['uid'=>$user->id]);
           $view = 'home.emailConfirmed';
           $subject = '请验证邮箱';
           $this->sendEmail($user,$view, $subject, $data);
