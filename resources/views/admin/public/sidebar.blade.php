@@ -65,6 +65,11 @@
                   <li><a href={{url('admin/user')}}>查看用户 </a></li>
               </ul>
           </li>
+          <li><a href="#"><i class="fa fa-cog"></i>前台系统管理 </a>
+              <ul class="submenu">
+                  <li><a href={{url('admin/AboutUs')}}>关于我们 </a></li>
+              </ul>
+          </li>
       </ul>
 
       <div class="jquery-accordion-menu-footer">

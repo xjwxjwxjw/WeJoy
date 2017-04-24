@@ -74,6 +74,11 @@ Route::group(['middleware'=>'check.login'],function() {
             Route::post('doEdit/{id}', 'HomeUserController@edit');
             Route::get('changeStatus', 'HomeUserController@changeStatus');
         });
+        //关于网站简介的管理
+        Route::get('AboutUs','AboutUsController@index');
+        Route::post('AboutUsadd','AboutUsController@add');
+        Route::get('AboutUsDelete','AboutUsController@delete');
+        Route::post('AboutUsUp','AboutUsController@update');
     });
 });
 
@@ -111,7 +116,10 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('contentCount','ContentController@contentCount');
   Route::get('commentdel','ContentController@contentDel');
   Route::post('commentimg','ContentController@contentImg');
-  Route::get('contentOnegly','ContentController@oneglyDel');
+    Route::get('contentOnegly','ContentController@oneglyDel');
+    //关于我们
+    Route::get('AboutUs','AboutUsController@index');
+    Route::get('AboutUsUp','AboutUsController@update');
  //	用户路由
  Route::group(['prefix'=>'user'],function(){
      Route::get('index','UserController@index');//个人主页

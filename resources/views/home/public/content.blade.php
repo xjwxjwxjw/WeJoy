@@ -7,7 +7,7 @@
         <form id="testform" action="" method="post">
           {{csrf_field()}}
 	        <div class="cont-box" id="cont-box" >
-              <textarea  id="textarea" oninput="" onpropertychange="" class="text" placeholder="请输入..."></textarea
+              <textarea  id="textarea" oninput="" onpropertychange="" class="text" placeholder="请输入..."></textarea>
           </div>
 	        <div class="tools-box" style="border:0px solid red;position:relative;">
 	          <div class="operator-box-btn">
