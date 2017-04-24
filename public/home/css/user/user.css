@@ -9,8 +9,8 @@
     background-color: #fff;
     border-radius: 10px;
 }
-.fb_box .fb_div .list_ul .item:last-child{
-    margin-left: 20px;
+.fb_box .fb_div .list_ul .item{
+    margin-left: 10px;
 }
 .fb_box .fb_div .list_ul .item a{
     opacity: 0.9;

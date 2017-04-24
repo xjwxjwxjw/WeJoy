@@ -123,6 +123,7 @@
         $fansed = count(\App\UserFans::where('uid_ed',Cookie::get('UserId'))->where('status',1)->get());
         $fans = count(\App\UserFans::where('uid',Cookie::get('UserId'))->where('status',1)->get());
         $loginUser = DB::table('homeuserinfo')->where('uid',Cookie::get('UserId'))->get()[0];
+        $level = DB::table('level')->where('uid',Cookie::get('UserId'))->get()[0];
 	?>
 		<div id="v6_pl_rightmod_myinfo">
 			<div class="WB_cardwrap S_bg2">
@@ -141,13 +142,23 @@
 								<i class="W_icon icon_member_dis" style="background-image:url({{url('/home/icon.png')}})"></i>
 							</a>
 							<a target="_blank" href="">
-								<span class="W_icon_level icon_level_c2">
-									<span class="txt_out">
-										<span class="txt_in">
-											<span title="微博等级4 升级有好礼">Lv.4</span>
+								@if($level->level > 0)
+									<span class="W_icon_level icon_level_c2">
+										<span class="txt_out">
+											<span class="txt_in">
+												<span title="微博等级{{$level->level}} 升级有好礼">Lv.{{$level->level}}</span>
+											</span>
 										</span>
 									</span>
-								</span>
+								@else
+									<span class="W_icon_level" style="width: 55px;">
+										<span class="txt_out">
+											<span class="txt_in">
+												<span title="全名公敌">全名公敌</span>
+											</span>
+										</span>
+									</span>
+								@endif
 							</a>
 						</div>
 						<ul class="user_atten clearfix W_f18">
@@ -412,13 +423,13 @@
 									<ul class="group_list">
 										<li class="S_line1">
 											<div class="pic">
-												<a target="_blank" href="">
+												<a target="_blank" href="{{url('/home/user/'.Hashids::encode($user[$j]->id))}}">
 													<img src={{url(empty($userInfo[$j]->icon)?'/home/image/default.jpg':$userInfo[$j]->icon)}} width="30" height="30" alt="">
 												</a>
 											</div>
 											<div class="con">
 												<p class="name">
-													<a target="_blank" href="" class="W_name"><?= $user[$j]->name ?></a>
+													<a target="_blank" href="{{url('/home/user/'.Hashids::encode($user[$j]->id))}}" class="W_name"><?= $user[$j]->name ?></a>
 													<a target="_blank" href="">
 														<i title="微博个人认证 " class="W_icon icon_approve"></i>
 													</a>

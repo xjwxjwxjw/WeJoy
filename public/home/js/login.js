@@ -145,6 +145,7 @@ var addFans = function (obj) {
 var doFans = function (obj) {
     //判断是否登陆
     if ($(obj).parents('.list_ul').children().first().text() == ''){
+        alert('请先登录,再操作');
         window.location.href = '/home/index';
     }else{
         var uid_ed = $(obj).parents('.list_ul').children('#ByName').first().text();
@@ -169,12 +170,45 @@ var doFans = function (obj) {
             data: 'uid='+uid+'&uid_ed='+uid_ed+'&doWork='+doWork,
             success:function(error){
                 if (error != 1){
-                    alert('关注失败，刷新重试');
+                    alert('操作失败，刷新重试');
                 }
                 location.reload();
             },
             error:function (error) {
-                alert('关注失败，刷新重试');
+                alert('操作失败，刷新重试');
+                location.reload();
+            }
+        })
+    }
+}
+var report = function (obj) {
+    //判断是否登陆
+    if ($(obj).parents('.list_ul').children().first().text() == ''){
+        alert('请先登录,再操作');
+        window.location.href = '/home/index';
+    }else{
+        var uid_ed = $(obj).parents('.list_ul').children('#ByName').first().text();
+        var uid = $(obj).parents('.list_ul').children('#BaName').first().text();
+        switch ($(obj).text()){
+            case '举报Ta':
+                var doWork = 'addReport';
+                break;
+            case '取消举报':
+                var doWork = 'cancelReport';
+                break;
+        }
+        $.ajax({
+            type:'get',
+            url:'/home/doFans',
+            data: 'uid='+uid+'&uid_ed='+uid_ed+'&doWork='+doWork,
+            success:function(error){
+                if (error != 1){
+                    alert('操作失败，刷新重试');
+                }
+                location.reload();
+            },
+            error:function (error) {
+                alert('操作失败，刷新重试');
                 location.reload();
             }
         })

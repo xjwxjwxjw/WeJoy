@@ -223,9 +223,13 @@
                                 <div class="WB_innerwrap">
                                     <div class="m_wrap">
                                         <ul class="clearfix">
-                                            <li class="big_pic">
-                                                <img src="{{url($first_photo['PhotosUrl'])}}">
-                                            </li>
+                                            @if(count($first_photo) > 0)
+                                                <li class="big_pic">
+                                                    <img src="{{url($first_photo['PhotosUrl'])}}">
+                                                </li>
+                                            @else
+                                                <li style="width: 100%;font-weight: bold;line-height: 75px;margin-left: 40%;">主人还没添加相册哦</li>
+                                            @endif
                                             @if(count($photoes) <= 5)
                                                 @foreach($photoes as $v)
                                                     <li class="">
