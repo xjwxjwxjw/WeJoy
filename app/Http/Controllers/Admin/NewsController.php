@@ -26,10 +26,23 @@ class NewsController extends Controller
     $id = $_GET['id'];
   	$result = DB::table('news')->where('id','=',$id)->delete();
     if ( $result == 0 ) {
+
+    }else{
       DB::table('comment')->where('mid','=',$id)->delete();
       DB::table('user_collect')->where('collect_id','=',$id)->delete();
-    }else{
-      return '删除失败';
+      DB::table('user_favtimes')->where('favtimes_id','=',$id)->delete();
+      $results = DB::table('photoes')->where('mid',$id)->pluck('PhotosUrl');
+      $results = $results->toArray();
+      foreach($results as $v ){
+        if( file_exists( $v ) ){
+          $v2 = substr_replace($v,'110_',17,0);
+          $v3 = substr_replace($v,'167_',17,0);
+          unlink($v);
+          unlink($v2);
+          unlink($v3);
+        }
+      }
+
     }
   }
 

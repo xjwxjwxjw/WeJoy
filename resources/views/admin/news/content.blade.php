@@ -13,21 +13,9 @@
           <div class="am-btn-toolbar am-fl">
             <div class="am-btn-group am-btn-group-xs">
               <button type="button" id="add" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 审核</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
-            </div>
-
-            <div class="am-form-group am-margin-left am-fl">
-              <select>
-                <option value="option1">所有类别</option>
-                <option value="option2">IT业界</option>
-                <option value="option3">数码产品</option>
-                <option value="option3">笔记本电脑</option>
-                <option value="option3">平板电脑</option>
-                <option value="option3">只能手机</option>
-                <option value="option3">超极本</option>
-              </select>
+              <button type="button" disabled=true class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
+              <button type="button" disabled=true class="am-btn am-btn-default"><span class="am-icon-archive"></span> 审核</button>
+              <button type="button" disabled=true class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
             </div>
           </div>
         </div>

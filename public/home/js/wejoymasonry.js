@@ -110,6 +110,26 @@
           });
         })
 
+        // 搜索热门话题
+        $('#searchfind').click(function(){
+          search='hot';
+          console.log(1);
+          newstype=$('#searchval').val();
+          $('html, body').animate({scrollTop:50}, 'slow');
+          loading.data("on",true);
+          $('.box-content ul li:first').nextAll().remove();
+          $.ajax({
+            url:'contentCount?search='+search+'&topic='+newstype,
+            type:'get',
+            success:function(data){
+              count = data;
+              skip = 0;
+            },
+            error:function(data){
+            }
+          });
+        })
+
         // 侧边栏到底改变css
         $(window).scroll(function(){
           if ( $(document).height() - $(document).scrollTop() <= 900 ) {
@@ -205,11 +225,11 @@
 									html += "<span class='left'><a href='/home/user/"+sqlJson[i].uid+"'>"+sqlJson[i].username+"</a></span>";
 									html += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";
                   if( sqlJson[i].uid == sqlJson[i].bid ){
-									  html += "<li id='comdel"+sqlJson[i].hid+"' class='commentdel'><a href='#' >删除</a></li><li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
+									  html += "<li id='comdel"+sqlJson[i].hid+"' class='commentdel'><a href='#' >删除</a></li><li role='separator' class='divider'></li><li><a href='#'>功能扩展中</a></li></ul></div></div>";
                   } else {
-                    html += "<li><a href=''>帮上头条</a></li><li><a href=''>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
+                    html += "<li role='separator' class='divider'></li><li><a href='#'>功能扩展中</a></li></ul></div></div>";
                   }
-									html += "<div class='WJ_text clearfix'>"+sqlJson[i].created_at+" 来自 微博 weibo.com</div>";
+									html += "<div class='WJ_text clearfix'>"+sqlJson[i].created_at+"<span class='glyphicon glyphicon-map-marker'>"+sqlJson[i].city+"</span></div>";
 									html += "<div class='WJ_text2 clearfix'>"+sqlJson[i].content+"</div>";
                   if( sqlJson[i].images.length == 0 ){
                     html += "<div class='Wj_media_wrap clearfix'></div></div></div>";
@@ -225,17 +245,20 @@
                     html += "<div class='Wj_media_wrap clearfix'><div class='Wj_media_wrap_ul clearfix'><img src='/"+imgurl+"' alt=''></div></div></div></div>";
                   }
 									html += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
-                  if( $.inArray( sqlJson[i].hid,sqlfind['collect'] ) == -1 ){
-                    html += "<li class='left'><span id='pos"+sqlJson[i].hid+"' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
-                  }else{
-                    html += "<li class='left'><span id='pos"+sqlJson[i].hid+"' class='glyphicon glyphicon-star-empty bgorigin posdie' >已收藏</span></li>";
-                  }
-									html += "<li class='left'><span class='glyphicon glyphicon-share' > "+sqlJson[i].transmits+"</span></li>";
-									html += "<li class='left'><span id='"+sqlJson[i].hid+"' class='glyphicon glyphicon-comment comshow' > "+sqlJson[i].countcom+"</span></li>";
-                  if( $.inArray(sqlJson[i].hid,sqlfind['favtimes'] ) == -1 ){
-                    html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up good' > "+sqlJson[i].favtimes+"</span></li>";
-                  }else{
-                    html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up bgorigin gooddie' > "+sqlJson[i].favtimes+"</span></li>";
+                  if($('#pl_login_form').length > 0){
+                  } else {
+                    if( $.inArray( sqlJson[i].hid,sqlfind['collect'] ) == -1 ){
+                      html += "<li class='left'><span id='pos"+sqlJson[i].hid+"' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
+                    }else{
+                      html += "<li class='left'><span id='pos"+sqlJson[i].hid+"' class='glyphicon glyphicon-star-empty bgorigin posdie' >已收藏</span></li>";
+                    }
+                    html += "<li class='left'><span class='glyphicon glyphicon-share' > "+sqlJson[i].transmits+"</span></li>";
+                    html += "<li class='left'><span id='"+sqlJson[i].hid+"' class='glyphicon glyphicon-comment comshow' > "+sqlJson[i].countcom+"</span></li>";
+                    if( $.inArray(sqlJson[i].hid,sqlfind['favtimes'] ) == -1 ){
+                      html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up good' > "+sqlJson[i].favtimes+"</span></li>";
+                    }else{
+                      html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up bgorigin gooddie' > "+sqlJson[i].favtimes+"</span></li>";
+                    }
                   }
 									html += "</ul></div><div class='WE_feed_publish con"+sqlJson[i].hid+" clearfix'></div></li></div></li>";
 

@@ -35,6 +35,7 @@ $(document).ready(function(){
     });
 
     $('body').on('click','#add',function(){
+        $('#exampleModalLabel').text('添加角色');
         $('#myModal').modal('show');
         $('#btn').addClass('add');
         $('#btn').removeClass('save');
@@ -86,8 +87,8 @@ $(document).ready(function(){
 			data:{id:""+tid+""},
 			url:url+'rolefind/'+tid,
 			success:function(data) {
-        console.log(data);
 				$datalist = data[0];
+        $('#exampleModalLabel').text('修改角色');
         $('#myModal').modal('show');
 				$('#btn').addClass('save');
         $('#name').val($datalist['name']);

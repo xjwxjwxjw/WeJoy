@@ -16,13 +16,34 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Vinkla\Hashids\Facades\Hashids;
-
+use App\Model\Newtype;
 class LoginHomeController extends Controller
 {
 
   // 显示首页内容
     public function index()
     {
+        // 城市
+        $url = 'https://api.map.baidu.com/location/ip?ak=w5L0aToOkWnLAvs6vrz43ETDunLS2wTl&coor=bd09ll';
+        $data=null;
+        // curl 初始化
+        $curl = curl_init();
+
+        // curl 设置
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);  // 查看ssl 证书节点
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);  // 查看ssl 证书主机
+        // 判断有没有 data 如果有data 我们就是post
+        if ( !empty($data) ) {
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
+        }
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        // 执行
+        $res = curl_exec($curl);
+        $city=json_decode($res,true)['content']['address'];
+
         $id = Cookie::get('UserId');
         $news = DB::table('news')->where('status','=','1')->skip(0)->take(10)->orderBy('id', 'desc')->get();
         foreach ($news as $new ) {
@@ -45,9 +66,11 @@ class LoginHomeController extends Controller
             $result[$i] = Hashids::encode($result[$i]);
           }
         }
+        // 分类列表信息
+        $newtype = Newtype::pluck('description');
         $results['collect'] = $results['collect']->toArray();
         $results['favtimes'] = $results['favtimes']->toArray();
-        return view('home.index',compact('news'),['mycollect'=>$results['collect'],'myfavtimes'=>$results['favtimes']]);
+        return view('home.index',compact('news'),['mycollect'=>$results['collect'],'myfavtimes'=>$results['favtimes'],'newtype'=>$newtype,'city'=>$city ]);
     }
 
 //    登陆

@@ -48,6 +48,7 @@ $(document).ready(function(){
   $('#issue').live('click',function(){
     var contents = {
       content : $('#textarea').val(),
+      city : $('#city').text(),
       topic:$('.form-control option:selected').val()
     }
     $.ajax({
@@ -61,8 +62,8 @@ $(document).ready(function(){
         newcontent += "<li id='li"+data.hid+"' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><div class='Wejoy_face bg2'><img src='/"+data.usericon+"' alt=''></div><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
         newcontent += "<span class='left'>"+$('.name').attr('title')+"</span>";
         newcontent += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";
-        newcontent += "<li id='comdel"+data.hid+"' class='commentdel'><a href='#'>删除</a></li><li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
-        newcontent += "<div class='WJ_text clearfix'>"+data.created_at+" 来自 微博 weibo.com</div>";
+        newcontent += "<li id='comdel"+data.hid+"' class='commentdel'><a href='#'>删除</a></li> <li role='separator' class='divider'></li><li><a href='#'>功能扩展中</a></li></ul></div></div>";
+        newcontent += "<div class='WJ_text clearfix'>"+data.created_at+"<span class='glyphicon glyphicon-map-marker'>"+data.city+"</span></div>";
         newcontent += "<div class='WJ_text2 clearfix'>"+data.content+"</div>";
         if( data.images.length == 0 ){
           newcontent += "<div class='Wj_media_wrap clearfix'></div></div></div>";

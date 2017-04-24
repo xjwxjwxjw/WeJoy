@@ -404,14 +404,12 @@
 							<span class="main_title W_fb W_f14">推荐距友</span>
 						</h4>
 					</div>
-
-
 					<?php
 					$user = DB::select('SELECT * FROM homeuser  ORDER BY  RAND() LIMIT 4');
 					for ($i = 0;$i < 4;$i++){
 						$userInfo[$i] = DB::select('SELECT * FROM homeuserinfo WHERE uid='.$user[$i]->id)[0];
-											}
-				?>
+							}
+					?>
 				@for($j = 0;$j < 4;$j++)
 					@if($user[$j]->name != Cookie::get('UserNickname'))
 					<div>
@@ -427,32 +425,31 @@
 													<img src={{url(empty($userInfo[$j]->icon)?'/home/image/default.jpg':$userInfo[$j]->icon)}} width="30" height="30" alt="">
 												</a>
 											</div>
-											<div class="con">
-												<p class="name">
-													<a target="_blank" href="{{url('/home/user/'.Hashids::encode($user[$j]->id))}}" class="W_name"><?= $user[$j]->name ?></a>
-													<a target="_blank" href="">
-														<i title="微博个人认证 " class="W_icon icon_approve"></i>
-													</a>
-												</p>
-												<div class="info S_txt2 W_autocut">
-													<?= $userInfo[$j]->signature ?>
+												<div class="con">
+													<p class="name">
+														<a target="_blank" href="{{url('/home/user/'.Hashids::encode($user[$j]->id))}}" class="W_name"><?= $user[$j]->name ?></a>
+														<a target="_blank" href="{{url('/home/user/'.Hashids::encode($user[$j]->id))}}">
+															<i title="微博个人认证 " class="W_icon icon_approve"></i>
+														</a>
+													</p>
+													<div class="info S_txt2 W_autocut">
+														<?= $userInfo[$j]->signature ?>
+													</div>
+													<div class="opt_m">
+														<a href="javascript:void(0);" class="W_btn_b" onclick="addFans(this)" type="button">
+															<em class="W_ficon ficon_add">+</em>
+															<span>关注</span>
+														</a>
+													</div>
 												</div>
-												<div class="opt_m">
-													<a href="javascript:void(0);" class="W_btn_b" onclick="addFans(this)" type="button">
-														<em class="W_ficon ficon_add">+</em>
-														<span>关注</span>
-													</a>
-												</div>
-											</div>
-										</li>
-									</ul>
+											</li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					@endif
-				@endfor
-
+						@endif
+					@endfor
 
 					<div style="display:none;">
 					</div>

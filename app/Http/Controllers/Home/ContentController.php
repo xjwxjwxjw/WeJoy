@@ -20,6 +20,7 @@ class ContentController extends Controller
       $data['uid'] = Cookie::get('UserId');
       $data['content'] = htmlentities($_POST['content']);
       $data['topic'] = htmlentities($_POST['topic']);
+      $data['city'] = htmlentities($_POST['city']);
       $data['created_at'] = date('Y-m-d H:i:s');
       $data['updated_at'] = date('Y-m-d H:i:s');
       $ids = Content::insertGetId( $data );
@@ -102,7 +103,21 @@ class ContentController extends Controller
           case 'type':
             $id = Cookie::get('UserId');
             $type = $_GET['topic'];
-            $news = Content::where('status','=','1')->where('topic',$type)->skip($skip)->take(10)->orderBy('id', 'desc')->get();
+            $news = Content::where('status','=','1')->where('topic', $type)->skip($skip)->take(10)->orderBy('id', 'desc')->get();
+            foreach ($news as $new ) {
+              $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
+              $new->usericon = DB::table('homeuserinfo')->where('uid','=',$new->uid)->value('icon');
+              $new->images = DB::table('photoes')->where('mid',$new->id)->orderBy('id')->pluck('PhotosUrl');
+              $new->countcom = DB::table('comment')->where('mid','=',$new->id)->count();
+              $new->uid = Hashids::encode($new->uid);
+              $new->hid = Hashids::encode($new->id);
+              $new->bid = Hashids::encode($id);
+            }
+            break;
+          case 'hot':
+            $id = Cookie::get('UserId');
+            $type = $_GET['topic'];
+            $news = Content::where('status','=','1')->where('content','like','%'.$type.'%')->skip($skip)->take(10)->orderBy('id', 'desc')->get();
             foreach ($news as $new ) {
               $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
               $new->usericon = DB::table('homeuserinfo')->where('uid','=',$new->uid)->value('icon');
@@ -131,10 +146,14 @@ class ContentController extends Controller
         $id = Cookie::get('UserId');
         $count = DB::table('user_favtimes')->where('user_id',$id)->pluck('favtimes_id')->count();
         break;
-        case 'type':
-          $topic = $_GET['topic'];
-          $count = Content::where('topic',$topic)->count();
-          break;
+      case 'type':
+        $topic = $_GET['topic'];
+        $count = Content::where('topic',$topic)->count();
+        break;
+      case 'hot':
+        $topic = $_GET['topic'];
+        $count = Content::where('status','=','1')->where('content','like','%'.$topic.'%')->count();
+        break;
     }
     return $count;
   }
@@ -262,6 +281,19 @@ class ContentController extends Controller
 
     }else{
       DB::table('comment')->where('mid',$mid)->delete();
+      DB::table('user_collect')->where('collect_id','=',$id)->delete();
+      DB::table('user_favtimes')->where('favtimes_id','=',$id)->delete();
+      $results = DB::table('photoes')->where('mid',$mid)->pluck('PhotosUrl');
+      $results = $results->toArray();
+      foreach($results as $v ){
+        if( file_exists( $v ) ){
+          $v2 = substr_replace($v,'110_',17,0);
+          $v3 = substr_replace($v,'167_',17,0);
+          unlink($v);
+          unlink($v2);
+          unlink($v3);
+        }
+      }
       DB::table('photoes')->where('mid',$mid)->delete();
 
     }

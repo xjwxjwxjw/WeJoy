@@ -35,6 +35,7 @@ $(document).ready(function(){
     });
 
     $('body').on('click','#add',function(){
+        $('#exampleModalLabel').text('添加管理员');
         $('#myModal').modal('show');
         $('#btn').addClass('add');
         $('#btn').removeClass('save');

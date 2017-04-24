@@ -1,6 +1,7 @@
 	<div class="box-content clearfix" id="box-content" style="float:left;position: relative;">
 	<div id="imloading" class="well well-sm" style=" text-align: center;background:#f2dede;display:none;" >I'm Loading...</div>
 	  <ul style="list-style:none;" id="test">
+			@if( Cookie::has('UserId') )
 	    <li class="panel panel-default boxtest" style="height:165px;padding:10px;">
 	      &nbsp;&nbsp;&nbsp;有什么新鲜事想告诉大家?
         <div style="float:right;" id="result">可输入150字</div>
@@ -16,13 +17,13 @@
 							<div class="comtype left" style="height:24px;margin-left:10px;">
 								<select class="form-control" style="height:30px;">
 									<option selected="selected">分享趣事</option>
-								  <option>新闻趣事</option>
-								  <option>名人明星</option>
-								  <option>小说</option>
-								  <option>旅游</option>
-									<option>设计</option>
-								  <option>搞笑</option>
+									@foreach( $newtype as $v )
+											<option>{{$v}}</option>
+									@endforeach
 								</select>
+							</div>
+							<div class="">
+								<a id="city" style="line-height:30px;cursor: pointer;margin-left:5px;"><span class="glyphicon glyphicon-map-marker"></span>{{$city}}</a>
 							</div>
 						</div>
 	          <div class="submit-btn"><input id="issue" disabled=true type="button" class="bgsmred" value="发布">
@@ -30,6 +31,8 @@
 	        </div>
           </form>
 	    </li>
+			@else
+			@endif
 			@if(empty($news))
 			无数据
 			@else
@@ -38,11 +41,11 @@
 			<span class='left'><a href='/home/user/{{$new->uid}}'>{{$new->username}}</a></span>
 			<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>
 			@if( $new->uid == $new->bid )
-				<li id='comdel{{$new->hid}}' class='commentdel'><a href='#' >删除</a></li><li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>
+				<li id='comdel{{$new->hid}}' class='commentdel'><a href='#' >删除</a></li></ul></div></div>
 			@else
-				<li><a href=''>帮上头条</a></li><li><a href=''>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>
+				<li role='separator' class='divider'></li><li><a href='#'>功能扩展中</a></li></ul></div></div>
 			@endif
-			<div class='WJ_text clearfix'>{{$new->created_at}} 来自 微博 weibo.com</div>
+			<div class='WJ_text clearfix'>{{$new->created_at}} <span class="glyphicon glyphicon-map-marker">{{$new->city}}</span></div>
 			<div class='WJ_text2 clearfix'>{{$new->content}}</div>
 				<div class='Wj_media_wrap clearfix'>
 					<div class='Wj_media_wrap_ul clearfix'>
@@ -60,7 +63,7 @@
 					</div>
 				</div></div></div>
 			<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>
-
+				@if( Cookie::has('UserId') )
 					@if( in_array($new->hid,$mycollect ) )
 						<li class='left'><span id='pos{{$new->hid}}' class='glyphicon glyphicon-star-empty bgorigin posdie' >已收藏</span></li>
 					@else
@@ -74,7 +77,8 @@
 					@else
 					<li class='left'><span id='good{{$new->hid}}' class='glyphicon glyphicon-thumbs-up good' > {{$new->favtimes}}</span></li>
 					@endif
-
+				@else
+				@endif
 			</ul></div><div class='WE_feed_publish con{{$new->hid}} clearfix'></div></li>
 			@endforeach
 			@endif
