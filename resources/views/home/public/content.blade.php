@@ -16,12 +16,9 @@
 							<div class="comtype left" style="height:24px;margin-left:10px;">
 								<select class="form-control" style="height:30px;">
 									<option selected="selected">分享趣事</option>
-								  <option>新闻趣事</option>
-								  <option>名人明星</option>
-								  <option>小说</option>
-								  <option>旅游</option>
-									<option>设计</option>
-								  <option>搞笑</option>
+									@foreach( $newtype as $v )
+											<option>{{$v}}</option>
+									@endforeach
 								</select>
 							</div>
 						</div>

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Vinkla\Hashids\Facades\Hashids;
-
+use App\Model\Newtype;
 class LoginHomeController extends Controller
 {
 
@@ -45,9 +45,11 @@ class LoginHomeController extends Controller
             $result[$i] = Hashids::encode($result[$i]);
           }
         }
+        // 分类列表信息
+        $newtype = Newtype::pluck('description');
         $results['collect'] = $results['collect']->toArray();
         $results['favtimes'] = $results['favtimes']->toArray();
-        return view('home.index',compact('news'),['mycollect'=>$results['collect'],'myfavtimes'=>$results['favtimes']]);
+        return view('home.index',compact('news'),['mycollect'=>$results['collect'],'myfavtimes'=>$results['favtimes'],'newtype'=>$newtype]);
     }
 
 //    登陆

@@ -64,6 +64,16 @@ Route::group(['middleware'=>'check.login'],function() {
             Route::get('delete', 'NewsController@delete');
             Route::get('edit', 'NewsController@edit');
         });
+        // 信息
+        Route::get('newtype', 'NewtypeController@newsIndex');
+        Route::group(['prefix' => 'newtype'], function () {
+            Route::post('type-add', 'NewtypeController@typeAdd');
+            Route::get('delete', 'NewtypeController@delete');
+            Route::get('edit', 'NewtypeController@edit');
+            Route::get('newtype', 'NewtypeController@edit');
+            Route::any('newtype-update/{id}', 'NewtypeController@newtypeUpdate');
+            Route::get('newtype/{id}', 'NewtypeController@newtypefind');
+        });
 
         // 用户
         Route::get('user', 'HomeUserController@index');

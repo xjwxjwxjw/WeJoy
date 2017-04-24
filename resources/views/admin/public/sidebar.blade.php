@@ -50,7 +50,7 @@
         <li><a href="#"><i class="fa fa-cog"></i>信息管理 </a>
           <ul class="submenu">
             <li><a href={{url('admin/new')}}>查看微博 </a></li>
-            <li class="edit"><a id="new" href="#">查看评论 </a></li>
+            <li class="edit"><a href={{url('admin/newtype')}}>微博分类 </a></li>
           </ul>
         </li>
         <li><a href="#"><i class="fa fa-cog"></i>权限管理 </a>

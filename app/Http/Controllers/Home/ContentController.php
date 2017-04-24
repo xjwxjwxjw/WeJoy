@@ -252,6 +252,19 @@ class ContentController extends Controller
 
     }else{
       DB::table('comment')->where('mid',$mid)->delete();
+      DB::table('user_collect')->where('collect_id','=',$id)->delete();
+      DB::table('user_favtimes')->where('favtimes_id','=',$id)->delete();
+      $results = DB::table('photoes')->where('mid',$mid)->pluck('PhotosUrl');
+      $results = $results->toArray();
+      foreach($results as $v ){
+        if( file_exists( $v ) ){
+          $v2 = substr_replace($v,'110_',17,0);
+          $v3 = substr_replace($v,'167_',17,0);
+          unlink($v);
+          unlink($v2);
+          unlink($v3);
+        }
+      }
       DB::table('photoes')->where('mid',$mid)->delete();
 
     }
