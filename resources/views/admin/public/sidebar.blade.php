@@ -65,6 +65,11 @@
                   <li><a href={{url('admin/user')}}>查看用户 </a></li>
               </ul>
           </li>
+          <li><a href="#"><i class="fa fa-cog"></i>友情链接管理 </a>
+            <ul class="submenu">
+              <li><a href={{url('admin/new')}}>友情链接 </a></li>
+            </ul>
+          </li>
       </ul>
 
       <div class="jquery-accordion-menu-footer">

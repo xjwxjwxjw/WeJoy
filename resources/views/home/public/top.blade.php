@@ -18,12 +18,12 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
         </li>
       </ul>
-      <form class="navbar-form navbar-left">
+      <div class="navbar-form navbar-left">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="热搜榜">
+          <input type="text" id="searchval" class="form-control" placeholder="热搜榜">
         </div>
-        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-      </form>
+        <button type="submit" id="searchfind" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+      </div>
       <ul class="nav navbar-nav navbar-right">
         <li><a href={{url('home/index')}}><span class="glyphicon glyphicon glyphicon-th" aria-hidden="true"></span> 首页</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 发现</a></li>
