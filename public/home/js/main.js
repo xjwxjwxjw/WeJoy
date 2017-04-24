@@ -47,8 +47,8 @@ $(document).ready(function(){
     });
   $('#issue').live('click',function(){
     var contents = {
-      // _token : $('#testform').children('input').val(),
-      content : $('#textarea').val()
+      content : $('#textarea').val(),
+      topic:$('.form-control option:selected').val()
     }
     $.ajax({
       type:'post',
@@ -64,11 +64,11 @@ $(document).ready(function(){
         newcontent += "<li id='comdel"+data.hid+"' class='commentdel'><a href='#'>删除</a></li><li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>";
         newcontent += "<div class='WJ_text clearfix'>"+data.created_at+" 来自 微博 weibo.com</div>";
         newcontent += "<div class='WJ_text2 clearfix'>"+data.content+"</div>";
-        if( data.images[0] == undefined ){
+        if( data.images.length == 0 ){
           newcontent += "<div class='Wj_media_wrap clearfix'></div></div></div>";
         } else if( data.images.length > 1 ){
           newcontent += "<div class='Wj_media_wrap clearfix'><div class='Wj_media_wrap_ul clearfix'>";
-          for(var a = 0; a< data.images.length;a++ ){
+          for(var a = data.images.length -1; a >= 0 ;a-- ){
             var imgurl = data.images[a].replace(/(.{17})/,'$1110_')
             newcontent += "<img src='/"+imgurl+"' alt=''>";
           }

@@ -33,11 +33,12 @@
 				var container = $('.box-content ul:first');
 				var loading=$('#imloading');
         var sqlJson=[];
-        var skip = 0;
+        var skip = 10;
         var count = 5;
         var sqlfind=[];
         var search='index';
-
+        var newstype='';
+        var type = 'none';
         // 获取后台信息统计数据
         $.ajax({
           url:'contentCount?search='+search,
@@ -45,7 +46,7 @@
           // async:false,
           success:function(data){
             count = data;
-            skip = 0;
+            skip = 10;
           },
           error:function(data){
           }
@@ -80,6 +81,25 @@
           $('.box-content ul li:first').replaceWith('<li class="panel panel-default boxtest" style="height:50px;padding:10px;">我的赞</li>');
           $.ajax({
             url:'contentCount?search='+search,
+            type:'get',
+            success:function(data){
+              count = data;
+              skip = 0;
+            },
+            error:function(data){
+            }
+          });
+        })
+
+        // 话题分类
+        $('.newstype').click(function(){
+          search='type';
+          newstype=$(this).attr('title');
+          $('html, body').animate({scrollTop:50}, 'slow');
+          loading.data("on",true);
+          $('.box-content ul li:first').nextAll().remove();
+          $.ajax({
+            url:'contentCount?search='+search+'&topic='+newstype,
             type:'get',
             success:function(data){
               count = data;
@@ -146,7 +166,7 @@
 					if(maxTop<$(window).height()+$(document).scrollTop()){
 
             $.ajax({
-              url:'contentIndex?skip='+skip+'&search='+search,
+              url:'contentIndex?skip='+skip+'&search='+search+'&topic='+newstype,
               type:'get',
               // async:false,
               success:function(data){
@@ -191,7 +211,7 @@
                   }
 									html += "<div class='WJ_text clearfix'>"+sqlJson[i].created_at+" 来自 微博 weibo.com</div>";
 									html += "<div class='WJ_text2 clearfix'>"+sqlJson[i].content+"</div>";
-                  if( sqlJson[i].images[0] == undefined ){
+                  if( sqlJson[i].images.length == 0 ){
                     html += "<div class='Wj_media_wrap clearfix'></div></div></div>";
                   } else if( sqlJson[i].images.length > 1 ){
                     html += "<div class='Wj_media_wrap clearfix'><div class='Wj_media_wrap_ul clearfix'>";

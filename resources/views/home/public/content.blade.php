@@ -13,12 +13,71 @@
 	          <div class="operator-box-btn">
 							<span id="img-icon" class="img-icon">▧</span>
 							<div id="zyupload" style="display:none;" class="zyupload"></div>
+							<div class="comtype left" style="height:24px;margin-left:10px;">
+								<select class="form-control" style="height:30px;">
+									<option selected="selected">分享趣事</option>
+								  <option>新闻趣事</option>
+								  <option>名人明星</option>
+								  <option>小说</option>
+								  <option>旅游</option>
+									<option>设计</option>
+								  <option>搞笑</option>
+								</select>
+							</div>
 						</div>
 	          <div class="submit-btn"><input id="issue" disabled=true type="button" class="bgsmred" value="发布">
 	          </div>
 	        </div>
           </form>
 	    </li>
+			@if(empty($news))
+			无数据
+			@else
+			@foreach ($news as $new)
+			<li id='li{{$new->hid}}' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/{{$new->uid}}'><div class='Wejoy_face'><img src='/{{$new->usericon}}' alt=''></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>
+			<span class='left'><a href='/home/user/{{$new->uid}}'>{{$new->username}}</a></span>
+			<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>
+			@if( $new->uid == $new->bid )
+				<li id='comdel{{$new->hid}}' class='commentdel'><a href='#' >删除</a></li><li><a href='#'>帮上头条</a></li><li><a href='#'>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>
+			@else
+				<li><a href=''>帮上头条</a></li><li><a href=''>屏蔽这条微博</a></li><li><a href='#'>屏蔽该用户</a></li><li><a href='#'>取消关注该用户</a></li> <li role='separator' class='divider'></li><li><a href='#'>举报</a></li></ul></div></div>
+			@endif
+			<div class='WJ_text clearfix'>{{$new->created_at}} 来自 微博 weibo.com</div>
+			<div class='WJ_text2 clearfix'>{{$new->content}}</div>
+				<div class='Wj_media_wrap clearfix'>
+					<div class='Wj_media_wrap_ul clearfix'>
+						@if(count($new->images) <=0 )
+
+						@elseif( count($new->images) > 1  )
+						@foreach( $new->images as $v )
+						<?php $img = substr_replace($v,'110_',17,0) ?>
+						<img src="/{{$img}}" alt="">
+						@endforeach
+						@else
+						<?php $url = substr_replace($new->images[0],'167_',17,0) ?>
+						<img src="/{{$url}}" alt="">
+						@endif
+					</div>
+				</div></div></div>
+			<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>
+
+					@if( in_array($new->hid,$mycollect ) )
+						<li class='left'><span id='pos{{$new->hid}}' class='glyphicon glyphicon-star-empty bgorigin posdie' >已收藏</span></li>
+					@else
+						<li class='left'><span id='pos{{$new->hid}}' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>
+					@endif
+
+					<li class='left'><span class='glyphicon glyphicon-share' > {{$new->transmits}}</span></li>
+					<li class='left'><span id='{{$new->hid}}' class='glyphicon glyphicon-comment comshow' > {{$new->countcom}}</span></li>
+					@if( in_array($new->hid,$myfavtimes ) )
+						<li class='left'><span id='good{{$new->hid}}' class='glyphicon glyphicon-thumbs-up good bgorigin gooddie' > {{$new->favtimes}}</span></li>
+					@else
+					<li class='left'><span id='good{{$new->hid}}' class='glyphicon glyphicon-thumbs-up good' > {{$new->favtimes}}</span></li>
+					@endif
+
+			</ul></div><div class='WE_feed_publish con{{$new->hid}} clearfix'></div></li>
+			@endforeach
+			@endif
 	  </ul>
 	</div>
 

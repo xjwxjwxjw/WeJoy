@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Vinkla\Hashids\Facades\Hashids;
 
 class LoginHomeController extends Controller
 {
@@ -22,7 +23,31 @@ class LoginHomeController extends Controller
   // 显示首页内容
     public function index()
     {
-        return view('home.index');
+        $id = Cookie::get('UserId');
+        $news = DB::table('news')->where('status','=','1')->skip(0)->take(10)->orderBy('id', 'desc')->get();
+        foreach ($news as $new ) {
+          $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
+          $new->usericon = DB::table('homeuserinfo')->where('uid','=',$new->uid)->value('icon');
+          $new->countcom = DB::table('comment')->where('mid','=',$new->id)->count();
+          $new->images = DB::table('photoes')->where('mid',$new->id)->orderBy('id')->pluck('PhotosUrl');
+          $new->uid = Hashids::encode($new->uid);
+          $new->hid = Hashids::encode($new->id);
+          $new->bid = Hashids::encode($id);
+        }
+        // 用户是否收藏
+        $collectdb = DB::table('user_collect');
+        $favtimesdb = DB::table('user_favtimes');
+
+        $results['collect'] = $collectdb->where('user_id','=',$id)->paginate(10)->pluck('collect_id');
+        $results['favtimes'] = $favtimesdb->where('user_id','=',$id)->paginate(10)->pluck('favtimes_id');
+        foreach($results as $result){
+          for ($i=0; $i < count($result); $i++) {
+            $result[$i] = Hashids::encode($result[$i]);
+          }
+        }
+        $results['collect'] = $results['collect']->toArray();
+        $results['favtimes'] = $results['favtimes']->toArray();
+        return view('home.index',compact('news'),['mycollect'=>$results['collect'],'myfavtimes'=>$results['favtimes']]);
     }
 
 //    登陆
