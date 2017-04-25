@@ -2,9 +2,9 @@
 	<div class="box-content clearfix" id="box-content" style="float:left;position: relative;">
 	<div id="imloading" class="well well-sm" style=" text-align: center;background:#f2dede;display:none;" >I'm Loading...</div>
 	  <ul style="list-style:none;" id="test">
-			@if( Cookie::has('UserId') )
 	    <li id="comttset" class="panel panel-default boxtest" style="height:165px;padding:10px;">
-	      &nbsp;&nbsp;&nbsp;有什么新鲜事想告诉大家?
+			@if( Cookie::has('UserId') )
+			&nbsp;&nbsp;&nbsp;有什么新鲜事想告诉大家?
 
         <div style="float:right;" id="result">可输入150字</div>
         <form id="testform" action="" method="post">
