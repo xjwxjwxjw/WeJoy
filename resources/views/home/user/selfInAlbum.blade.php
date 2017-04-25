@@ -179,7 +179,7 @@
                 <form action="{{url('/home/user/editIcon')}}" enctype="multipart/form-data" method="post" id="EditIcon_form" onsubmit="return false">
                     <div class="fans_status" style="height: 200px;">
                         <div>
-                            <img src="<?= empty($userinfo->icon)?url('/home/1.jpg'):url($userinfo->icon) ?>" width="100" height="100">
+                            <img src="<?= empty($userinfo->icon)?url('/home/image/default.jpg'):url($userinfo->icon) ?>" width="100" height="100">
 
                         </div>
                         <div style="margin: 0 auto;">

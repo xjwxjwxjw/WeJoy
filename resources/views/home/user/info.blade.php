@@ -17,16 +17,12 @@
         <script src={{url("/js/app.js")}}></script>
         <script src={{url("home/js/jquery-1.8.3.min.js")}}></script>
         <script src={{url("home/js/jQueryColor.js")}}></script>
-
         <!-- toastr提示插件 -->
         <link rel="stylesheet" href={{url("admin/css/toastr.min.css")}}>
         <script src={{url("/admin/js/toastr.min.js")}}></script>
         <!--这个插件只是为了扩展jquery的animate函数动态效果可有可无-->
         <script src={{url("home/js/jQeasing.js")}}></script>
         <script src={{url("home/js/sinaFaceAndEffec.js")}}></script>
-
-
-
         <link rel="icon" type="image/png" href={{url("/admin/assets/i/favicon.png")}}>
         <link rel="stylesheet" href={{url("css/app.css")}}>
         <link rel="stylesheet" href={{url("css/bootstrap.css")}}>
@@ -261,8 +257,9 @@
                     <div class="edit_info">
                         <div class="pf_item clearfix">
                             <div class="label S_txt2">昵&nbsp;&nbsp;称</div>
-                            <div class="con" ><?= $user->name?$user->name:'' ?><a href="" style="margin-left: 20px">修改密码</a></div>
-
+                            <div class="con" ><?= $user->name?$user->name:'' ?>
+                                <a href="javascript:void(0)" style="margin-left: 20px" onclick="showchange()">修改密码</a>
+                            </div>
                         </div>
                         <div class="pf_item clearfix">
                             <div class="label S_txt2">真实姓名</div>
@@ -482,7 +479,7 @@
                     <form action="{{url('/home/user/editIcon')}}" enctype="multipart/form-data" method="post" id="EditIcon_form" onsubmit="return false">
                         <div class="fans_status" style="height: 200px;">
                             <div>
-                                <img src="<?= empty($userinfo->icon)?url('/home/1.jpg'):url($userinfo->icon) ?>" width="100" height="100">
+                                <img src="<?= empty($userinfo->icon)?url('/home/image/default.jpg'):url($userinfo->icon) ?>" width="100" height="100">
 
                             </div>
                             <div style="margin: 0 auto;">
@@ -494,6 +491,39 @@
                         </div>
                         <div class="ficon_close_div" id="ficon_close_div">
                             <a class="btn btn-warning ficon_close" id="EditIcon_btn" onclick="doEditIcon(this)">
+                                确定<span></span>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{--修改密码--}}
+        <div class="W_layer W_pwd_div" style="display: none">
+            <div tabindex="0"></div>
+            <div class="content">
+                <div class="W_layer_title">Wejoy微距</div>
+                <div class="W_layer_close">
+                    <a href="javascript:void(0);" class="W_ficon ficon_close S_ficon" onclick="closeIcon()">X</a>
+                </div>
+                <div class="W_layer_content">
+                    <form id="EditPwd_form" onsubmit="return false" style="margin: 30px">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <label for="oldpwd">旧密码：<span style="color: red"></span></label>
+                            <input type="password" name="oldpwd" id="oldpwd" value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="changpwd_input">新密码：<span style="color: red"></span></label>
+                            <input type="password" name="newpwd" id="changpwd_input" value="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="repwd">重复密码：<span style="color: red"></span></label>
+                            <input type="password" name="repwd" id="repwd" value="" class="form-control">
+                        </div>
+                        <input type="hidden" name='name' id="uid" value="{{Hashids::encode(Cookie::get('UserId'))}}">
+                        <div class="ficon_close_div" id="ficon_close_div" style="margin-top: 30px">
+                            <a class="btn btn-warning ficon_close" id="EditIcon_btn" onclick="doChange(this)">
                                 确定<span></span>
                             </a>
                         </div>

@@ -44,8 +44,7 @@ var npclick = function(obj){
             }
         },
         error:function (error) {
-            alert('登陆失败，刷新重试');
-            // window.location = tourl;
+            toastr.error('登陆失败，刷新后重试');
         },
         dataType:'json'
     })
@@ -54,9 +53,7 @@ var npclick = function(obj){
 var registbtn = function (obj) {
     if(obj.innerText == '验证数据'){
         var input = document.getElementById('registform').getElementsByClassName('form-control');
-        if($(input[0]).val() == ''){
 
-        }
         //用户名、密码正则
         regName = /^([\u4e00-\u9fa5]|[0-9a-zA-Z_])+$/;
         regPwd = /^([0-9a-zA-Z_]){6,}$/;
@@ -137,7 +134,7 @@ var addFans = function (obj) {
                 }
             },
             error:function (error) {
-                alert('关注失败，刷新重试');
+                toastr.error('关注失败，刷新后重试');
             }
         })
     }
@@ -170,13 +167,13 @@ var doFans = function (obj) {
             data: 'uid='+uid+'&uid_ed='+uid_ed+'&doWork='+doWork,
             success:function(error){
                 if (error != 1){
-                    alert('操作失败，刷新重试');
+                    toastr.error('操作失败，刷新后重试');
+                }else{
+                    toastr.success('操作成功');
                 }
-                location.reload();
             },
             error:function (error) {
-                alert('操作失败，刷新重试');
-                location.reload();
+                toastr.error('操作失败，刷新后重试');
             }
         })
     }
@@ -184,8 +181,8 @@ var doFans = function (obj) {
 var report = function (obj) {
     //判断是否登陆
     if ($(obj).parents('.list_ul').children().first().text() == ''){
-        alert('请先登录,再操作');
-        window.location.href = '/home/index';
+        toastr.error('请先登录再操作');
+        return;
     }else{
         var uid_ed = $(obj).parents('.list_ul').children('#ByName').first().text();
         var uid = $(obj).parents('.list_ul').children('#BaName').first().text();
@@ -203,13 +200,13 @@ var report = function (obj) {
             data: 'uid='+uid+'&uid_ed='+uid_ed+'&doWork='+doWork,
             success:function(error){
                 if (error != 1){
-                    alert('操作失败，刷新重试');
+                    toastr.error('操作失败，刷新后重试');
+                }else{
+                    toastr.success('操作成功');
                 }
-                location.reload();
             },
             error:function (error) {
-                alert('操作失败，刷新重试');
-                location.reload();
+                toastr.error('操作失败，刷新后重试');
             }
         })
     }
@@ -246,10 +243,14 @@ var doEdit = function(obj){
                     location.reload();
                 },
                 error:function () {
-                    alert('修改失败，请刷新重试');
-                    location.reload();
+                    toastr.error('修改失败，刷新后重试');
                 }
             })
+        }else{
+            $($(obj).parents('.infoblock')).children('.edit_info_div').attr('style','display:none');
+            $($(obj).parents('.infoblock')).children('.edit_info').attr('style','display:inline-block');
+            $($(obj).children('span')).text('编辑');
+            $($(obj).children('span')).attr('style','background-color:#f2f2f2;color:#000');
         }
     }
 }
@@ -260,7 +261,8 @@ var editIcon = function () {
 var closeIcon = function () {
     $('.out_biv').attr('style','display:none');
     $('.W_layer_div').attr('style','display:none');
-    $('.addAlbum_div').attr('style','display:none');
+    $('.W_pwd_div').attr('style','display:none');
+    $($('.W_pwd_div').children('span')).text('');
     $($('#Album_face').children('span')).text('');
     $('.addPhoto_div').attr('style','display:none');
     $($('#Photos_img').children('span')).text('');
@@ -279,7 +281,58 @@ var doEditIcon = function (obj) {
     }else{
         $('#EditIcon_form').attr('onsubmit','return true');
         $(document.getElementById("iconType_input")).val(extName);
-        $("#EditIcon_form").submit()
+        $("#EditIcon_form").submit();
         $($('#EditIcon_btn').children('span')).text('');
     }
+}
+//修改密码
+var showchange = function () {
+    $('.out_biv').attr('style','display:inline-block');
+    $('.W_pwd_div').attr('style','display:inline-block');
+}
+var doChange = function (obj) {
+    if($('#changpwd_input').val() == $('#oldpwd').val() ){
+        //验证密码
+        $('#oldpwd').prev().children('span').text('旧密码与新密码不能相同');
+        return;
+    }else{
+        $('#oldpwd').prev().children('span').text('');
+    }
+    var regPwd = /^([0-9a-zA-Z_]){6,}$/;
+    if(!regPwd.test($('#changpwd_input').val())){
+        //验证密码
+        $('#changpwd_input').prev().children('span').text('密码格式不正确（至少6位且仅支持数字字母下划线）');
+        return;
+    }else{
+        $('#changpwd_input').prev().children('span').text('');
+    }
+    if($('#changpwd_input').val() != $('#repwd').val() ){
+        //验证密码
+        $('#repwd').prev().children('span').text('两次密码输入不一致');
+        return;
+    }else{
+        $('#repwd').prev().children('span').text('');
+    }
+    $.ajax({
+        url:'/home/user/changePwd',
+        data:$('#EditPwd_form').serialize(),
+        type:'post',
+        success:function (error) {
+            if (error == 1){
+                toastr.error('旧密码输入错误！');
+            }else if (error == 2){
+                toastr.error('修改失败，刷新后重试');
+            }else if(error == 0) {
+                toastr.success('修改成功!下次登陆请使用新密码');
+                $('.out_biv').attr('style','display:none');
+                $('.W_pwd_div').attr('style','display:none');
+                $('#oldpwd').val('');
+                $('#changpwd_input').val('');
+                $('#repwd').val('');
+            }
+        },
+        error:function () {
+            toastr.error('修改失败，刷新后重试');
+        }
+    })
 }

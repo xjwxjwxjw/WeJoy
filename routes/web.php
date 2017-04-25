@@ -107,9 +107,9 @@ Route::get('home/weather','Home\ApiController@weather');
 Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('index','LoginHomeController@index');
   Route::post('index/doLogin','LoginHomeController@doLogin');
-    Route::get('user','UserController@index');
-    Route::get('addFans','UserController@addFans');
-    Route::get('doFans','UserController@doFans');
+  Route::get('user','UserController@index');
+  Route::get('addFans','UserController@addFans');
+  Route::get('doFans','UserController@doFans');
   Route::get('index/doLogout', 'LoginHomeController@doLogout');
   Route::get('registersuccess', function (){return view('home.registersuccess');});
   Route::get('register', function (){return view('home.register');});
@@ -126,7 +126,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('contentCount','ContentController@contentCount');
   Route::get('commentdel','ContentController@contentDel');
   Route::post('commentimg','ContentController@contentImg');
-    Route::get('contentOnegly','ContentController@oneglyDel');
+  Route::get('contentOnegly','ContentController@oneglyDel');
     //关于我们
     Route::get('AboutUs','AboutUsController@index');
     Route::get('AboutUsUp','AboutUsController@update');
@@ -136,6 +136,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
      Route::get('info','UserController@info');//个人信息
      Route::post('edit','UserController@edit');//修改
      Route::post('editIcon','UserController@editIcon');//修改头像
+     Route::post('changePwd','UserController@changePwd');//修改头像
      Route::get('photo/{id?}','AlbumController@photo');//相册 有id为他人，没id为自己
      Route::get('editDescription','AlbumController@editDescription');//修改相册描述
      Route::get('editName','AlbumController@editName');//修改相册名字

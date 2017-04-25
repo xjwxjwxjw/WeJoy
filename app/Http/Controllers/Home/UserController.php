@@ -220,5 +220,19 @@ class UserController extends Controller
             ->select('homeuser.name as nickname','homeuserinfo.*')->paginate(8);
         return view('home.user.otherfans',compact('fansinfo','id'));
     }
-
+    //  修改密码
+    public function changePwd(Request $request){
+        $user = DB::table('homeuser')->where('id',Hashids::decode($request->all()['name']))->get()->first();
+        if ($user->password != md5($request->all()['oldpwd'])){
+            echo 1;//表示旧密码错误
+            return;
+        }else{
+            if (DB::table('homeuser')->where('id',Hashids::decode($request->all()['name']))
+                ->update(['password'=>md5($request->all()['newpwd'])])){
+                echo 0;
+            }else{
+                echo 2;
+            }
+        }
+    }
 }

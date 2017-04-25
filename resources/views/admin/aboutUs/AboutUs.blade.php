@@ -58,30 +58,6 @@
                                     </tr>
                                 @endif
                             @endforeach
-                            {{--<tr>--}}
-                                {{--<td>service</td>--}}
-                                {{--<td>{{$tasks->service}}</td>--}}
-                                {{--<td>--}}
-                                    {{--<button  class="btn btn-info edit">编辑</button>--}}
-                                    {{--<button class="btn btn-danger delete">删除</button>--}}
-                                {{--</td>--}}
-                            {{--</tr>--}}
-                            {{--<tr>--}}
-                                {{--<td>advantage</td>--}}
-                                {{--<td>{{$tasks->advantage}}</td>--}}
-                                {{--<td>--}}
-                                    {{--<button  class="btn btn-info edit">编辑</button>--}}
-                                    {{--<button class="btn btn-danger delete">删除</button>--}}
-                                {{--</td>--}}
-                            {{--</tr>--}}
-                            {{--<tr>--}}
-                                {{--<td>contact</td>--}}
-                                {{--<td>{{$tasks->contact}}</td>--}}
-                                {{--<td>--}}
-                                    {{--<button  class="btn btn-info edit">编辑</button>--}}
-                                    {{--<button class="btn btn-danger delete">删除</button>--}}
-                                {{--</td>--}}
-                            {{--</tr>--}}
                         @else
                             <tr id="noabout"><td colspan=4 style="text-align: center">暂无介绍</td></tr>
                         @endif

@@ -201,7 +201,7 @@
                     <div class="photo_full_box">
                         @foreach($album as $k=>$v)
                             <div class="photo sample3 ablum_div" id=<?= 'ablum_'.$v['id'] ?>>
-                                <a href="{{url('/home/user/photo/my/'.Hashids::encode($v['id']))}}" title="创建日期：{{date('Y年m月d日H:i:s',$v['CreateTime'])}}">
+                                <a href="{{url('/home/user/photos/my/'.Hashids::encode($v['id']))}}" title="创建日期：{{date('Y年m月d日H:i:s',$v['CreateTime'])}}">
                                     <span style="background: url({{url('/home/paper-clip.png')}}) no-repeat;"></span>
                                 <?php
                                     if(!empty($v['FaceUrl'])) {
@@ -247,7 +247,7 @@
                     <form action="{{url('/home/user/editIcon')}}" enctype="multipart/form-data" method="post" id="EditIcon_form" onsubmit="return false">
                         <div class="fans_status" style="height: 200px;">
                             <div>
-                                <img src="<?= empty($userinfo->icon)?url('/home/1.jpg'):url($userinfo->icon) ?>" width="100" height="100">
+                                <img src="<?= empty($userinfo->icon)?url('/home/image/default.jpg'):url($userinfo->icon) ?>" width="100" height="100">
 
                             </div>
                             <div style="margin: 0 auto;">
