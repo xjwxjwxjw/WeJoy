@@ -472,6 +472,5 @@
             </div>
         </div>
     </div>
-    @include('home/public/footer')
 @endsection
 @endif

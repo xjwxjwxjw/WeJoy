@@ -1,5 +1,5 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<link rel="icon" type="image/png" href={{url("/admin/assets/i/favicon.png")}}>
+<link rel="icon" type="image/png" href={{url("home/image/default.jpg")}}>
 <link rel="stylesheet" href={{url("css/app.css")}}>
 <link rel="stylesheet" href={{url("/css/bootstrap.css")}}>
 <link  rel="stylesheet" href={{url("/home/css/main.css")}} >
@@ -18,7 +18,7 @@
 <script src={{url("/admin/js/toastr.min.js")}}></script>
 <!--这个插件只是为了扩展jquery的animate函数动态效果可有可无-->
 <script src={{url("home/js/jQeasing.js")}}></script>
-<script src={{url("home/js/wejoymasonry.js")}}></script>
+
 <script src={{url("home/js/wejoycomments.js")}}></script>
 {{--右侧用于登陆的js--}}
 <script src="{{url('home/js/login.js')}}"></script>

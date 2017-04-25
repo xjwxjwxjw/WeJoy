@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         $friendlylink = Friendlylink::paginate(10);
         $id = Cookie::get('UserId');
-        $news = DB::table('news')->where('status','=','1')->where('uid',$id)->skip(0)->take(10)->orderBy('id', 'desc')->get();
+        $news = DB::table('news')->where('status','=','1')->where('uid',$id)->orderBy('id', 'desc')->paginate(10);
         foreach ($news as $new ) {
           $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
           $new->usericon = DB::table('homeuserinfo')->where('uid','=',$new->uid)->value('icon');
@@ -29,6 +29,13 @@ class UserController extends Controller
           $new->uid = Hashids::encode($new->uid);
           $new->hid = Hashids::encode($new->id);
           $new->bid = Hashids::encode($id);
+          if ( $new->transmits !== -1 ) {
+            $tra = DB::table('news')->where('id',$new->transmits)->get();
+            $new->traname = DB::table('homeuser')->where('id','=',$tra[0]->uid)->value('name');
+            $new->traimages = DB::table('photoes')->where('mid',$tra[0]->id)->orderBy('id')->pluck('PhotosUrl');
+            $new->trauid = Hashids::encode($tra[0]->uid);
+            $new->tracon = $tra[0]->content;
+          }
         }
         // 用户是否收藏
         $collectdb = DB::table('user_collect');
@@ -54,10 +61,9 @@ class UserController extends Controller
     }
     public function lookIndex($id)
     {
-        $id = Hashids::decode($id)[0];
+        $id = Hashids::decode($id);
         $friendlylink = Friendlylink::paginate(10);
-        $id = Cookie::get('UserId');
-        $news = DB::table('news')->where('status','=','1')->where('uid',$id)->skip(0)->take(10)->orderBy('id', 'desc')->get();
+        $news = DB::table('news')->where('status','=','1')->where('uid',$id)->orderBy('id', 'desc')->paginate(10);
         foreach ($news as $new ) {
           $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
           $new->usericon = DB::table('homeuserinfo')->where('uid','=',$new->uid)->value('icon');
@@ -66,6 +72,13 @@ class UserController extends Controller
           $new->uid = Hashids::encode($new->uid);
           $new->hid = Hashids::encode($new->id);
           $new->bid = Hashids::encode($id);
+          if ( $new->transmits !== -1 ) {
+            $tra = DB::table('news')->where('id',$new->transmits)->get();
+            $new->traname = DB::table('homeuser')->where('id','=',$tra[0]->uid)->value('name');
+            $new->traimages = DB::table('photoes')->where('mid',$tra[0]->id)->orderBy('id')->pluck('PhotosUrl');
+            $new->trauid = Hashids::encode($tra[0]->uid);
+            $new->tracon = $tra[0]->content;
+          }
         }
         // 用户是否收藏
         $collectdb = DB::table('user_collect');

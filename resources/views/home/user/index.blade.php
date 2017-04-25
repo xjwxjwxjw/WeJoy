@@ -412,26 +412,43 @@
                     @endif
                   </div>
                 </div></div></div>
+                @if( $new->transmits != -1 )
+        						<div class="trabg">
+        							<div class="WJ_info clearfix"><a href='/home/user/{{$new->trauid}}'>@ {{$new->traname}}</a></div>
+        							<div class='WJ_text2 clearfix'>{{$new->tracon}}</div>
+        							@if(count($new->traimages) <=0 )
+        							@elseif( count($new->traimages) > 1  )
+        							<div class="WJ_traimg">
+        							@foreach( $new->traimages as $va )
+        							<?php $img = substr_replace($va,'110_',17,0) ?>
+        								<img src="/{{$img}}" alt="">
+        							@endforeach
+        							@else
+        							<?php $url = substr_replace($new->traimages[0],'167_',17,0) ?>
+        								<img src="/{{$url}}" alt="">
+        							@endif
+        						</div>
+        						</div>
+        				@endif
               <div style="width:100%;" class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>
                 @if( Cookie::has('UserId') )
                   @if( in_array($new->hid,$mycollect ) )
-                    <li class='left'><span id='pos{{$new->hid}}' class='glyphicon glyphicon-star-empty bgorigin posdie' >已收藏</span></li>
+                    <li style='width:33%;' class='left'><span id='pos{{$new->hid}}' class='glyphicon glyphicon-star-empty bgorigin posdie' >已收藏</span></li>
                   @else
-                    <li class='left'><span id='pos{{$new->hid}}' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>
+                    <li style='width:33%;' class='left'><span id='pos{{$new->hid}}' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>
                   @endif
-
-                  <li class='left'><span class='glyphicon glyphicon-share' > {{$new->transmits}}</span></li>
-                  <li class='left'><span id='{{$new->hid}}' class='glyphicon glyphicon-comment comshow' > {{$new->countcom}}</span></li>
+                  <li style='width:33%;' class='left'><span id='{{$new->hid}}' class='glyphicon glyphicon-comment comshow' > {{$new->countcom}}</span></li>
                   @if( in_array($new->hid,$myfavtimes ) )
-                    <li class='left'><span id='good{{$new->hid}}' class='glyphicon glyphicon-thumbs-up good bgorigin gooddie' > {{$new->favtimes}}</span></li>
+                    <li style='width:33%;' class='left'><span id='good{{$new->hid}}' class='glyphicon glyphicon-thumbs-up good bgorigin gooddie' > {{$new->favtimes}}</span></li>
                   @else
-                  <li class='left'><span id='good{{$new->hid}}' class='glyphicon glyphicon-thumbs-up good' > {{$new->favtimes}}</span></li>
+                  <li style='width:33%;' class='left'><span id='good{{$new->hid}}' class='glyphicon glyphicon-thumbs-up good' > {{$new->favtimes}}</span></li>
                   @endif
                 @else
                 @endif
               </ul></div><div class='WE_feed_publish con{{$new->hid}} clearfix'></div></li>
               @endforeach
               @endif
+              {{$news->links('home/user.page')}}
             </ul>
           </div>
 

@@ -18,28 +18,28 @@
         @include('/home/public/top')
     @endsection
     @section('slideLeft')
-        @include('home/public/slideLeft')
+
     @endsection
     @section('content')
-        <div class="box-content clearfix" id="box-content">
+        <div style='width:602px;' class="box-content clearfix" id="box-content">
             <h1 style="margin:40px">关于微距</h1>
             <div style="margin:20px 50px;" id="information">
                 {{$result->infor}}
             </div>
         </div>
-        <div class="box-content clearfix" id="box-content">
+        <div style='width:602px;' class="box-content clearfix" id="box-content">
             <h1 style="margin:40px">产品服务</h1>
             <div style="margin:20px 50px;" id="information">
                 {{$result->service}}
             </div>
         </div>
-        <div class="box-content clearfix" id="box-content">
+        <div style='width:602px;' class="box-content clearfix" id="box-content">
             <h1 style="margin:40px">创新优势</h1>
             <div style="margin:20px 50px;" id="information">
                 {{$result->advantage}}
             </div>
         </div>
-        <div class="box-content clearfix" id="box-content">
+        <div style='width:602px;' class="box-content clearfix" id="box-content">
             <h1 style="margin:40px">联系</h1>
             <div style="margin:20px 50px;" id="information">
                 {{$result->contact}}
@@ -47,10 +47,10 @@
         </div>
     @endsection
     @section('slideRight')
-        @include('home/public/slideRight')
+
     @endsection
     @section('footer')
-        @include('home/public/footer')
+
     @endsection
 
 {{--@endsection--}}

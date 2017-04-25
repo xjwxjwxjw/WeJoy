@@ -22,6 +22,7 @@ $(function(){
           }
        })
 
+
       twocom = "<div class='usercom_list'> ";
       twocom += "<div class='usercom_list_box'> ";
       twocom += "<div class='WE_feed_comments'> ";
@@ -48,7 +49,6 @@ $(function(){
       $(this).parent().after(twocom);
 
       // 二级评论提交
-      //  添加一级评论
        $('#dotwocomment'+comid).live('click', function () {
           data = $('#twoform'+comid).serialize();
           data += '&cid='+comid;
@@ -71,7 +71,7 @@ $(function(){
               conlist += "</div>";
               conlist += "<div class='clearfix'>";
               conlist += "<div class='left'>"+data[0].created_at+"</div>";
-              conlist += "<div class='right'>回复 | 赞</div>";
+              conlist += "<div class='right'><span id='threecom"+data[0].hid+"' class='glyphicon glyphicon-comment threecom right'></span> </div>";
               conlist += "</div>";
               conlist += "</div></div> ";
               This.parents('.usercom_list').next().children('.twolist_ul').prepend(conlist);
@@ -84,9 +84,98 @@ $(function(){
 
 
     });
+
+    // 无限级评论
+    $('.threecom').live('click',function(){
+      var twocom ='';
+      var newicon = $('.W_face_radius').attr('src');
+      if (newicon == undefined) {
+        newicon = $('#ddicon').attr('src');
+      }
+      var comid = $(this).attr('id').replace(/threecom/, "");
+      $(document).live('propertychange input', function () {
+          if ( $('#threecomments'+comid).val() == '' ) {
+            $('#dothreecomment'+comid).attr("disabled",true).addClass('bgsmred').removeClass('bgred');
+          }else{
+            $('#dothreecomment'+comid).attr("disabled",false).addClass('bgred').removeClass('bgsmred');
+          }
+       })
+
+
+      threecom = "<div class='usercom_list'> ";
+      threecom += "<div class='usercom_list_box'> ";
+      threecom += "<div class='WE_feed_comments'> ";
+      threecom += "<div class='WE_publish_face'> ";
+      threecom += "<img src='"+newicon+"' alt='' > ";
+      threecom += "</div> ";
+      threecom += "<div class='WE_publish clearfix'> ";
+      threecom += "<form id='twoform"+comid+"' action=' method='post'>";
+      threecom += "<div style='width:100%;' class='WE_feed_publish_comments' id='cont-box2'> ";
+      threecom += "<input type='text' name='description' id='threecomments"+comid+"' value='' /> ";
+      threecom += "</div> ";
+      threecom += "<div class='tools-box' style='border:0px solid red;'> ";
+      threecom += "<div class='operator-box-btn'>";
+      threecom += "</div> ";
+      threecom += "<div class='submit-btn'>";
+      threecom += "<input id='dothreecomment"+comid+"' type='button'  disabled=true class='bgsmred' value='评论' /> ";
+      threecom += "</div> ";
+      threecom += "</div> ";
+      threecom += "</form> ";
+      threecom += "</div> ";
+      threecom += "</div> ";
+      threecom += "</div> ";
+      $(this).removeClass('threecom').addClass('threecomdie');
+      $(this).parent().after(threecom);
+
+      // 二级评论提交
+       $('#dothreecomment'+comid).live('click', function () {
+
+          data = 'description='+$('#threecomments'+comid).val();
+          data += '&cid='+comid;
+          var This = $(this);
+          $.ajax({
+            url:'twocontentIssue?type=three',
+            data: data,
+            type: 'post',
+            dataType: 'json',
+            success:function(data){
+              toastr.success('评论成功');
+              $('#threecomments'+comid).val(' ');
+              var conlist1 = '';
+              var name = $('.name').attr('title');
+              if( name == undefined ){
+                name = $('#ddicon').attr('alt');
+              }
+              conlist1 += "<div class='twolist_li'><div class='list_con2' ><div class='twolist_text'>";
+              if ( data[0].uuname == undefined ) {
+                conlist1 += "<a href='/home/user/"+data[0].uuid+"'>"+name+"</a> "+data[0].description;
+              }else{
+                conlist1 += "<a href='/home/user/"+data[0].uuid+"'>"+name+"</a> <a href='/home/user/"+data[0].uuid+"'> @"+data[0].uuname+"</a>"+data[0].description;
+              }
+              conlist1 += "</div>";
+              conlist1 += "<div class='clearfix'>";
+              conlist1 += "<div class='left'>"+data[0].created_at+"</div>";
+              conlist1 += "<div class='right'><span id='threecom"+data[0].hid+"' class='glyphicon glyphicon-comment threecom right'></span> </div>";
+              conlist1 += "</div>";
+              conlist1 += "</div></div> ";
+              This.parents('.twolist_li').before(conlist1);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+              toastr.error('评论失败,联系管理员吧');
+            }
+          })
+       })
+
+
+    });
+
     $('.twocomdie').live('click',function(){
       $(this).parent().next().remove();
       $(this).removeClass('twocomdie').addClass('twocom');
+    })
+    $('.threecomdie').live('click',function(){
+      $(this).parent().next().remove();
+      $(this).removeClass('threecomdie').addClass('threecom');
     })
 
     // 一级评论删除
@@ -399,11 +488,15 @@ $(function(){
             conlist += "<div class='usercom_list S_bg1'><div class='twolist_ul'>";
             for(var a = 0; a < data[i].two.length; a++){
               conlist += "<div class='twolist_li'><div class='list_con2' ><div class='twolist_text'>";
-              conlist += "<a href='/home/user/"+data[i].two[a].nuid+"'>"+data[i].two[a].uname+"</a> "+data[i].two[a].description;
+              if ( data[i].two[a].uuname == undefined ) {
+                conlist += "<a href='/home/user/"+data[i].two[a].nuid+"'>"+data[i].two[a].uname+"</a> "+data[i].two[a].description;
+              }else{
+                conlist += "<a href='/home/user/"+data[i].two[a].nuid+"'>"+data[i].two[a].uname+"</a><a href='/home/user/"+data[i].two[a].uunid+"'> @"+data[i].two[a].uuname+"</a> "+data[i].two[a].description;
+              }
               conlist += "</div>";
               conlist += "<div class='clearfix'>";
               conlist += "<div class='left'>"+data[i].two[a].created_at+"</div>";
-              conlist += "<div class='right'>回复 | 赞</div>";
+              conlist += "<div class='right'><span id='threecom"+data[i].two[a].hid+"' class='glyphicon glyphicon-comment threecom right'></span> </div>";
               conlist += "</div>";
               conlist += "</div></div> ";
             }

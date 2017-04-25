@@ -26,7 +26,7 @@
       </div>
       <ul class="nav navbar-nav navbar-right">
         <li><a href={{url('home/index')}}><span class="glyphicon glyphicon glyphicon-th" aria-hidden="true"></span> 首页</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 发现</a></li>
+        <li><a href="{{url('/home/AboutUs')}}"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> 关于我们</a></li>
         @if(Cookie::has('UserId'))
           <li>
             <a href="{{url('/home/user/index')}}">
