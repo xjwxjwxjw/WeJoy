@@ -375,7 +375,6 @@ class ContentController extends Controller
     }else{
       mkdir($basename);
     }
-
     if( move_uploaded_file($_FILES['file']['tmp_name'], $basename . $filename) ){
       Image::make($basename.$filename)->fit(110)->save($basename.'110_'.$filename);
       Image::make($basename.$filename)->fit(167)->save($basename.'167_'.$filename);
