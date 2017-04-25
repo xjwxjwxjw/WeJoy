@@ -155,6 +155,7 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('contentCount','ContentController@contentCount');
   Route::get('commentdel','ContentController@contentDel');
   Route::post('commentimg','ContentController@contentImg');
+  Route::post('traform','ContentController@traForm');
     Route::get('contentOnegly','ContentController@oneglyDel');
     //关于我们
     Route::get('AboutUs','AboutUsController@index');

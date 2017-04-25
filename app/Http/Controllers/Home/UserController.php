@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         $friendlylink = Friendlylink::paginate(10);
         $id = Cookie::get('UserId');
-        $news = DB::table('news')->where('status','=','1')->where('uid',$id)->skip(0)->take(10)->orderBy('id', 'desc')->get();
+        $news = DB::table('news')->where('status','=','1')->where('uid',$id)->orderBy('id', 'desc')->paginate(10);
         foreach ($news as $new ) {
           $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
           $new->usericon = DB::table('homeuserinfo')->where('uid','=',$new->uid)->value('icon');
@@ -54,10 +54,9 @@ class UserController extends Controller
     }
     public function lookIndex($id)
     {
-        $id = Hashids::decode($id)[0];
+        $id = Hashids::decode($id);
         $friendlylink = Friendlylink::paginate(10);
-        $id = Cookie::get('UserId');
-        $news = DB::table('news')->where('status','=','1')->where('uid',$id)->skip(0)->take(10)->orderBy('id', 'desc')->get();
+        $news = DB::table('news')->where('status','=','1')->where('uid',$id)->orderBy('id', 'desc')->paginate(10);
         foreach ($news as $new ) {
           $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
           $new->usericon = DB::table('homeuserinfo')->where('uid','=',$new->uid)->value('icon');

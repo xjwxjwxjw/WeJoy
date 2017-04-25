@@ -432,6 +432,7 @@
               </ul></div><div class='WE_feed_publish con{{$new->hid}} clearfix'></div></li>
               @endforeach
               @endif
+              {{$news->links('home/user.page')}}
             </ul>
           </div>
 

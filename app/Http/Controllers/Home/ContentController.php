@@ -70,6 +70,14 @@ class ContentController extends Controller
           $new->uid = Hashids::encode($new->uid);
           $new->hid = Hashids::encode($new->id);
           $new->bid = Hashids::encode($id);
+
+          if ( $new->transmits !== -1 ) {
+            $tra = DB::table('news')->where('id',$new->transmits)->get();
+            $new->traname = DB::table('homeuser')->where('id','=',$tra[0]->uid)->value('name');
+            $new->traimages = DB::table('photoes')->where('mid',$tra[0]->id)->orderBy('id')->pluck('PhotosUrl');
+            $new->trauid = Hashids::encode($tra[0]->uid);
+            $new->tracon = $tra[0]->content;
+          }
         }
         break;
       case 'mycollect':
@@ -84,6 +92,22 @@ class ContentController extends Controller
           $new->uid = Hashids::encode($new->uid);
           $new->hid = Hashids::encode($new->id);
           $new->bid = Hashids::encode($id);
+
+          if ( $new->transmits !== -1 ) {
+            $tra = DB::table('news')->where('id',$new->transmits)->get();
+            $new->traname = DB::table('homeuser')->where('id','=',$tra[0]->uid)->value('name');
+            $new->traimages = DB::table('photoes')->where('mid',$tra[0]->id)->orderBy('id')->pluck('PhotosUrl');
+            $new->trauid = Hashids::encode($tra[0]->uid);
+            $new->tracon = $tra[0]->content;
+
+            if ( $new->transmits !== -1 ) {
+              $tra = DB::table('news')->where('id',$new->transmits)->get();
+              $new->traname = DB::table('homeuser')->where('id','=',$tra[0]->uid)->value('name');
+              $new->traimages = DB::table('photoes')->where('mid',$tra[0]->id)->orderBy('id')->pluck('PhotosUrl');
+              $new->trauid = Hashids::encode($tra[0]->uid);
+              $new->tracon = $tra[0]->content;
+            }
+          }
         }
         break;
         case 'myfavtimes':
@@ -98,6 +122,14 @@ class ContentController extends Controller
             $new->uid = Hashids::encode($new->uid);
             $new->hid = Hashids::encode($new->id);
             $new->bid = Hashids::encode($id);
+
+            if ( $new->transmits !== -1 ) {
+              $tra = DB::table('news')->where('id',$new->transmits)->get();
+              $new->traname = DB::table('homeuser')->where('id','=',$tra[0]->uid)->value('name');
+              $new->traimages = DB::table('photoes')->where('mid',$tra[0]->id)->orderBy('id')->pluck('PhotosUrl');
+              $new->trauid = Hashids::encode($tra[0]->uid);
+              $new->tracon = $tra[0]->content;
+            }
           }
           break;
           case 'type':
@@ -112,6 +144,14 @@ class ContentController extends Controller
               $new->uid = Hashids::encode($new->uid);
               $new->hid = Hashids::encode($new->id);
               $new->bid = Hashids::encode($id);
+
+              if ( $new->transmits !== -1 ) {
+                $tra = DB::table('news')->where('id',$new->transmits)->get();
+                $new->traname = DB::table('homeuser')->where('id','=',$tra[0]->uid)->value('name');
+                $new->traimages = DB::table('photoes')->where('mid',$tra[0]->id)->orderBy('id')->pluck('PhotosUrl');
+                $new->trauid = Hashids::encode($tra[0]->uid);
+                $new->tracon = $tra[0]->content;
+              }
             }
             break;
           case 'hot':
@@ -173,10 +213,15 @@ class ContentController extends Controller
         }else{
           $pucom->del = 0;
         }
-
         $pucom->two = DB::table('comments')->where('cid',$pucom->id)->orderBy('created_at','desc')->skip(0)->take(5)->get();
         foreach($pucom->two as $v ){
           $v->uname = DB::table('homeuser')->where('id','=',$v->uid)->value('name');
+          if( $v->nid == -1 ){
+
+          }else{
+            $v->uuname = DB::table('homeuser')->where( 'id',DB::table('comments')->where('id',$v->nid)->value('uid') )->value('name');
+            $v->uunid =  Hashids::encode(DB::table('comments')->where('id',$v->nid)->value('uid'));
+          }
           $v->hid = Hashids::encode($v->id);
           $v->nuid = Hashids::encode($v->uid);
         }
@@ -200,18 +245,37 @@ class ContentController extends Controller
   }
 
   public function twopublishIssue(Request $request){
-    $id = Cookie::get('UserId');
-    $data = $request->all();
-    $data['description'] = htmlentities($data['description']);
-    $data['uid'] = $id;
-    $data['cid'] = Hashids::decode($data['cid'])[0];
-    $data['created_at'] = date('Y-m-d H:i:s');
-    $data['updated_at'] = date('Y-m-d H:i:s');
-    $newid = DB::table('comments')->insertGetId($data);
-    $result = DB::table('comments')->where('id','=',$newid)->get();
-    $result[0]->uuid = Hashids::encode($result[0]->uid);
-    $result[0]->hid = Hashids::encode($newid);
-    return response()->json($result);
+    // 判断是否有@人
+    if ( !empty( $_GET['type'] ) ) {
+      $id = Cookie::get('UserId');
+      $data = $request->all();
+      $data1['description'] = htmlentities($data['description']);
+      $data1['uid'] = $id;
+      $data1['nid'] = Hashids::decode($data['cid'])[0];
+      $data1['created_at'] = date('Y-m-d H:i:s');
+      $data1['updated_at'] = date('Y-m-d H:i:s');
+      $cid = DB::table('comments')->where('id',$data1['nid'])->value('cid');
+      $data1['cid'] = $cid;
+      $newid = DB::table('comments')->insertGetId($data1);
+      $result = DB::table('comments')->where('id','=',$newid)->get();
+      $result[0]->uuname = DB::table('homeuser')->where( 'id',DB::table('comments')->where('id',$data1['nid'])->value('uid') )->value('name');
+      $result[0]->uuid = Hashids::encode($result[0]->uid);
+      $result[0]->hid = Hashids::encode($newid);
+      return response()->json($result);
+    }else{
+      $id = Cookie::get('UserId');
+      $data = $request->all();
+      $data['description'] = htmlentities($data['description']);
+      $data['uid'] = $id;
+      $data['cid'] = Hashids::decode($data['cid'])[0];
+      $data['created_at'] = date('Y-m-d H:i:s');
+      $data['updated_at'] = date('Y-m-d H:i:s');
+      $newid = DB::table('comments')->insertGetId($data);
+      $result = DB::table('comments')->where('id','=',$newid)->get();
+      $result[0]->uuid = Hashids::encode($result[0]->uid);
+      $result[0]->hid = Hashids::encode($newid);
+      return response()->json($result);
+    }
   }
 
   public function contentPos(Request $request){
@@ -311,10 +375,18 @@ class ContentController extends Controller
     }else{
       mkdir($basename);
     }
+
     if( move_uploaded_file($_FILES['file']['tmp_name'], $basename . $filename) ){
       Image::make($basename.$filename)->fit(110)->save($basename.'110_'.$filename);
       Image::make($basename.$filename)->fit(167)->save($basename.'167_'.$filename);
       $uid = Cookie::get('UserId');
+
+      $co = DB::table('photomanage')->where('uid',$uid)->where('AlbumName','默认')->count();
+      if ( $co == 0 ) {
+        DB::table('photomanage')->insert(
+          ['uid'=>$uid,'AlbumName'=>'默认','AlbumDescription'=>'默认']
+        );
+      }
       $aid = DB::table('photomanage')->where('uid',$uid)->where('AlbumName','默认')->value('id');
       $url = $basename . $filename;
       $CreateTime = time();
@@ -325,6 +397,19 @@ class ContentController extends Controller
         ['uid'=>$uid,'photo_id'=>$id]
       );
     }
+  }
+
+  public function traform(Request $request){
+
+    $data['transmits'] = Hashids::decode($request->mid)[0];
+    $data['uid'] = Cookie::get('UserId');
+    $data['content'] = $request->name;
+    $data['created_at'] = date('Y-m-d H:i:s');
+    $data['updated_at'] = date('Y-m-d H:i:s');
+    DB::table('news')->insert(
+      ['uid'=>$data['uid'],'transmits'=>$data['transmits'],'content'=>$data['content'],'created_at'=>$data['created_at'],'updated_at'=>$data['updated_at']]
+    );
+    return redirect('home/index');
   }
 
 }

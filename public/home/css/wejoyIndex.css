@@ -9,13 +9,15 @@ a:hover{ text-decoration:none; }
 .box-content{margin-left: 150px;}
 .bgsmred{opacity:0.8;background-color:#FFC09F !important;cursor: default !important; }
 .bgred{background: #FF8140 !important;}
-.Wejoy_feed_detail{padding: 20px 20px 4px;font-size: 16px;position: relative;}
+.WJ_traimg{width:400px;}
+.Wejoy_feed_detail{padding: 20px 20px 4px;position: relative;}
 .Wejoy_detail{margin-left: 60px;}
 .Wejoy_face{position: absolute;height: 50px;width: 50px;}
 .WJ_info{margin-bottom: 7px;padding-top: 5px;width: 100%;}
 .bg1{color: #ff6700;}
 .Wejoy_detail{font-size: 14px;}
 .bg2{background: #b4daf0;}
+.trabg{background: #F2F2F5;padding: 4px 20px 20px 80px;}
 .bg3{background: #ff6700;}
 .Wj_media_wrap_ul{width: 380px;}
 .bgorigin{color:#ff6700 !important;}
