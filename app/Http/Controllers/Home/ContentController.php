@@ -345,8 +345,8 @@ class ContentController extends Controller
 
     }else{
       DB::table('comment')->where('mid',$mid)->delete();
-      DB::table('user_collect')->where('collect_id','=',$id)->delete();
-      DB::table('user_favtimes')->where('favtimes_id','=',$id)->delete();
+      DB::table('user_collect')->where('collect_id','=',$mid)->delete();
+      DB::table('user_favtimes')->where('favtimes_id','=',$mid)->delete();
       $results = DB::table('photoes')->where('mid',$mid)->pluck('PhotosUrl');
       $results = $results->toArray();
       foreach($results as $v ){
