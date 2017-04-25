@@ -130,6 +130,10 @@ Route::group(['middleware'=>'check.login'],function() {
             Route::get('doDel', 'PhotosController@del');
             Route::get('doEdit', 'PhotosController@edit');
         });
+//        等级管理
+        Route::get('level','LevelController@index');
+        Route::get('level/add','LevelController@add');
+        Route::get('level/minus','LevelController@minus');
     });
 });
 

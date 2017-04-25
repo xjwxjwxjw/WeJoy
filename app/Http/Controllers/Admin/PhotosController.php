@@ -11,7 +11,7 @@ class PhotosController extends Controller
 {
     public function photos(){
         if( empty($_GET['search']) ){
-            $photos = DB::table('photoes')->select('*','photoes.id as pid')
+            $photos = DB::table('photoes')->select('*','photoes.id as pid','photoes.CreateTime as pCreateTime')
                 ->Leftjoin('photomanage','photomanage.id','=','photoes.Aid')->paginate(5);
             return view('admin.index',['tasks'=>$photos , 'content' => '/admin/photos/content']);
         } else {
