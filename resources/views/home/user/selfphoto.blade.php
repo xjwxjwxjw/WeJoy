@@ -209,7 +209,7 @@
                                     }else{
                                         $selectUrl = DB::table('photoes')->select('PhotosUrl')->where('Aid',$v['id'])->first();
                                         if (!empty($selectUrl)){
-                                            $faceUrl = $selectUrl;
+                                            $faceUrl = $selectUrl->PhotosUrl;
                                         }else{
                                             $faceUrl = '/image/face_default.jpg';
                                         }

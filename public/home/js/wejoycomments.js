@@ -466,7 +466,7 @@ $(function(){
             conlist += "<div id='listli"+data[i].hid+"' class='list_li'> ";
             conlist += "<!--评论头像 --> ";
             conlist += "<div class='WE_face'> ";
-            if( data[i].usericon.length <= 0 ){
+            if( data[i].usericon == null || data[i].usericon == '' ){
               conlist += "<img src='/home/image/default.jpg'> ";
             }else{
               conlist += "<img src='/"+data[i].usericon+"'> ";
