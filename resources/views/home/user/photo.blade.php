@@ -305,9 +305,7 @@
                 </div>
             </div>
         </div>
-        @include('home/public/footer')
     @endsection
 @else
     <script>window.location.href = '/home/index'</script>
 @endif
-

@@ -314,7 +314,6 @@ $userinfo = DB::table('homeuserinfo')->where('uid',$id)->get();
             </div>
         </div>
     </div>
-    @include('home/public/footer')
 @endsection
 
 @else
