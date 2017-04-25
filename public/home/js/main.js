@@ -59,7 +59,8 @@ $(document).ready(function(){
         $('#textarea').val('');
         $('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
         var newcontent = '';
-        newcontent += "<li id='li"+data.hid+"' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><div class='Wejoy_face bg2'><img src='/"+data.usericon+"' alt=''></div><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
+        var newicon = $('.W_face_radius').attr('src');
+        newcontent += "<li id='li"+data.hid+"' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><div class='Wejoy_face bg2'><img src='"+newicon+"' alt=''></div><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
         newcontent += "<span class='left'>"+$('.name').attr('title')+"</span>";
         newcontent += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";
         newcontent += "<li id='comdel"+data.hid+"' class='commentdel'><a href='#'>删除</a></li> <li role='separator' class='divider'></li><li><a href='#'>功能扩展中</a></li></ul></div></div>";
@@ -83,7 +84,7 @@ $(document).ready(function(){
         newcontent += "<li class='left'><span class='glyphicon glyphicon-share' > "+data.transmits+"</span></li>";
         newcontent += "<li class='left'><span id='"+data.hid+"' class='glyphicon glyphicon-comment comshow' > "+data.comments+"</span></li>";
         newcontent += "<li class='left'><span id='good"+data.hid+"' class='glyphicon glyphicon-thumbs-up good' > "+data.favtimes+"</span></li>";
-        newcontent += "</ul></div><div class='WE_feed_publish con"+data.hid+" clearfix'></div></li></div></li>";
+        newcontent += "</ul></div><div style='width:100%;' class='WE_feed_publish con"+data.hid+" clearfix'></div></li></div></li>";
         $('.boxtest:first').after(newcontent);
         // 解析表情
         $(".WJ_text2").emojiParse({

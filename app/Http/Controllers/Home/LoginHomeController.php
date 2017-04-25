@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Vinkla\Hashids\Facades\Hashids;
 use App\Model\Newtype;
+use App\Model\Friendlylink;
+use App\Model\Advert;
+use App\Model\Announcement;
 class LoginHomeController extends Controller
 {
 
@@ -66,11 +69,16 @@ class LoginHomeController extends Controller
             $result[$i] = Hashids::encode($result[$i]);
           }
         }
+
+        $advert = Advert::all();
+        $friendlylink = Friendlylink::paginate(2);
         // 分类列表信息
         $newtype = Newtype::pluck('description');
         $results['collect'] = $results['collect']->toArray();
         $results['favtimes'] = $results['favtimes']->toArray();
-        return view('home.index',compact('news'),['mycollect'=>$results['collect'],'myfavtimes'=>$results['favtimes'],'newtype'=>$newtype,'city'=>$city ]);
+        $announcement = Announcement::where('status',1)->value('description');
+
+        return view('home.index',compact('news'),['mycollect'=>$results['collect'],'myfavtimes'=>$results['favtimes'],'newtype'=>$newtype,'city'=>$city,'friendlylink'=>$friendlylink,'advert'=>$advert,'announcement'=>$announcement ]);
     }
 
 //    登陆

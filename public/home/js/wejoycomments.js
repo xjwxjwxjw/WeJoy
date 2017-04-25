@@ -10,6 +10,9 @@ $(function(){
     $('.twocom').live('click',function(){
       var twocom ='';
       var newicon = $('.W_face_radius').attr('src');
+      if (newicon == undefined) {
+        newicon = $('#ddicon').attr('src');
+      }
       var comid = $(this).attr('id').replace(/twocom/, "");
       $(document).live('propertychange input', function () {
           if ( $('#twocomments'+comid).val() == '' ) {
@@ -27,7 +30,7 @@ $(function(){
       twocom += "</div> ";
       twocom += "<div class='WE_publish clearfix'> ";
       twocom += "<form id='twoform"+comid+"' action=' method='post'>";
-      twocom += "<div class='WE_feed_publish_comments' id='cont-box2'> ";
+      twocom += "<div style='width:100%;' class='WE_feed_publish_comments' id='cont-box2'> ";
       twocom += "<input type='text' name='description' id='twocomments"+comid+"' value='' /> ";
       twocom += "</div> ";
       twocom += "<div class='tools-box' style='border:0px solid red;'> ";
@@ -60,6 +63,9 @@ $(function(){
               $('#twocomments'+comid).val(' ');
               var conlist = '';
               var name = $('.name').attr('title');
+              if( name == undefined ){
+                name = $('#ddicon').attr('alt');
+              }
               conlist += "<div class='twolist_li'><div class='list_con2' ><div class='twolist_text'>";
               conlist += "<a href='/home/user/"+data[0].uuid+"'>"+name+"</a> "+data[0].description;
               conlist += "</div>";
@@ -225,6 +231,13 @@ $(function(){
             $text++;
             $('#'+comid).text(" "+$text);
             var newicon = $('.W_face_radius').attr('src');
+            var uname = $('.name').attr('title');
+            if (uname == undefined) {
+               uname = $('#ddicon').attr('alt');
+            }
+            if( newicon == undefined ){
+              newicon = $('#ddicon').attr('src');
+            }
             var newconlist = '';
             newconlist += "<div id='listli"+data[0].hid+"' class='list_li'> ";
             newconlist += "<!--评论头像 --> ";
@@ -234,7 +247,7 @@ $(function(){
             newconlist += "<!-- 评论内容 --> ";
             newconlist += "<div class='list-con'> ";
             newconlist += "<div class='WE_text'> ";
-            newconlist += "<a href='/home/user/"+data[0].nuid+"'>"+$('.name').attr('title')+"</a>  <span>"+data[0].description;
+            newconlist += "<a href='/home/user/"+data[0].nuid+"'>"+uname+"</a>  <span>"+data[0].description;
             newconlist += "</span></div> ";
             newconlist += "<div class='WE_func clearfix'> ";
             newconlist += "<div class='WE_time'>";
@@ -323,6 +336,9 @@ $(function(){
     // 评论列表html片段
     var conlist = '';
     var newicon = $('.W_face_radius').attr('src');
+    if (newicon == undefined) {
+      newicon = $('#ddicon').attr('src');
+    }
     conlist = "<div class='WE_repeat clearfix'> ";
     conlist += "<!-- 发布评论 --> ";
     conlist += "<div class='WE_feed_comments'> ";
@@ -331,7 +347,7 @@ $(function(){
     conlist += "</div> ";
     conlist += "<div class='WE_publish clearfix'> ";
     conlist += "<form id='testform"+comid+"' action=' method='post'>";
-    conlist += "<div class='WE_feed_publish_comments' id='cont-box2'> ";
+    conlist += "<div style='width:100%;' class='WE_feed_publish_comments' id='cont-box2'> ";
     conlist += "<input type='text' name='description' id='publishcomments"+comid+"' value='' /> ";
     conlist += "</div> ";
     conlist += "<div class='tools-box' style='border:0px solid red;'> ";
@@ -361,7 +377,11 @@ $(function(){
             conlist += "<div id='listli"+data[i].hid+"' class='list_li'> ";
             conlist += "<!--评论头像 --> ";
             conlist += "<div class='WE_face'> ";
-            conlist += "<img src='/"+data[i].usericon+"'> ";
+            if( data[i].usericon.length <= 0 ){
+              conlist += "<img src='/home/image/default.jpg'> ";
+            }else{
+              conlist += "<img src='/"+data[i].usericon+"'> ";
+            }
             conlist += "</div> ";
             conlist += "<!-- 评论内容 --> ";
             conlist += "<div class='list-con'> ";

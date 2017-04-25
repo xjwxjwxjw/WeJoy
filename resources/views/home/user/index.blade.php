@@ -8,9 +8,11 @@
     @section('js_css')
         @include('/home/public/js_css')
         <link rel="stylesheet" href="{{url('/home/css/index.css')}}">
-        <script src={{url('/home/js/usermasonry.js')}}></script>
         <style type="text/css">
             body{background-image:url( {{ url('home/image/body_bg.jpg') }} );}
+            .WE_feed_publish{width: 100%;}
+            .WE_feed_comments{width: 100%;}
+            .WE_publish{width: 450px;}
         </style>
     @endsection
     @section('top')
@@ -32,7 +34,7 @@
                         <div class="pf_photo">
                             <p class="photo_wrap">
                                 <a href="javascript:void(0);"title="更换头像" onclick="editIcon()">
-                                    <img src='<?= empty($userinfo->icon)?url('/home/image/default.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo" width="100" height="100">{{--头像--}}
+                                    <img src='<?= empty($userinfo->icon)?url('/home/image/default.jpg'):url($userinfo->icon) ?>' alt="{{Cookie::get('UserNickname')}}" class="photo" id="ddicon" width="100" height="100">{{--头像--}}
                                 </a>
                             </p>
                         </div>
@@ -374,48 +376,61 @@
 
     @section('slideRight')
         <div class="col-md-8">
-            <div class="box-content" id="box-content" style="float:left;position: relative;">
-                <div id="imloading" class="well well-sm" style=" text-align: center;position: absolute;bottom:-70px;width:602px;z-index:999;background:#f2dede;display:none;" >I'm Loading...</div>
-                  <ul style="list-style:none;" id="test">
-                    <li class='panel panel-default boxtest'>
-                        <div>
-                            <div class="Wejoy_feed_detail clearfix">
-                                <div class="Wejoy_face bg2"></div>
-                                <div></div>
-                                <div class="Wejoy_detail">
-                                    <div class="WJ_info clearfix">
-                                        <span class="left">Test</span>
-                                        <div class="dropdown">
-                                          <a class="right dropdown-toggle Wj_cursons" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                            <span class="glyphicon glyphicon-chevron-down"></span>
-                                          </a>
-                                          <ul class="dropdown-menu WJ-menu-right dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                                            <li><a href="#">帮上头条</a></li>
-                                            <li><a href="#">屏蔽这条微博</a></li>
-                                            <li><a href="#">屏蔽该用户</a></li>
-                                            <li><a href="#">取消关注该用户</a></li>
-                                            <li role="separator" class="divider"></li>
-                                            <li><a href="#">举报</a></li>
-                                          </ul>
-                                        </div>
-                                    </div>
-                                    <div class="WJ_text clearfix">今天 09:02 来自 微博 weibo.com</div>
-                                    <div class="WJ_text2 clearfix">我们不是出生在一个和平的年代，而是一个和平的国家。</div>
-                                    <div class="Wj_media_wrap clearfix bg2"></div>
-                                </div>
-                            </div>
-                            <div class="WJ_feed_handle clearfix">
-                                <ul class="WJ_row_line row">
-                                    <li class="left"><span class="glyphicon glyphicon-star-empty pos" >收藏</span></li>
-                                    <li class="left"><span class="glyphicon glyphicon-share" > 999</span></li>
-                                    <li class="left"><span class="glyphicon glyphicon-comment" > 666</span></li>
-                                    <li class="left"><span class="glyphicon glyphicon-thumbs-up" > 129</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                  </ul>
-                </div>
+          <div class="box-content clearfix" id="box-content" style="float:left;position: relative;">
+          <div id="imloading" class="well well-sm" style=" text-align: center;background:#f2dede;display:none;" >I'm Loading...</div>
+            <ul style="list-style:none;" id="test">
+              @if(empty($news))
+              无数据
+              @else
+              @foreach ($news as $new)
+              <li id='li{{$new->hid}}' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/{{$new->uid}}'><div class='Wejoy_face'><img src={{url(empty($new->usericon)?'/home/image/default.jpg':$new->usericon)}} alt=''></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>
+              <span class='left'><a href='/home/user/{{$new->uid}}'>{{$new->username}}</a></span>
+              <div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>
+              @if( $new->uid == $new->bid )
+                <li id='comdel{{$new->hid}}' class='commentdel'><a href='#' >删除</a></li><li role='separator' class='divider'></li><li><a href='#'>功能扩展中</a></li></ul></div></div>
+              @else
+                <li role='separator' class='divider'></li><li><a href='#'>功能扩展中</a></li></ul></div></div>
+              @endif
+              <div class='WJ_text clearfix'>{{$new->created_at}} <span class="glyphicon glyphicon-map-marker">{{$new->city}}</span></div>
+              <div class='WJ_text2 clearfix'>{{$new->content}}</div>
+                <div class='Wj_media_wrap clearfix'>
+                  <div class='Wj_media_wrap_ul clearfix'>
+                    @if(count($new->images) <=0 )
+
+                    @elseif( count($new->images) > 1  )
+                    @foreach( $new->images as $v )
+                    <?php $img = substr_replace($v,'110_',17,0) ?>
+                    <img src="/{{$img}}" alt="">
+                    @endforeach
+                    @else
+                    <?php $url = substr_replace($new->images[0],'167_',17,0) ?>
+                    <img src="/{{$url}}" alt="">
+                    @endif
+                  </div>
+                </div></div></div>
+              <div style="width:100%;" class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>
+                @if( Cookie::has('UserId') )
+                  @if( in_array($new->hid,$mycollect ) )
+                    <li class='left'><span id='pos{{$new->hid}}' class='glyphicon glyphicon-star-empty bgorigin posdie' >已收藏</span></li>
+                  @else
+                    <li class='left'><span id='pos{{$new->hid}}' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>
+                  @endif
+
+                  <li class='left'><span class='glyphicon glyphicon-share' > {{$new->transmits}}</span></li>
+                  <li class='left'><span id='{{$new->hid}}' class='glyphicon glyphicon-comment comshow' > {{$new->countcom}}</span></li>
+                  @if( in_array($new->hid,$myfavtimes ) )
+                    <li class='left'><span id='good{{$new->hid}}' class='glyphicon glyphicon-thumbs-up good bgorigin gooddie' > {{$new->favtimes}}</span></li>
+                  @else
+                  <li class='left'><span id='good{{$new->hid}}' class='glyphicon glyphicon-thumbs-up good' > {{$new->favtimes}}</span></li>
+                  @endif
+                @else
+                @endif
+              </ul></div><div class='WE_feed_publish con{{$new->hid}} clearfix'></div></li>
+              @endforeach
+              @endif
+            </ul>
+          </div>
+
         </div>
     @endsection
 

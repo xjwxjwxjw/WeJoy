@@ -274,15 +274,9 @@
 		<div id="v6_pl_rightmod_ads35">
 			<div>
 				<div class="WB_cardwrap S_bg2">
-					<div class="WB_right_module M_sc_right">
-						<div class="WB_innerwrap">
-							<div class="m_wrap">
-								<div class="scr_iframe_wrap">
-									<div class="WB_innerwrap"><div class="m_wrap"><div class="scr_iframe_wrap"><iframe id="sc_37695" width="186" height="275" frameborder="0" scrolling="no"></iframe></div></div></div>
-								</div>
-							</div>
-						</div>
-					</div>
+					@foreach($advert as $v)
+						<a href="http://{{$v->url}}"><img style="margin-bottom:5px;" src="/image/advert/167_{{$v->src}}" alt="{{$v->name}}"></a>
+					@endforeach
 				</div>
 			</div>
 		</div>
@@ -465,8 +459,7 @@
 					</div>
 					<div class="WB_innerwrap">
 						<ul class="opinion_type_list">
-							<li><a href="" target="_blank">《​全国辟谣平台》</a></li>
-							<li><a href="" target="_blank">《首都互联网协会发布坚守七条底线倡议书》</a>
+							<a>{{$announcement}}</a>
 							</li>
 						</ul>
 					</div>
