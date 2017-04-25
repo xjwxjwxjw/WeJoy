@@ -22,12 +22,11 @@
                 </dd>
             </dl>
             <dl class="list">
-                <dt>手机玩微博</dt>
+                <dt>友情链接</dt>
                 <dd>
-                    <span class="T_code col2">
-                        <img src="" alt="二维码" width="77" height="77">
-                    </span>
-                    <a class="T_txt S_txt2 " href="">扫码下载，更多版本<br>戳这里</a>
+                  @foreach( $friendlylink as $v )
+                    <a class="T_txt S_txt2 " href="http://{{$v->url}}">{{$v->name}}<br></a>
+                  @endforeach
                 </dd>
             </dl>
             <dl class="list">

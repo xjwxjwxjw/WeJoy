@@ -37,11 +37,11 @@
 			无数据
 			@else
 			@foreach ($news as $new)
-			<li id='li{{$new->hid}}' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/{{$new->uid}}'><div class='Wejoy_face'><img src='/{{$new->usericon}}' alt=''></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>
+			<li id='li{{$new->hid}}' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/{{$new->uid}}'><div class='Wejoy_face'><img src={{url(empty($new->usericon)?'/home/image/default.jpg':$new->usericon)}} alt=''></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>
 			<span class='left'><a href='/home/user/{{$new->uid}}'>{{$new->username}}</a></span>
 			<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>
 			@if( $new->uid == $new->bid )
-				<li id='comdel{{$new->hid}}' class='commentdel'><a href='#' >删除</a></li></ul></div></div>
+				<li id='comdel{{$new->hid}}' class='commentdel'><a href='#' >删除</a></li><li role='separator' class='divider'></li><li><a href='#'>功能扩展中</a></li></ul></div></div>
 			@else
 				<li role='separator' class='divider'></li><li><a href='#'>功能扩展中</a></li></ul></div></div>
 			@endif
@@ -83,37 +83,4 @@
 			@endforeach
 			@endif
 	  </ul>
-	</div>
-
-	<!-- Large modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="exampleModalLabel">添加权限</h4>
-				</div>
-				<div class="modal-body">
-					<form action=''  method="post" id="testform">
-						{{csrf_field()}}
-						<div class="form-group">
-							<label for="recipient-name" class="control-label">权限路由：</label>
-							<input type="text" class="form-control" name="name" id="name">
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="control-label" >权限描述：</label>
-							<textarea class="form-control" name="display_name" id="content"></textarea>
-						</div>
-						<div class="form-group">
-							<label for="message-text" class="control-label" >描述：</label>
-							<textarea class="form-control" name="description" id="content2"></textarea>
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="btn" >Send message</button>
-				</div>
-			</div>
-		</div>
 	</div>

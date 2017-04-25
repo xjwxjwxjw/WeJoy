@@ -68,11 +68,40 @@ Route::group(['middleware'=>'check.login'],function() {
         Route::get('newtype', 'NewtypeController@newsIndex');
         Route::group(['prefix' => 'newtype'], function () {
             Route::post('type-add', 'NewtypeController@typeAdd');
-            Route::get('delete', 'NewtypeController@delete');
-            Route::get('edit', 'NewtypeController@edit');
             Route::get('newtype', 'NewtypeController@edit');
+            Route::get('delete', 'NewtypeController@delete');
             Route::any('newtype-update/{id}', 'NewtypeController@newtypeUpdate');
             Route::get('newtype/{id}', 'NewtypeController@newtypefind');
+        });
+        // 友情链接
+        Route::get('friendlylink', 'FriendlylinkController@newsIndex');
+        Route::group(['prefix' => 'friendlylink'], function () {
+            Route::get('delete', 'FriendlylinkController@delete');
+            Route::post('friendlylink-add', 'FriendlylinkController@friendlylinkAdd');
+            Route::get('friendlylink', 'FriendlylinkController@edit');
+            Route::any('friendlylink-update/{id}', 'FriendlylinkController@friendlylinkUpdate');
+            Route::get('friendlylink/{id}', 'FriendlylinkController@friendlylinkfind');
+        });
+
+        // 广告
+        Route::get('advert', 'AdvertController@newsIndex');
+        Route::group(['prefix' => 'advert'], function () {
+            Route::get('delete', 'AdvertController@delete');
+            Route::post('advert-add', 'AdvertController@advertAdd');
+            Route::get('advert', 'AdvertController@edit');
+            Route::any('advert-update/{id}', 'AdvertController@advertUpdate');
+            Route::get('advert/{id}', 'AdvertController@advertfind');
+        });
+
+        // 公告
+        Route::get('announcement', 'AnnouncementController@newsIndex');
+        Route::group(['prefix' => 'announcement'], function () {
+            Route::get('delete', 'AnnouncementController@delete');
+            Route::post('announcement-add', 'AnnouncementController@advertAdd');
+            Route::get('announcement', 'AnnouncementController@edit');
+            Route::get('edit', 'AnnouncementController@status');
+            Route::any('announcement-update/{id}', 'AnnouncementController@advertUpdate');
+            Route::get('announcement/{id}', 'AnnouncementController@advertfind');
         });
 
         // 用户
@@ -132,6 +161,17 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
     Route::get('AboutUsUp','AboutUsController@update');
  //	用户路由
  Route::group(['prefix'=>'user'],function(){
+     Route::get('contentPos','ContentController@contentPos');
+     Route::get('contentGood','ContentController@contentGood');
+     Route::get('contentFindcollect','ContentController@contentFindcollect');
+     Route::get('contentCount','ContentController@contentCount');
+     Route::get('commentdel','ContentController@contentDel');
+     Route::post('commentimg','ContentController@contentImg');
+     Route::get('contentOnegly','ContentController@oneglyDel');
+     Route::get('contentComment','ContentController@publishComments');
+     Route::post('contentIssue','ContentController@publishIssue');
+     Route::post('twocontentIssue','ContentController@twopublishIssue');
+
      Route::get('index','UserController@index');//个人主页
      Route::get('info','UserController@info');//个人信息
      Route::post('edit','UserController@edit');//修改

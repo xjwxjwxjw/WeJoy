@@ -71,7 +71,9 @@
               </ul>
           <li><a href="#"><i class="fa fa-cog"></i>友情链接管理 </a>
             <ul class="submenu">
-              <li><a href={{url('admin/new')}}>友情链接 </a></li>
+              <li><a href={{url('admin/announcement')}}>首页公告 </a></li>
+              <li><a href={{url('admin/friendlylink')}}>友情链接 </a></li>
+              <li><a href={{url('admin/advert')}}>广告链接 </a></li>
             </ul>
           </li>
       </ul>
