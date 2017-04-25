@@ -201,7 +201,7 @@
                     <div class="photo_full_box">
                         @foreach($album as $k=>$v)
                             <div class="photo sample3 ablum_div" id=<?= 'ablum_'.$v['id'] ?>>
-                                <a href="{{url('/home/user/photos/my/'.Hashids::encode($v['id']))}}" title="创建日期：{{date('Y年m月d日H:i:s',$v['CreateTime'])}}">
+                                <a href="{{url('/home/user/photos/my/'.Hashids::encode($v['id']))}}" title="创建日期：{{empty($v['CreateTime'])?'':date('Y年m月d日H:i:s',$v['CreateTime'])}}">
                                     <span style="background: url({{url('/home/paper-clip.png')}}) no-repeat;"></span>
                                 <?php
                                     if(!empty($v['FaceUrl'])) {
