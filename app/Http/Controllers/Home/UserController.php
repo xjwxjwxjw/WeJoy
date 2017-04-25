@@ -29,6 +29,13 @@ class UserController extends Controller
           $new->uid = Hashids::encode($new->uid);
           $new->hid = Hashids::encode($new->id);
           $new->bid = Hashids::encode($id);
+          if ( $new->transmits !== -1 ) {
+            $tra = DB::table('news')->where('id',$new->transmits)->get();
+            $new->traname = DB::table('homeuser')->where('id','=',$tra[0]->uid)->value('name');
+            $new->traimages = DB::table('photoes')->where('mid',$tra[0]->id)->orderBy('id')->pluck('PhotosUrl');
+            $new->trauid = Hashids::encode($tra[0]->uid);
+            $new->tracon = $tra[0]->content;
+          }
         }
         // 用户是否收藏
         $collectdb = DB::table('user_collect');
@@ -65,6 +72,13 @@ class UserController extends Controller
           $new->uid = Hashids::encode($new->uid);
           $new->hid = Hashids::encode($new->id);
           $new->bid = Hashids::encode($id);
+          if ( $new->transmits !== -1 ) {
+            $tra = DB::table('news')->where('id',$new->transmits)->get();
+            $new->traname = DB::table('homeuser')->where('id','=',$tra[0]->uid)->value('name');
+            $new->traimages = DB::table('photoes')->where('mid',$tra[0]->id)->orderBy('id')->pluck('PhotosUrl');
+            $new->trauid = Hashids::encode($tra[0]->uid);
+            $new->tracon = $tra[0]->content;
+          }
         }
         // 用户是否收藏
         $collectdb = DB::table('user_collect');
