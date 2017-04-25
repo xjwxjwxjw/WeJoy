@@ -7,10 +7,7 @@
             <fieldset></fieldset>
             <li><span class="glyphicon glyphicon-fire"></span> 热门微博<span class="glyphicon glyphicon-repeat bg1 right"></span></li>
             <fieldset></fieldset>
-           <li>好友圈 {{--<span class="WJbadge">42</span>--}}</li>
-           <li>特别关注 {{--<span class="WJbadge">42</span>--}}</li>
    @endif
-           <li class="newstype" title="关于我们" ><span class="glyphicon glyphicon-record"></span><a href="{{url('/home/AboutUs')}}">关于我们</a></li>
       @foreach( $newtype as $v )
            <li class='newstype' title='{{$v}}'><span class="glyphicon glyphicon-record"></span> {{$v}} {{--<span class="WJbadge">42</span>--}}</li>
       @endforeach
