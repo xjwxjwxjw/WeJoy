@@ -18,7 +18,7 @@ class UserController extends Controller
     use DatabaseTransactions;
     public function index()
     {
-        $friendlylink = Friendlylink::paginate(2);
+        $friendlylink = Friendlylink::paginate(10);
         $id = Cookie::get('UserId');
         $news = DB::table('news')->where('status','=','1')->where('uid',$id)->skip(0)->take(10)->orderBy('id', 'desc')->get();
         foreach ($news as $new ) {
@@ -55,7 +55,38 @@ class UserController extends Controller
     public function lookIndex($id)
     {
         $id = Hashids::decode($id)[0];
-        return view('home.user.user',compact('id'));
+        $friendlylink = Friendlylink::paginate(10);
+        $id = Cookie::get('UserId');
+        $news = DB::table('news')->where('status','=','1')->where('uid',$id)->skip(0)->take(10)->orderBy('id', 'desc')->get();
+        foreach ($news as $new ) {
+          $new->username = DB::table('homeuser')->where('id','=',$new->uid)->value('name');
+          $new->usericon = DB::table('homeuserinfo')->where('uid','=',$new->uid)->value('icon');
+          $new->countcom = DB::table('comment')->where('mid','=',$new->id)->count();
+          $new->images = DB::table('photoes')->where('mid',$new->id)->orderBy('id')->pluck('PhotosUrl');
+          $new->uid = Hashids::encode($new->uid);
+          $new->hid = Hashids::encode($new->id);
+          $new->bid = Hashids::encode($id);
+        }
+        // 用户是否收藏
+        $collectdb = DB::table('user_collect');
+        $favtimesdb = DB::table('user_favtimes');
+
+        $results['collect'] = $collectdb->where('user_id','=',$id)->paginate(10)->pluck('collect_id');
+        $results['favtimes'] = $favtimesdb->where('user_id','=',$id)->paginate(10)->pluck('favtimes_id');
+        foreach($results as $result){
+          for ($i=0; $i < count($result); $i++) {
+            $result[$i] = Hashids::encode($result[$i]);
+          }
+        }
+
+        $advert = Advert::all();
+        $friendlylink = Friendlylink::paginate(2);
+        // 分类列表信息
+        $newtype = Newtype::pluck('description');
+        $results['collect'] = $results['collect']->toArray();
+        $results['favtimes'] = $results['favtimes']->toArray();
+        $announcement = Announcement::where('status',1)->value('description');
+        return view('home.user.user',compact('news'),['id'=>$id,'mycollect'=>$results['collect'],'myfavtimes'=>$results['favtimes'],'newtype'=>$newtype,'friendlylink'=>$friendlylink,'advert'=>$advert,'announcement'=>$announcement ]);
     }
     public function addFans(Request $request)
     {
