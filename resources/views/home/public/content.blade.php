@@ -1,9 +1,9 @@
 	<div class="box-content clearfix" id="box-content" style="float:left;position: relative;">
 	<div id="imloading" class="well well-sm" style=" text-align: center;background:#f2dede;display:none;" >I'm Loading...</div>
 	  <ul style="list-style:none;" id="test">
-			@if( Cookie::has('UserId') )
 	    <li class="panel panel-default boxtest" style="height:165px;padding:10px;">
-	      &nbsp;&nbsp;&nbsp;有什么新鲜事想告诉大家?
+			@if( Cookie::has('UserId') )
+			&nbsp;&nbsp;&nbsp;有什么新鲜事想告诉大家?
         <div style="float:right;" id="result">可输入150字</div>
         <form id="testform" action="" method="post">
           {{csrf_field()}}
@@ -30,11 +30,11 @@
 	          </div>
 	        </div>
           </form>
-	    </li>
 			@else
 			@endif
+		</li>
 			@if(empty($news))
-			无数据
+				无数据
 			@else
 			@foreach ($news as $new)
 			<li id='li{{$new->hid}}' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/{{$new->uid}}'><div class='Wejoy_face'><img src={{url(empty($new->usericon)?'/home/image/default.jpg':$new->usericon)}} alt=''></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>
