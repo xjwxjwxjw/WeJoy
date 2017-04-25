@@ -118,6 +118,18 @@ Route::group(['middleware'=>'check.login'],function() {
         Route::post('AboutUsadd','AboutUsController@add');
         Route::get('AboutUsDelete','AboutUsController@delete');
         Route::post('AboutUsUp','AboutUsController@update');
+//      相册管理
+        Route::get('album','AlbumController@album');
+        Route::group(['prefix' => 'album'], function () {
+            Route::get('doDel', 'AlbumController@del');
+            Route::get('doEdit', 'AlbumController@edit');
+        });
+        //      相册图片管理
+        Route::get('photos','PhotosController@photos');
+        Route::group(['prefix' => 'photo'], function () {
+            Route::get('doDel', 'PhotosController@del');
+            Route::get('doEdit', 'PhotosController@edit');
+        });
     });
 });
 
@@ -158,7 +170,9 @@ Route::group(['prefix' => 'home', 'namespace' => 'Home'], function () {
   Route::get('contentOnegly','ContentController@oneglyDel');
     //关于我们
     Route::get('AboutUs','AboutUsController@index');
-    Route::get('AboutUsUp','AboutUsController@update');
+//    忘记密码
+    Route::post('ResetPwd','ResetPwdController@index');
+    Route::get('trueResetPwd/{code}','ResetPwdController@emailConfirm');
  //	用户路由
  Route::group(['prefix'=>'user'],function(){
      Route::get('contentPos','ContentController@contentPos');

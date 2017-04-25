@@ -16,7 +16,7 @@
            <li class='newstype' title="旅游" ><span class="glyphicon glyphicon-record"></span> 旅游 {{--<span class="WJbadge">42</span>--}}</li>
            <li class='newstype' title="搞笑" ><span class="glyphicon glyphicon-record"></span> 搞笑 {{--<span class="WJbadge">42</span>--}}</li>
            <li class='newstype' title="设计" ><span class="glyphicon glyphicon-record"></span> 设计 {{--<span class="WJbadge">42</span>--}}</li>
-           <li class="newstype" title="关于我们" ><span class="glyphicon glyphicon-record"></span><a href="{{url('/home/AboutUs')}}">关于我们</a></li>
+        <a href="{{url('/home/AboutUs')}}"><li class="newstype" title="关于我们" ><span class="glyphicon glyphicon-record"></span>关于我们</li></a>
       @foreach( $newtype as $v )
            <li class='newstype' title='{{$v}}'><span class="glyphicon glyphicon-record"></span> {{$v}} {{--<span class="WJbadge">42</span>--}}</li>
       @endforeach

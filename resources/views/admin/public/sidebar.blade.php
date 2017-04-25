@@ -63,6 +63,8 @@
           <li><a href="#"><i class="fa fa-cog"></i>用户管理 </a>
               <ul class="submenu">
                   <li><a href={{url('admin/user')}}>查看用户 </a></li>
+                  <li><a href={{url('admin/album')}}>查看相册 </a></li>
+                  <li><a href={{url('admin/photos')}}>查看图片 </a></li>
               </ul>
           </li>
           <li><a href="#"><i class="fa fa-cog"></i>前台系统管理 </a>

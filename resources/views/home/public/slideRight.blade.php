@@ -50,7 +50,7 @@
 					<!-- /输入验证码 -->
 					<div class="info_list auto_login clearfix">
 						<div class="right W_fr">
-							<a href="javascript:void(0);" onclick="var loginname=document.getElementById('loginname').value;window.open('https://security.weibo.com/iforgot/loginname?entry=weibo&amp;loginname='+loginname);" class="S_txt2">忘记密码</a>
+							<a href="javascript:void(0);" onclick="showmakemm()" class="S_txt2">忘记密码</a>
 						</div>
 						<label for="login_form_savestate" class="W_fl W_label" title="建议在网吧或公共电脑上取消该选项。">
 							<input type="checkbox" id="login_form_savestate" checked="checked" tabindex="5" class="W_checkbox">
@@ -502,6 +502,31 @@
 			</div>
 			<div class="ficon_close_div">
 				<a href="javascript:void(0)" class="btn btn-warning ficon_close" onclick="closediv()">确定</a>
+			</div>
+		</div>
+	</div>
+</div>
+{{--忘记密码弹窗--}}
+<div class="W_layer_makemm W_layer" style="display: none">
+	<div tabindex="0"></div>
+	<div class="content">
+		<div class="W_layer_title">Wejoy微距</div>
+		<div class="W_layer_close">
+			<a href="javascript:void(0);" class="W_ficon ficon_close S_ficon" onclick="closediv()">X</a>
+		</div>
+		<div class="W_layer_content">
+			<div class="fans_status">
+				<form style="margin: 20px;text-align: left" id="ResetPwd_form">
+					<div class="form-group">
+						{{csrf_field()}}
+						<label for="exampleInputName">输入您的用户名</label>
+						<input type="email" class="form-control" id="exampleInputName" placeholder="NickName" name="name">
+					</div>
+					<di><span style="color: red">我们将通过您之前设置的邮箱为你重置密码 <br>(注意：重置后密码为123456，请自行到用户中心修改)</span></di>
+				</form>
+			</div>
+			<div class="ficon_close_div">
+				<a href="javascript:void(0)" class="btn btn-warning ficon_close" onclick="doResetPwd()">确定</a>
 			</div>
 		</div>
 	</div>

@@ -214,6 +214,7 @@ var report = function (obj) {
 var closediv = function () {
     $('.out_biv').attr('style','display:none');
     $('.W_layer').attr('style','display:none');
+    $('.W_layer_makemm').attr('style','display:none');
     window.location.href = location.href;
 }
 
@@ -336,3 +337,34 @@ var doChange = function (obj) {
         }
     })
 }
+var showmakemm = function () {
+    $('.out_biv').attr('style','display:inline-block');
+    $('.W_layer_makemm').attr('style','display:inline-block');
+}
+var doResetPwd = function () {
+    $.ajax({
+        url:'/home/ResetPwd',
+        data:$('#ResetPwd_form').serialize(),
+        type:'post',
+        success:function (error) {
+            if (error == 0){
+                toastr.error('该账号无邮箱，请联系客服');
+            }else{
+                toastr.success('发送成功，请登录您的邮箱确认重置');
+            }
+        },
+        error:function () {
+            toastr.error('重置失败，刷新后重试');
+        }
+    })
+}
+
+
+
+
+
+
+
+
+
+
