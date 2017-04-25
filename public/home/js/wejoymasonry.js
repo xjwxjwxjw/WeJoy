@@ -61,9 +61,10 @@
           $('html, body').animate({scrollTop:50}, 'slow');
           loading.data("on",true);
           $('.box-content ul li:first').nextAll().remove();
+          $('#comttset').hide();
           $('.emoji_btn').hide();
           $('#emoji_btn_1').hide();
-          $('.box-content ul li:first').replaceWith('<li class="panel panel-default boxtest" style="height:50px;padding:10px;">我的收藏</li>');
+          $('.box-content ul').append('<li class="panel panel-default boxtest" style="height:50px;padding:10px;">我的收藏</li>');
           $.ajax({
             url:'contentCount?search='+search,
             type:'get',
@@ -82,8 +83,9 @@
           loading.data("on",true);
           $('.emoji_btn').hide();
           $('.box-content ul li:first').nextAll().remove();
+          $('#comttset').hide();
           $('#emoji_btn_1').hide();
-          $('.box-content ul li:first').replaceWith('<li class="panel panel-default boxtest" style="height:50px;padding:10px;">我的赞</li>');
+          $('.box-content ul').append('<li class="panel panel-default boxtest" style="height:50px;padding:10px;">我的赞</li>');
           $.ajax({
             url:'contentCount?search='+search,
             type:'get',
@@ -101,6 +103,7 @@
           search='type';
           newstype=$(this).attr('title');
           $('.emoji_btn').hide();
+          $('#comttset').show();
           $('#emoji_btn_1').show();
           $('html, body').animate({scrollTop:50}, 'slow');
           loading.data("on",true);
@@ -230,12 +233,13 @@
 								var html="";
                 skip = skip + 10;
 								for(var i = 0; i < sqlJson.length ; i++){
-                  if ( sqlJson[i].usericon.length <= 0 ) {
+                  // if ( sqlJson[i].usericon == undefined ) {
+                  if( sqlJson[i].usericon.length == 0 ){
                     iconurl = '/home/image/default.jpg';
                   }else{
                     iconurl = sqlJson[i].usericon;
                   }
-									html += "<li id='li"+sqlJson[i].hid+"' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/"+sqlJson[i].uid+"'><div class='Wejoy_face'><img src='"+iconurl+"' alt=''></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
+									html += "<li id='li"+sqlJson[i].hid+"' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/"+sqlJson[i].uid+"'><div class='Wejoy_face'><img src='/"+iconurl+"' alt=''></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
 									html += "<span class='left'><a href='/home/user/"+sqlJson[i].uid+"'>"+sqlJson[i].username+"</a></span>";
 									html += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";
                   if( sqlJson[i].uid == sqlJson[i].bid ){
@@ -246,6 +250,7 @@
 									html += "<div class='WJ_text clearfix'>"+sqlJson[i].created_at+"<span class='glyphicon glyphicon-map-marker'>"+sqlJson[i].city+"</span></div>";
 									html += "<div class='WJ_text2 clearfix'>"+sqlJson[i].content+"</div>";
                   if( sqlJson[i].images.length == 0 ){
+                  // if( sqlJson[i].images == undefined ){
                     html += "<div class='Wj_media_wrap clearfix'></div></div></div>";
                   } else if( sqlJson[i].images.length > 1 ){
                     html += "<div class='Wj_media_wrap clearfix'><div class='Wj_media_wrap_ul clearfix'>";
@@ -258,6 +263,27 @@
                     var imgurl = sqlJson[i].images[0].replace(/(.{17})/,'$1167_')
                     html += "<div class='Wj_media_wrap clearfix'><div class='Wj_media_wrap_ul clearfix'><img src='/"+imgurl+"' alt=''></div></div></div></div>";
                   }
+
+                  // 转发
+                  if( sqlJson[i].transmits != -1 ){
+                        html += "<div class='trabg'>";
+                        html += "<div class='WJ_info clearfix'><a href='/home/user/"+sqlJson[i].trauid+"'>@ "+sqlJson[i].traname+"</a></div>";
+                        html += "<div class='WJ_text2 clearfix'>"+sqlJson[i].tracon+"</div>";
+                  if( sqlJson[i].traimages.length == 0 ){
+                  } else if( sqlJson[i].traimages.length > 1 ) {
+                        html += "<div class='WJ_traimg'>";
+                        for(var a =0; a< sqlJson[i].traimages.length;a++ ){
+                          var imgurl2 = sqlJson[i].traimages[a].replace(/(.{17})/,'$1110_')
+                          html += "<img src='/"+imgurl2+"' alt=''>";
+                        }
+                  } else {
+                      var imgurl2 = sqlJson[i].traimages[0].replace(/(.{17})/,'$1167_')
+                      html += "<div class='Wj_media_wrap clearfix'><div class='Wj_media_wrap_ul clearfix'><img src='/"+imgurl2+"' alt=''></div></div></div></div>";
+                  }
+                      html += "</div>";
+                      html += "</div>";
+                  }
+
 									html += "<div  class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
                   if($('#pl_login_form').length > 0){
                   } else {
@@ -266,7 +292,7 @@
                     }else{
                       html += "<li class='left'><span id='pos"+sqlJson[i].hid+"' class='glyphicon glyphicon-star-empty bgorigin posdie' >已收藏</span></li>";
                     }
-                    html += "<li class='left'><span class='glyphicon glyphicon-share' > "+sqlJson[i].transmits+"</span></li>";
+                    html += "<li class='left'><span id='share"+sqlJson[i].hid+"' target='_blank' data-toggle='modal' data-target='#aModals' class='glyphicon glyphicon-share' > </span></li>";
                     html += "<li class='left'><span id='"+sqlJson[i].hid+"' class='glyphicon glyphicon-comment comshow' > "+sqlJson[i].countcom+"</span></li>";
                     if( $.inArray(sqlJson[i].hid,sqlfind['favtimes'] ) == -1 ){
                       html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up good' > "+sqlJson[i].favtimes+"</span></li>";

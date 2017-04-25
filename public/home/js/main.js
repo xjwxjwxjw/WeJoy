@@ -5,7 +5,8 @@ $(document).ready(function(){
   })
 
   $('.glyphicon-share').live('click',function(){
-    $('#myModal').attr('style','display:inline-block');
+    var comid = $(this).attr('id').replace(/share/, "");
+    $('#traform').attr('action','/home/traform?mid='+comid);
   })
 
   $('#img-icon').one('click',function(){
@@ -81,7 +82,7 @@ $(document).ready(function(){
         }
         newcontent += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
         newcontent += "<li class='left'><span id='pos"+data.hid+"' class='glyphicon glyphicon-star-empty pos' >收藏</span></li>";
-        newcontent += "<li class='left'><span class='glyphicon glyphicon-share' > "+data.transmits+"</span></li>";
+        newcontent += "<li class='left'><span  target='_blank' data-toggle='modal' data-target='#aModals' id='share"+data.hid+"' class='glyphicon glyphicon-share' > </span></li>";
         newcontent += "<li class='left'><span id='"+data.hid+"' class='glyphicon glyphicon-comment comshow' > "+data.comments+"</span></li>";
         newcontent += "<li class='left'><span id='good"+data.hid+"' class='glyphicon glyphicon-thumbs-up good' > "+data.favtimes+"</span></li>";
         newcontent += "</ul></div><div style='width:100%;' class='WE_feed_publish con"+data.hid+" clearfix'></div></li></div></li>";

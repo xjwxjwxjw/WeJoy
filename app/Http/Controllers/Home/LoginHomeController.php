@@ -26,6 +26,28 @@ class LoginHomeController extends Controller
   // 显示首页内容
     public function index()
     {
+      // 天气接口
+      $url = 'http://v.juhe.cn/weather/index?format=1&cityname=上海市&key=331aec2bd696e59ded0915a9f344e9f0';
+      $data = null;
+      // curl 初始化
+      $curl = curl_init();
+
+      // curl 设置
+      curl_setopt($curl, CURLOPT_URL, $url);
+      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);  // 查看ssl 证书节点
+      curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);  // 查看ssl 证书主机
+      // 判断有没有 data 如果有data 我们就是post
+      if ( !empty($data) ) {
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
+      }
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+      // 执行
+      $res1 = curl_exec($curl);
+      $aaa=json_decode($res1,true);
+      $weather=($aaa['result']['today']);
+
         // 城市
         $url = 'https://api.map.baidu.com/location/ip?ak=w5L0aToOkWnLAvs6vrz43ETDunLS2wTl&coor=bd09ll';
         $data=null;
@@ -57,6 +79,13 @@ class LoginHomeController extends Controller
           $new->uid = Hashids::encode($new->uid);
           $new->hid = Hashids::encode($new->id);
           $new->bid = Hashids::encode($id);
+          if ( $new->transmits !== -1 ) {
+            $tra = DB::table('news')->where('id',$new->transmits)->get();
+            $new->traname = DB::table('homeuser')->where('id','=',$tra[0]->uid)->value('name');
+            $new->traimages = DB::table('photoes')->where('mid',$tra[0]->id)->orderBy('id')->pluck('PhotosUrl');
+            $new->trauid = Hashids::encode($tra[0]->uid);
+            $new->tracon = $tra[0]->content;
+          }
         }
         // 用户是否收藏
         $collectdb = DB::table('user_collect');
@@ -71,14 +100,14 @@ class LoginHomeController extends Controller
         }
 
         $advert = Advert::all();
-        $friendlylink = Friendlylink::paginate(2);
+        $friendlylink = Friendlylink::paginate(10);
         // 分类列表信息
         $newtype = Newtype::pluck('description');
         $results['collect'] = $results['collect']->toArray();
         $results['favtimes'] = $results['favtimes']->toArray();
         $announcement = Announcement::where('status',1)->value('description');
 
-        return view('home.index',compact('news'),['mycollect'=>$results['collect'],'myfavtimes'=>$results['favtimes'],'newtype'=>$newtype,'city'=>$city,'friendlylink'=>$friendlylink,'advert'=>$advert,'announcement'=>$announcement ]);
+        return view('home.index',compact('news'),['mycollect'=>$results['collect'],'myfavtimes'=>$results['favtimes'],'newtype'=>$newtype,'city'=>$city,'friendlylink'=>$friendlylink,'advert'=>$advert,'announcement'=>$announcement,'weather'=>$weather ]);
     }
 
 //    登陆

@@ -195,7 +195,7 @@
 				<div class="WB_cardtitle_b S_line2">
 					<h4 class="obj_name">
 						<span class="main_title W_fb W_f14">
-							<a href="" target="_blank" class="S_txt1">微博电影想看榜</a>
+							<a href="" target="_blank" class="S_txt1">{{$weather['date_y']}}天气</a>
 						</span>
 					</h4>
 				</div>
@@ -206,21 +206,14 @@
 								<li class="item SW_fun_bg  clearfix show">
 									<div class="li_box S_line2">
 										<div class="pic_box">
-											<a href="" target="_blank">
-												<img src="" alt="速度与激情8" class="pic">
-											</a>
+											<a href="" target="_blank">{{$weather['temperature']}}</a>
 										</div>
 										<div class="info_box">
 											<div class="text_box">
-												<a href="" class="title S_txt1 W_autocut" title="速度与激情8" target="_blank">
-													<i class="icon_num_red">1</i>
-													速度与激情8
-												</a>
-												<div class="subtitle S_txt2 W_autocut">导演：F·加里·格雷</div>
+												<a href="" class="title S_txt1 W_autocut">{{$weather['weather']}}</a>
+												<div class="subtitle S_txt2 W_autocut">{{$weather['city']}}</div>
 												<div class="subtitle S_txt2 W_autocut">
-													主演：范·迪塞尔 / 道恩·强森 / 杰森·斯坦森 / 米歇尔·罗德里格兹（Michelle
 												</div>
-												<div class="subtext S_txt2">98.1</div>
 											</div>
 										</div>
 									</div>
@@ -228,21 +221,9 @@
 								<li class="item SW_fun_bg S_line2 clearfix">
 									<div class="li_box S_line2">
 										<div class="pic_box">
-											<a href="" target="_blank">
-												<img src="" alt="傲娇与偏见" class="pic">
-											</a>
 										</div>
 										<div class="info_box">
 											<div class="text_box">
-												<a href="" class="title S_txt1 W_autocut" title="傲娇与偏见" target="_blank">
-													<i class="icon_num_yellow">2</i>
-													傲娇与偏见
-												</a>
-												<div class="subtitle S_txt2 W_autocut">导演：李海蜀 / 黄彦威</div>
-												<div class="subtitle S_txt2 W_autocut">
-													主演：迪丽热巴·迪力木拉提 / 张云龙 / 高伟光 / 金晨 / 马薇薇 / 范湉湉
-												</div>
-												<div class="subtext S_txt2">95.9</div>
 											</div>
 										</div>
 									</div>
@@ -250,21 +231,10 @@
 								<li class="item SW_fun_bg S_line2 clearfix">
 									<div class="li_box S_line2">
 										<div class="pic_box">
-											<a href="" target="_blank">
-												<img src="" alt="傲娇与偏见" class="pic">
-											</a>
+
 										</div>
 										<div class="info_box">
 											<div class="text_box">
-												<a href="" class="title S_txt1 W_autocut" title="傲娇与偏见" target="_blank">
-													<i class="icon_num_yellow">2</i>
-													傲娇与偏见
-												</a>
-												<div class="subtitle S_txt2 W_autocut">导演：李海蜀 / 黄彦威</div>
-												<div class="subtitle S_txt2 W_autocut">
-													主演：迪丽热巴·迪力木拉提 / 张云龙 / 高伟光 / 金晨 / 马薇薇 / 范湉湉
-												</div>
-												<div class="subtext S_txt2">95.9</div>
 											</div>
 										</div>
 									</div>
