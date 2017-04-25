@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-
 class HomeUserController extends Controller
 {
     public function index() {
@@ -23,7 +22,8 @@ class HomeUserController extends Controller
                 ->orWhere('homeuser.phone','like','%'.$search.'%')
                 ->orWhere('homeuser.email','like','%'.$search.'%')
                 ->paginate(5);
-            return view('admin.index',['tasks'=>$returnuser ,'keepsearch'=>$search , 'content' => '/admin/user/index']);
+            $announcement = Announcement::where('status',1)->value('description');
+            return view('admin.index',['tasks'=>$returnuser ,'keepsearch'=>$search , 'content' => '/admin/user/index','announcement'=>$announcement]);
         }
     }
     //    添加用户

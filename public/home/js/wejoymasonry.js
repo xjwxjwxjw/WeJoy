@@ -8,6 +8,8 @@
 
 	$(document).bind('propertychange input', function () {
          var length = 150;
+         if( $("#textarea").val() == undefined ){
+         }else{
          var content_len = $("#textarea").val().length;
          var in_len = length-content_len;
          // 当用户输入的字数大于制定的数时，让提交按钮失效
@@ -25,6 +27,7 @@
          if ( $('#textarea').val() == '' ) {
            $('#issue').attr("disabled",true).addClass('bgsmred').removeClass('bgred');
           };
+        }
 
 	});
 
@@ -58,6 +61,7 @@
           $('html, body').animate({scrollTop:50}, 'slow');
           loading.data("on",true);
           $('.box-content ul li:first').nextAll().remove();
+          $('.emoji_btn').hide();
           $('#emoji_btn_1').hide();
           $('.box-content ul li:first').replaceWith('<li class="panel panel-default boxtest" style="height:50px;padding:10px;">我的收藏</li>');
           $.ajax({
@@ -76,6 +80,7 @@
           search='myfavtimes';
           $('html, body').animate({scrollTop:50}, 'slow');
           loading.data("on",true);
+          $('.emoji_btn').hide();
           $('.box-content ul li:first').nextAll().remove();
           $('#emoji_btn_1').hide();
           $('.box-content ul li:first').replaceWith('<li class="panel panel-default boxtest" style="height:50px;padding:10px;">我的赞</li>');
@@ -95,6 +100,8 @@
         $('.newstype').click(function(){
           search='type';
           newstype=$(this).attr('title');
+          $('.emoji_btn').hide();
+          $('#emoji_btn_1').show();
           $('html, body').animate({scrollTop:50}, 'slow');
           loading.data("on",true);
           $('.box-content ul li:first').nextAll().remove();
@@ -118,6 +125,8 @@
           $('html, body').animate({scrollTop:50}, 'slow');
           loading.data("on",true);
           $('.box-content ul li:first').nextAll().remove();
+          $('.emoji_btn').hide();
+          $('#emoji_btn_1').show();
           $.ajax({
             url:'contentCount?search='+search+'&topic='+newstype,
             type:'get',
@@ -221,7 +230,12 @@
 								var html="";
                 skip = skip + 10;
 								for(var i = 0; i < sqlJson.length ; i++){
-									html += "<li id='li"+sqlJson[i].hid+"' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/"+sqlJson[i].uid+"'><div class='Wejoy_face'><img src='/"+sqlJson[i].usericon+"' alt=''></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
+                  if ( sqlJson[i].usericon.length <= 0 ) {
+                    iconurl = '/home/image/default.jpg';
+                  }else{
+                    iconurl = sqlJson[i].usericon;
+                  }
+									html += "<li id='li"+sqlJson[i].hid+"' class='panel panel-default boxtest'><div><div class='Wejoy_feed_detail clearfix'><a href='/home/user/"+sqlJson[i].uid+"'><div class='Wejoy_face'><img src='"+iconurl+"' alt=''></div></a><div class='Wejoy_detail'><div class='WJ_info clearfix'>";
 									html += "<span class='left'><a href='/home/user/"+sqlJson[i].uid+"'>"+sqlJson[i].username+"</a></span>";
 									html += "<div class='dropdown'> <a class='right dropdown-toggle Wj_cursons' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'> <span class='glyphicon glyphicon-chevron-down'></span> </a><ul class='dropdown-menu WJ-menu-right dropdown-menu-right' aria-labelledby='dropdownMenu1'>";
                   if( sqlJson[i].uid == sqlJson[i].bid ){
@@ -244,7 +258,7 @@
                     var imgurl = sqlJson[i].images[0].replace(/(.{17})/,'$1167_')
                     html += "<div class='Wj_media_wrap clearfix'><div class='Wj_media_wrap_ul clearfix'><img src='/"+imgurl+"' alt=''></div></div></div></div>";
                   }
-									html += "<div class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
+									html += "<div  class='WJ_feed_handle clearfix'><ul class='WJ_row_line row'>";
                   if($('#pl_login_form').length > 0){
                   } else {
                     if( $.inArray( sqlJson[i].hid,sqlfind['collect'] ) == -1 ){
@@ -260,7 +274,7 @@
                       html += "<li class='left'><span id='good"+sqlJson[i].hid+"' class='glyphicon glyphicon-thumbs-up bgorigin gooddie' > "+sqlJson[i].favtimes+"</span></li>";
                     }
                   }
-									html += "</ul></div><div class='WE_feed_publish con"+sqlJson[i].hid+" clearfix'></div></li></div></li>";
+									html += "</ul></div><div style='width:100%;' class='WE_feed_publish con"+sqlJson[i].hid+" clearfix'></div></li></div></li>";
 
 								}
 
